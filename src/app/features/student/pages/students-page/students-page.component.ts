@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { StudentService } from '../../services/student.service';
 
 @Component({
   selector: 'app-students-page',
@@ -7,5 +8,12 @@ import { Component } from '@angular/core';
   styleUrl: './students-page.component.scss'
 })
 export class StudentsPageComponent {
+  private readonly studentService = inject(StudentService);
 
+  constructor() {
+    this.studentService.getStudents(0, 15).subscribe({
+      next: () => console.log('Pronto'),
+      // error: () => console.log('Algo deu errado'),
+    })
+  }
 }
