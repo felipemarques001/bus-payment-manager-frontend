@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@use "./styles/variables.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
 
 * {
     margin: 0;
@@ -10,4 +11,8 @@
 html, body {
     min-height: 100dvh;
     min-width: 100dvw;
+}
+
+body {
+    background-color: $primary-bg-color;
 }

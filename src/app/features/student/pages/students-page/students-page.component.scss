@@ -1,0 +1,18 @@
+@use "../../../../../styles/variables.scss" as *;
+
+header {
+    padding: 16px;
+
+    display: flex;
+    align-items: center;
+
+    .mobile-arrow-back {
+        color: $secondary-text-color;
+        font-size: $mobile-icon-size;
+    }
+
+    h1 {
+        color: $primary-text-color;
+        margin: auto;
+    }
+}

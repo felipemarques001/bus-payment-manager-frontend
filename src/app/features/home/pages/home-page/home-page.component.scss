@@ -1,4 +1,4 @@
-@import "../../../../../styles/variabels.scss";
+@use "../../../../../styles/variables.scss" as *;
 
 main {
     background-color: $primary-bg-color;

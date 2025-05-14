@@ -1,25 +1,35 @@
-@import "../../../../../styles/variabels.scss";
+@use "../../../../../styles/variables.scss" as *;
 
-section {
-    width: 100%;
-    padding: 20px 16px;
-    border: 2px solid $terciary-bg-color;
-    border-radius: 32px;
+a {
 
-    display: flex;
-    gap: 16px;
-    align-items: center;
+    text-decoration: none;
+    transition: 0.2s ease;
 
-    .icon {
-        color: $secondary-text-color;
-        font-size: 32px;
+    &:hover {
+        opacity: 0.8;
     }
 
-    h1 {
-        color: $primary-text-color;
-    }
+    section {
+        width: 100%;
+        padding: 20px 16px;
+        border: 2px solid $terciary-bg-color;
+        border-radius: 32px;
 
-    p {
-        color: $secondary-text-color;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+
+        .icon {
+            color: $secondary-text-color;
+            font-size: 32px;
+        }
+
+        h1 {
+            color: $primary-text-color;
+        }
+
+        p {
+            color: $secondary-text-color;
+        }
     }
 }
