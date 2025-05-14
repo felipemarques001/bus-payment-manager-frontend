@@ -1,0 +1,21 @@
+@import "../../../../../styles/variabels.scss";
+
+main {
+    background-color: $primary-bg-color;
+    padding: 16px;
+    min-height: 100dvh;
+    min-width: 100dvw;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .cards-wrapper {
+        width: 100%;
+        max-width: 400px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+}

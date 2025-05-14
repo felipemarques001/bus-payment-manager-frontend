@@ -1,0 +1,25 @@
+@import "../../../../../styles/variabels.scss";
+
+section {
+    width: 100%;
+    padding: 20px 16px;
+    border: 2px solid $terciary-bg-color;
+    border-radius: 32px;
+
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    .icon {
+        color: $secondary-text-color;
+        font-size: 32px;
+    }
+
+    h1 {
+        color: $primary-text-color;
+    }
+
+    p {
+        color: $secondary-text-color;
+    }
+}
