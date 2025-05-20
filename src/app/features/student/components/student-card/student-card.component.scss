@@ -1,0 +1,85 @@
+@use "../../../../../styles/variables.scss" as *;
+
+#cardContainer {
+    padding: 8px;
+    border: $card-border;
+    border-radius: $container-border-radius;
+
+    display: flex;
+    justify-content: space-between;
+
+    position: relative;
+
+    #studentInfoContainer {
+        #educationInfoWrapper {
+            display: flex;
+            gap: 4px;
+        }
+    }
+
+    #moreVertIcon {
+        padding: 2px;
+        border: $default-border;
+        border-radius: 50%;
+        
+        cursor: pointer;
+        transition: 200ms ease-in;
+
+        &.selected {
+            background-color: $secondary-bg-color;
+        }
+    }
+
+    #menuContainer {
+        padding: 8px;
+        border: $default-border;
+        border-radius: $container-border-radius;
+
+        position: absolute;
+        right: 36px;
+        z-index: 2;
+
+        background-color: $primary-bg-color;
+
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: $open-close-transition;
+
+        &.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+
+            li {
+                width: 100%;
+                padding: 4px;
+                border-radius: 4px;
+
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                cursor: pointer;
+                transition: $hover-transition;
+
+                &:hover {
+                    background-color: $terciary-bg-color;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: $notebook-screen) { 
+    #cardContainer {
+        #menuContainer {
+            right: 40px;
+        }
+    }
+}
