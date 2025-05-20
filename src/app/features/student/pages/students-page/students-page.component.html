@@ -1,15 +1,25 @@
-<header>
-    <span class="material-symbols-outlined mobile-arrow-back">arrow_back</span>
-    <h1>Estudantes</h1>
-</header>
+<div class="page-container">
+    <header>
+        <a id="backBtn" routerLink="/home">
+            <span class="material-symbols-rounded secondary-icon">arrow_back</span>
+        </a>
+        <h1 class="title-text primary-text">Estudantes</h1>
+    </header>
 
-<main>
-    <section>
-        <p>Pesquisar por</p>
-        <input type="text" id="filterInput" >
-    </section>  
+    <main>
+        <div id="filterContainer">
+            <app-student-filter />
 
-    <section>
-        
-    </section>
-</main>
+            <button id="addStudentBtn">
+                <span class="material-symbols-rounded primary-icon">person_add</span>
+                <p class="body-text primary-text bold">Cadastrar estudante</p>
+            </button>
+        </div>
+
+        <section id="studentsContainer">
+            @for (student of students$ | async; track $index) {
+            <app-student-card [student]=student />
+            }
+        </section>
+    </main>
+</div>

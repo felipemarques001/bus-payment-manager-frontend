@@ -1,18 +1,95 @@
 @use "../../../../../styles/variables.scss" as *;
 
 header {
-    padding: 16px;
-
     display: flex;
     align-items: center;
 
-    .mobile-arrow-back {
-        color: $secondary-text-color;
-        font-size: $mobile-icon-size;
+    #backBtn {
+        padding: 4px;
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        text-decoration: none;
+        transition: $hover-transition;
+
+        &:hover {
+            background-color: $terciary-bg-color;
+        }
     }
 
     h1 {
-        color: $primary-text-color;
         margin: auto;
+    }
+}
+
+main {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    #studentsContainer {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+        gap: 12px;
+    }
+
+    #addStudentBtn {
+        padding: 8px 12px;
+        border: none;
+        border-radius: $button-input-border-radius;
+
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        position: fixed;
+        right: 8px;
+        bottom: 8px;
+        z-index: 3;
+
+        background-color: $action-primary-bg-color;
+
+        cursor: pointer;
+        transition: $hover-transition;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
+
+@media (min-width: $tablet-screen) {
+    header {
+        #backBtn {
+            display: none;
+        }
+
+        h1 {
+            margin: 0;
+        }
+    }
+}
+
+@media (min-width: $notebook-screen) {
+    main {
+        position: relative;
+
+        #addStudentBtn {
+            padding: 4px 12px;
+            
+            top: 80px;
+            left: 664px;
+            right: auto;
+            bottom: auto;
+        }
+
+        #studentsContainer {
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        }
     }
 }
