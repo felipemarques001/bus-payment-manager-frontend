@@ -1,0 +1,36 @@
+<section>
+    <form [formGroup]="filterFormGroup">
+        <div id="filter-type-container">
+            <div id="options-view-button-container">
+                <p class="body-text secondary-text">Filtrar por:</p>
+                <button id="options-view-button" type="button" (click)="toggleIsOptionsOpened()">
+                    <span id="filter-type-value" class="body-text primary-text">{{ filterTypeSelected }}</span>
+                    <span id="chevron" class="material-symbols-rounded primary-icon" [class.options-opened]="isOptionsOpened">
+                        keyboard_arrow_down
+                    </span>
+                </button>
+            </div>
+
+            <ul id="options-list" [class.open]="isOptionsOpened">
+                @for (type of filterTypes; track $index) {
+                <li class="option">
+                    <input 
+                        type="radio" 
+                        name="type" 
+                        formControlName="type"
+                        [value]="type.value" 
+                        (click)="toggleIsOptionsOpened()"
+                        >
+                    <p class="body-text primary-text">{{ type.label }}</p>
+                    <span class="material-symbols-rounded primary-icon check-icon">check</span>
+                </li>
+                }
+            </ul>
+        </div>
+
+        <div id="filter-input-container">
+            <input id="value-input" class="body-text primary-text" type="text" placeholder="Buscar estudantes" formControlName="value" (keydown.enter)="onSearch()"/>
+            <span id="search-icon" class="material-symbols-rounded primary-icon" (click)="onSearch()">search</span>
+        </div>
+    </form>
+</section>

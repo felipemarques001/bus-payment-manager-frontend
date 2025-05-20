@@ -8,11 +8,88 @@
     font-family: 'Poppins', sans-serif;
 }
 
-html, body {
+html,
+body {
     min-height: 100dvh;
     min-width: 100dvw;
 }
 
 body {
     background-color: $primary-bg-color;
+}
+
+.page-container {
+    padding: 8px;
+    padding-bottom: 20px;
+    min-height: 100dvh;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.title-text {
+    font-size: $mobile-title-font-size;
+}
+
+.body-text {
+    font-size: $mobile-body-font-size;
+}
+
+.small-body-text {
+    font-size: $mobile-body-small-font-size;
+}
+
+.primary-text {
+    color: $primary-text-color;
+}
+
+.secondary-text {
+    color: $secondary-text-color;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.primary-icon {
+    color: $primary-text-color;
+    font-size: $mobile-icon-size;
+}
+
+.secondary-icon {
+    color: $secondary-text-color;
+    font-size: $mobile-icon-size;
+}
+
+@media (min-width: $tablet-screen) {
+    .page-container {
+        padding: 16px;
+    }
+
+    .title-text {
+        font-size: $tablet-title-font-size;
+    }
+}
+
+@media (min-width: $notebook-screen) {
+    .title-text {
+        font-size: $notebook-title-font-size;
+    }
+
+    .body-text {
+        font-size: $notebook-body-font-size;
+    }
+
+    .small-body-text {
+        font-size: $notebook-body-small-font-size;
+    }
+
+    .primary-icon {
+        font-size: $notebook-icon-size;
+    }
+
+    .secondary-icon {
+        font-size: $notebook-icon-size;
+    }
 }

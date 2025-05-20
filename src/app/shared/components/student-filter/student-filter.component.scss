@@ -1,0 +1,160 @@
+@use "../../../../styles/variables.scss" as *;
+
+section {
+    form {
+        max-width: 640px;
+
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        #filter-type-container {
+            position: relative;
+
+            #options-view-button-container {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                #options-view-button {
+                    width: 128px;
+                    padding: 4px 8px;
+                    border: $default-border;
+                    border-radius: $button-input-border-radius;
+
+                    flex: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    background-color: $secondary-bg-color;
+
+                    cursor: pointer;
+
+                    #chevron {
+                        transition: $open-close-transition;
+
+                        &.options-opened {
+                            transform: rotate(-0.5turn);
+                        }
+                    }
+                }
+            }
+
+            #options-list {
+                width: 100%;
+                padding: 8px 4px;
+                margin-top: 4px;
+                border: $default-border;
+                border-radius: $container-border-radius;
+
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+
+                background-color: $primary-bg-color;
+
+                position: absolute;
+                z-index: 2;
+
+                opacity: 0;
+                visibility: hidden;
+                transition: $open-close-transition;
+                transform: translateY(-10px);
+
+                &.open {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+                }
+
+                .option {
+                    width: 100%;
+                    padding: 4px 8px;
+                    border-radius: 4px;
+
+                    display: flex;
+                    align-items: center;
+
+                    position: relative;
+                    transition: 100ms ease-in;
+
+                    &:hover {
+                        background-color: $terciary-bg-color;
+                    }
+
+                    input {
+                        all: unset;
+
+                        position: absolute;
+                        inset: 0;
+
+                        cursor: pointer;
+                    }
+
+                    .check-icon {
+                        margin-left: auto;
+                        display: none;
+                    }
+
+                    &:has(input:checked) {
+                        background-color: $terciary-bg-color;
+
+                        .check-icon {
+                            display: block;
+                        }
+                    }
+                }
+            }
+        }
+
+        #filter-input-container {
+            min-width: 340px;
+            padding: 0 8px;
+            border: $default-border;
+            border-radius: $button-input-border-radius;
+
+            background-color: $secondary-bg-color;
+
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            #value-input {
+                padding: 4px 0;
+                border: none;
+
+                background-color: $secondary-bg-color;
+
+                flex: 1;
+
+                outline: none;
+
+                &::placeholder {
+                    color: $secondary-text-color;
+                    opacity: 0.7;
+                }
+            }
+
+            #search-icon {
+                color: $action-primary-bg-color;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+@media (min-width: $notebook-screen) {
+    section {
+        form {
+            #filter-type-container {
+                #options-view-button-container {
+                    #options-view-button {
+                        width: 140px;
+                    }
+                }
+            }
+        }
+    }
+}

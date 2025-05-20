@@ -14,5 +14,33 @@ $secondary-text-color: #A4A4A4;
 $primary-bg-color: #212121;
 $secondary-bg-color: #181818;
 $terciary-bg-color: #414141;
+$action-primary-bg-color: #2979FF;
 
-$mobile-icon-size: 28px;
+$container-border-radius: 16px;
+$button-input-border-radius: 8px;
+
+$default-border: 1px solid $terciary-bg-color;
+$card-border: 2px solid $terciary-bg-color;
+
+$open-close-transition: 200ms ease-in;
+$hover-transition: 300ms ease-in;
+
+// $small-device-screen: 600px;
+$tablet-screen: 768px;
+$notebook-screen: 992px;
+$desktop-screen: 1200px;
+
+/** Mobile device variables */
+$mobile-icon-size: 20px;
+$mobile-title-font-size: 24px;
+$mobile-body-font-size: 14px;
+$mobile-body-small-font-size: 12px;
+
+/** Tablet device variables */
+$tablet-title-font-size: 28px;
+
+/** Notebook device variables */
+$notebook-icon-size: 24px;
+$notebook-title-font-size: 32px;
+$notebook-body-font-size: 16px;
+$notebook-body-small-font-size: 14px;
