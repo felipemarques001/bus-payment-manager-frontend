@@ -1,4 +1,3 @@
 export const environment = {
-    production: true,
-    apiUrl: 'http://dominio',
+    apiBaseUrl: 'http://localhost:8080',
 };
