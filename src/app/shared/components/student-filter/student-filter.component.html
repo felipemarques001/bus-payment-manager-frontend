@@ -1,17 +1,17 @@
 <section>
     <form [formGroup]="filterFormGroup">
-        <div id="filter-type-container">
-            <div id="options-view-button-container">
+        <div id="filterTypeContainer">
+            <div id="optionsViewBtnContainer">
                 <p class="body-text secondary-text">Filtrar por:</p>
-                <button id="options-view-button" type="button" (click)="toggleIsOptionsOpened()">
-                    <span id="filter-type-value" class="body-text primary-text">{{ filterTypeSelected }}</span>
+                <button id="optionsViewBtn" type="button" (click)="toggleIsOptionsOpened()">
+                    <span class="body-text primary-text">{{ filterTypeSelected }}</span>
                     <span id="chevron" class="material-symbols-rounded primary-icon" [class.options-opened]="isOptionsOpened">
                         keyboard_arrow_down
                     </span>
                 </button>
             </div>
 
-            <ul id="options-list" [class.open]="isOptionsOpened">
+            <ul id="optionsList" [class.open]="isOptionsOpened">
                 @for (type of filterTypes; track $index) {
                 <li class="option">
                     <input 
@@ -28,9 +28,9 @@
             </ul>
         </div>
 
-        <div id="filter-input-container">
-            <input id="value-input" class="body-text primary-text" type="text" placeholder="Buscar estudantes" formControlName="value" (keydown.enter)="onSearch()"/>
-            <span id="search-icon" class="material-symbols-rounded primary-icon" (click)="onSearch()">search</span>
+        <div id="filterInputContainer">
+            <input id="valueInput" class="body-text primary-text" type="text" placeholder="Buscar estudantes" formControlName="value" (keydown.enter)="onSearch()"/>
+            <span id="searchIcon" class="material-symbols-rounded primary-icon" (click)="onSearch()">search</span>
         </div>
     </form>
 </section>
