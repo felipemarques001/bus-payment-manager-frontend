@@ -41,7 +41,7 @@ main {
     #addStudentBtn {
         padding: 8px 12px;
         border: none;
-        border-radius: $button-input-border-radius;
+        border-radius: $button-border-radius;
 
         display: flex;
         align-items: center;
@@ -77,11 +77,9 @@ main {
 
 @media (min-width: $notebook-screen) {
     main {
-        position: relative;
-
         #addStudentBtn {
             padding: 4px 12px;
-            
+
             top: 80px;
             left: 664px;
             right: auto;

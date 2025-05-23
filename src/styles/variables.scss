@@ -16,11 +16,16 @@ $secondary-bg-color: #181818;
 $terciary-bg-color: #414141;
 $action-primary-bg-color: #2979FF;
 
-$container-border-radius: 16px;
-$button-input-border-radius: 8px;
-
 $default-border: 1px solid $terciary-bg-color;
 $card-border: 2px solid $terciary-bg-color;
+
+$container-border-radius: 16px;
+
+$input-padding: 4px 8px;
+$input-border-radius: 8px;
+
+$button-padding: 8px 12px;
+$button-border-radius: 8px;
 
 $hover-transition: 200ms ease-in;
 $open-close-transition: 200ms ease-in;
@@ -33,6 +38,7 @@ $desktop-screen: 1200px;
 /** Mobile device variables */
 $mobile-icon-size: 20px;
 $mobile-title-font-size: 24px;
+$mobile-subtitle-font-size: 20px;
 $mobile-body-font-size: 14px;
 $mobile-body-small-font-size: 12px;
 
@@ -42,5 +48,6 @@ $tablet-title-font-size: 28px;
 /** Notebook device variables */
 $notebook-icon-size: 24px;
 $notebook-title-font-size: 32px;
+$notebook-subtitle-font-size: 28px;
 $notebook-body-font-size: 16px;
 $notebook-body-small-font-size: 14px;

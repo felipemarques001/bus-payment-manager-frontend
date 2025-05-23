@@ -1,0 +1,46 @@
+<section>
+    <div id="dialogContainer">
+        <h1 class="title-text primary-text">Novo estudante</h1>
+
+        <form>
+            <div class="input-container">
+                <label class="input-field-label body-text secondary-text" for="name">Nome:</label>
+                <input id="name" class="input-field body-text primary-text" type="text">
+            </div>
+
+            <div class="input-container">
+                <label class="input-field-label body-text secondary-text" for="major">Graduação:</label>
+                <input id="major" class="input-field body-text primary-text" type="text">
+            </div>
+
+            <div class="form-row">
+                <div class="input-container">
+                    <label class="input-field-label body-text secondary-text" for="college">Faculdade:</label>
+                    <input id="college" class="input-field body-text primary-text" type="text">
+                </div>
+
+                <div class="input-container">
+                    <label class="input-field-label body-text secondary-text" for="phoneNumber">Telefone:</label>
+                    <input id="phoneNumber" class="input-field body-text primary-text" type="text">
+                </div>
+            </div>
+
+            <div id="buttons-container">
+                <button 
+                    id="cleanFormBtn" 
+                    class="secondary-action-btn opacity-hover body-text primary-text bold"
+                    type="button"
+                    (click)="emmitCloseDialog()"
+                >
+                    Cancelar
+                </button>
+                <button 
+                    id="submitFormBtn" 
+                    class="primary-action-btn opacity-hover body-text primary-text bold" 
+                    type="submit">
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

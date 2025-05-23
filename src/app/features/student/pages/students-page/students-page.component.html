@@ -1,4 +1,4 @@
-<div class="page-container">
+<div class="page-container" [class.has-modal-opened]="isStudentCreationModalOpened">
     <header>
         <a id="backBtn" routerLink="/home">
             <span class="material-symbols-rounded secondary-icon">arrow_back</span>
@@ -10,7 +10,7 @@
         <div id="filterContainer">
             <app-student-filter />
 
-            <button id="addStudentBtn">
+            <button id="addStudentBtn" (click)="openStudentCreationModal()">
                 <span class="material-symbols-rounded primary-icon">person_add</span>
                 <p class="body-text primary-text bold">Cadastrar estudante</p>
             </button>
@@ -21,5 +21,9 @@
             <app-student-card [student]=student />
             }
         </section>
+
+        @if (isStudentCreationModalOpened) {
+        <app-student-creation-modal (closeModalEmmiter)="closeStudentCreationModal()" />
+        }
     </main>
 </div>

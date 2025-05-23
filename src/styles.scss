@@ -16,6 +16,10 @@ body {
 
 body {
     background-color: $primary-bg-color;
+
+    &.overflow-hidden {
+        overflow: hidden;
+    }
 }
 
 .page-container {
@@ -30,6 +34,10 @@ body {
 
 .title-text {
     font-size: $mobile-title-font-size;
+}
+
+.subtitle-text {
+    font-size: $mobile-subtitle-font-size;
 }
 
 .body-text {
@@ -62,6 +70,58 @@ body {
     font-size: $mobile-icon-size;
 }
 
+.input-field {
+    padding: $input-padding;
+    border: $default-border;
+    border-radius: $input-border-radius;
+
+    background-color: $secondary-bg-color;
+
+    &:focus {
+        outline: 1px solid $action-primary-bg-color;
+    }
+}
+
+.input-field-label {
+    cursor: pointer;
+}
+
+.primary-action-btn {
+    padding: $button-padding;
+    border-radius: $button-border-radius;
+    border: none;
+
+    background-color: $action-primary-bg-color;
+
+    outline: none;
+
+    &:focus {
+        outline: 1px solid $primary-text-color;
+    }
+}
+
+.secondary-action-btn {
+    padding: $button-padding;
+    border-radius: $button-border-radius;
+    border: $default-border;
+    background-color: transparent;
+
+    outline: none;
+
+    &:focus {
+        outline: 1px solid $action-primary-bg-color;
+    }
+}
+
+.opacity-hover {
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.7;
+        transition: $hover-transition;
+    }
+}
+
 @media (min-width: $tablet-screen) {
     .page-container {
         padding: 16px;
@@ -75,6 +135,10 @@ body {
 @media (min-width: $notebook-screen) {
     .title-text {
         font-size: $notebook-title-font-size;
+    }
+
+    .subtitle-text {
+        font-size: $notebook-subtitle-font-size;
     }
 
     .body-text {
