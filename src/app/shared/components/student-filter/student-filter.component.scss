@@ -19,17 +19,11 @@ section {
                 #optionsViewBtn {
                     width: 128px;
                     padding: 4px 8px;
-                    border: $default-border;
-                    border-radius: $button-input-border-radius;
 
                     flex: 1;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-
-                    background-color: $secondary-bg-color;
-
-                    cursor: pointer;
 
                     #chevron {
                         transition: $open-close-transition;
@@ -110,34 +104,29 @@ section {
 
         #filterInputContainer {
             min-width: 340px;
-            padding: 0 8px;
             border: $default-border;
-            border-radius: $button-input-border-radius;
+            border-radius: $input-border-radius;
 
             background-color: $secondary-bg-color;
 
             flex: 1;
             display: flex;
             align-items: center;
-            gap: 4px;
+
+            &:has(input:focus) {
+                outline: 1px solid $action-primary-bg-color;
+            }
 
             #valueInput {
-                padding: 4px 0;
                 border: none;
-
-                background-color: $secondary-bg-color;
-
                 flex: 1;
-
                 outline: none;
-
-                &::placeholder {
-                    color: $secondary-text-color;
-                    opacity: 0.7;
-                }
             }
 
             #searchIcon {
+                padding: $input-padding;
+                padding-left: 0;
+
                 color: $action-primary-bg-color;
                 cursor: pointer;
             }

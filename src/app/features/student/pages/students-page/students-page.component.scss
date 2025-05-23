@@ -39,10 +39,6 @@ main {
     }
 
     #addStudentBtn {
-        padding: 8px 12px;
-        border: none;
-        border-radius: $button-border-radius;
-
         display: flex;
         align-items: center;
         gap: 8px;
@@ -51,15 +47,6 @@ main {
         right: 8px;
         bottom: 8px;
         z-index: 3;
-
-        background-color: $action-primary-bg-color;
-
-        cursor: pointer;
-        transition: $hover-transition;
-
-        &:hover {
-            opacity: 0.8;
-        }
     }
 }
 
