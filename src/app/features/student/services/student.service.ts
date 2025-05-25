@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Student } from '../models/student.interface';
 import { PageResponse } from '../../../shared/models/page-response.interface';
 import { environment } from '../../../../environments/environment';
+import { StudentRequest } from '../models/student-request.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,14 @@ export class StudentService {
       this.apiUrl,
       { params: queriesParams },
     );
+  }
+
+  createStudent(student: StudentRequest) {
+    return this.http.post(this.apiUrl, student);
+  }
+
+  checkPhoneNumberExists(phoneNumber: String) {
+    const url = `${this.apiUrl}/check-phone-number/${phoneNumber}`;
+    return this.http.get<boolean>(url);
   }
 }

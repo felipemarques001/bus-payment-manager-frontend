@@ -23,7 +23,14 @@
         </section>
 
         @if (isStudentCreationModalOpened) {
-        <app-student-creation-modal (closeModalEmmiter)="closeStudentCreationModal()" />
+        <app-student-creation-modal 
+            (successCreationEmitter)="getStudents()"
+            (closeModalEmmiter)="closeStudentCreationModal()"
+        />
+        }
+
+        @if (isLoading) {
+        <app-spinner />
         }
     </main>
 </div>
