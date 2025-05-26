@@ -36,7 +36,7 @@ export class StudentsPageComponent {
   private readonly renderer = inject(Renderer2);
   private readonly studentService = inject(StudentService);
   private pageNumber = 0;
-  private pageSize = 40;
+  private pageSize = 32;
 
   protected students$ = new Observable<Student[]>();
   protected isLoading: boolean = false;
@@ -57,8 +57,9 @@ export class StudentsPageComponent {
     this.renderer.removeClass(document.body, 'overflow-hidden');
   }
 
-  getStudents(): void {
+  async getStudents() {
     this.isLoading = true;
+    await new Promise(resolve => setTimeout(resolve, 5000));
     this.students$ = this.studentService
       .getStudents(this.pageNumber, this.pageSize)
       .pipe(

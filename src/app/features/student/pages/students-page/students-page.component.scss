@@ -26,8 +26,6 @@ header {
 }
 
 main {
-    height: 100%;
-
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -38,15 +36,17 @@ main {
         gap: 12px;
     }
 
-    #addStudentBtn {
-        display: flex;
-        align-items: center;
-        gap: 8px;
+    #pageActionsContainer {
+        #addStudentBtn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
 
-        position: fixed;
-        right: 8px;
-        bottom: 8px;
-        z-index: 3;
+            position: fixed;
+            right: 8px;
+            bottom: 16px;
+            z-index: 3;
+        }
     }
 }
 
@@ -60,17 +60,27 @@ main {
             margin: 0;
         }
     }
+
+    main {
+        #pageActionsContainer {
+            #addStudentBtn {
+                right: 16px;
+            }
+        }
+    }
 }
 
 @media (min-width: $notebook-screen) {
     main {
-        #addStudentBtn {
-            padding: 4px 12px;
+        #pageActionsContainer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
 
-            top: 80px;
-            left: 664px;
-            right: auto;
-            bottom: auto;
+            #addStudentBtn {
+                padding: 4px 12px;
+                position: static;
+            }
         }
 
         #studentsContainer {

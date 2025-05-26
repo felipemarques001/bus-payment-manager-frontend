@@ -1,4 +1,4 @@
-<div class="page-container" [class.has-modal-opened]="isStudentCreationModalOpened">
+<div class="page-container">
     <header>
         <a id="backBtn" routerLink="/home">
             <span class="material-symbols-rounded secondary-icon">arrow_back</span>
@@ -7,12 +7,12 @@
     </header>
 
     <main>
-        <div id="filterContainer">
+        <div id="pageActionsContainer">
             <app-student-filter />
 
             <button id="addStudentBtn" class="primary-action-btn opacity-hover" (click)="openStudentCreationModal()">
                 <span class="material-symbols-rounded primary-icon">person_add</span>
-                <p class="body-text primary-text bold">Cadastrar estudante</p>
+                <p class="body-text primary-text bold">Novo estudante</p>
             </button>
         </div>
 
