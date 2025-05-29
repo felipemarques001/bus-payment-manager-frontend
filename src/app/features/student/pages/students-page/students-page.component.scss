@@ -33,10 +33,10 @@ main {
     #studentsContainer {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-        gap: 12px;
+        gap: 8px;
     }
 
-    #pageActionsContainer {
+    #addBtnAndPageSeletorContainer {
         #addStudentBtn {
             display: flex;
             align-items: center;
@@ -46,6 +46,50 @@ main {
             right: 8px;
             bottom: 16px;
             z-index: 3;
+        }
+
+        #pageSelectorContainer {
+            height: 28px;
+
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: end;
+
+            .pageCounter {
+                width: 28px;
+                height: 100%;
+                border: $default-border;
+                border-radius: 8px;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #pageNumber {
+                background-color: $action-primary-bg-color;
+                border: none;
+            }
+
+            button {
+                width: 28px;
+                height: 100%;
+                background-color: $primary-bg-color;
+                border: none;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:disabled {
+                    cursor: not-allowed;
+
+                    span {
+                        color: $terciary-bg-color;
+                    }
+                }
+            }
         }
     }
 }
@@ -62,9 +106,13 @@ main {
     }
 
     main {
-        #pageActionsContainer {
+        #addBtnAndPageSeletorContainer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
             #addStudentBtn {
-                right: 16px;
+                position: static;
             }
         }
     }

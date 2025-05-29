@@ -26,7 +26,7 @@ export class StudentCreationModalComponent {
 
   protected isLoading: boolean = false;
 
-  @Output() private readonly closeModalEmmiter = new EventEmitter<void>();
+  @Output() private readonly closeModalEmitter = new EventEmitter<void>();
   @Output() private readonly successCreationEmitter = new EventEmitter<void>();
 
   formGroup = this.formBuilder.nonNullable.group({
@@ -41,7 +41,7 @@ export class StudentCreationModalComponent {
   });
 
   emmitCloseDialog(): void {
-    this.closeModalEmmiter.emit();
+    this.closeModalEmitter.emit();
   }
 
   emmitSuccessCreation(): void {

@@ -7,30 +7,59 @@
     </header>
 
     <main>
-        <div id="pageActionsContainer">
-            <app-student-filter />
+        <app-student-filter />
 
+        <section id="addBtnAndPageSeletorContainer">
             <button id="addStudentBtn" class="primary-action-btn opacity-hover" (click)="openStudentCreationModal()">
                 <span class="material-symbols-rounded primary-icon">person_add</span>
                 <p class="body-text primary-text bold">Novo estudante</p>
             </button>
-        </div>
+
+            <div id="pageSelectorContainer">
+                @if (!isLoading) {
+                <p class="body-text secondary-text">Total de estudantes: 
+                    <span class="primary-text">{{ totalStudents }}</span>
+                </p>
+                }
+
+                <button class="opacity-hover" (click)="getPreviousStudents()"
+                    [disabled]="pseudoPageNumber === 1 || isLoading">
+                    <span class="material-symbols-rounded primary-icon">chevron_left</span>
+                </button>
+
+                @if (pseudoPageNumber !== 1) {
+                <p class="body-text primary-text pageCounter">{{ pseudoPageNumber - 1 }}</p>
+                }
+
+                <p id="pageNumber" class="body-text primary-text pageCounter">
+                    {{ pseudoPageNumber }}
+                </p>
+
+                <p class="body-text pageCounter" [class.primary-text]="hasNextPage" [class.secondary-text]="!hasNextPage">
+                    {{ pseudoPageNumber + 1 }}
+                </p>
+
+                <button class="opacity-hover" (click)="getNextStudents()" [disabled]="!hasNextPage || isLoading">
+                    <span class="material-symbols-rounded primary-icon">chevron_right</span>
+                </button>
+            </div>
+        </section>
 
         <section id="studentsContainer">
-            @for (student of students$ | async; track $index) {
-            <app-student-card [student]=student />
+            @if (isLoading) {
+            @for (i of studentCardSkeletonQuantity; track $index) {
+            <app-student-card-skeleton />
+            }
+            } @else {
+            @for (student of students; track $index) {
+            <app-student-card [student]="student" (inactiveStudentEmitter)="inactivateStudent($event)" />
+            }
             }
         </section>
 
-        @if (isStudentCreationModalOpened) {
-        <app-student-creation-modal 
-            (successCreationEmitter)="getStudents()"
-            (closeModalEmmiter)="closeStudentCreationModal()"
-        />
-        }
-
-        @if (isLoading) {
-        <app-spinner />
+        @if (isCreationModalOpened) {
+        <app-student-creation-modal (successCreationEmitter)="getStudents()"
+            (closeModalEmitter)="closeStudentCreationModal()" />
         }
     </main>
 </div>
