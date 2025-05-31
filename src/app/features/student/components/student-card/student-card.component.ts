@@ -1,10 +1,17 @@
 import { Student } from '../../models/student.interface';
-import { PhoneNumberPipe } from '../../../../shared/pipes/phone-number.pipe';
-import { StudentUpdateModalComponent } from '../student-update-modal/student-update-modal.component';
-import { Component, EventEmitter, inject, Input, Output, Renderer2 } from '@angular/core';
-import { StudentService } from '../../services/student.service';
 import { finalize } from 'rxjs';
+import { StudentService } from '../../services/student.service';
+import { PhoneNumberPipe } from '../../../../shared/pipes/phone-number.pipe';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
+import { StudentUpdateModalComponent } from '../student-update-modal/student-update-modal.component';
+import { 
+  Input, 
+  inject, 
+  Output, 
+  Renderer2,
+  Component, 
+  EventEmitter, 
+} from '@angular/core';
 
 @Component({
   selector: 'app-student-card',
