@@ -29,6 +29,11 @@ export class StudentService {
     return this.http.post(this.apiUrl, student);
   }
 
+  updateStudent(studentId: String, student: StudentRequest) {
+    const url = `${this.apiUrl}/${studentId}`;
+    return this.http.put(url, student);
+  }
+
   patchActiveStatus(studentId: string, status: boolean) {
     const url = `${this.apiUrl}/${studentId}/active`;
     const reqBody = { active: status };

@@ -34,7 +34,11 @@
             }
             } @else {
             @for (student of students; track $index) {
-            <app-student-card [student]="student" (inactiveStudentEmitter)="inactivateStudent($event)" />
+            <app-student-card 
+                [student]="student" 
+                (updatedStudentEmitter)="getStudents()"
+                (inactiveStudentEmitter)="inactivateStudent($event)" 
+            />
             }
             }
         </section>

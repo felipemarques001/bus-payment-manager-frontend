@@ -1,0 +1,68 @@
+@use "../../../../../styles/variables.scss" as *;
+
+section {
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    z-index: 4;
+    top: 0;   
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    #modalContainer {
+        width: 100%;
+        max-width: 440px;
+        padding: 16px;
+        border: $default-border;
+        border-radius: $container-border-radius;
+
+        background-color: $primary-bg-color;
+
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        form {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+
+            .input-container {
+                width: 100%;
+                min-width: 0;
+
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .form-row {
+                width: 100%;
+                display: flex;
+                gap: 16px;
+            }
+
+            #buttons-container {
+                width: 100%;
+                margin-top: 8px;
+
+                display: flex;
+                gap: 8px;
+                align-items: center;
+                justify-content: end;
+
+                button {
+                    width: 32%;
+                }
+            }
+        }
+    }
+}

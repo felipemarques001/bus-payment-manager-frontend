@@ -20,7 +20,7 @@
     </div>
     <div id="menuContainer" [class.open]="openActionsMenu">
         <ul>
-            <li>
+            <li (click)="openStudentUpdateModal()">
                 <span class="material-symbols-rounded secondary-icon">edit</span>
                 <p class="body-text secondary-text">Editar</p>
             </li>
@@ -34,4 +34,12 @@
             </li>
         </ul>
     </div>
+
+    @if (isUpdateModalOpened) {
+    <app-student-update-modal 
+        [student]="student" 
+        (closeModalEmitter)="closeStudentUpdateModal()" 
+        (successUpdateEmitter)="emmitStudentUpdated()"
+    />
+    }
 </div>
