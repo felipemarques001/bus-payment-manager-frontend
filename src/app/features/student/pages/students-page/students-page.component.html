@@ -9,40 +9,22 @@
     <main>
         <app-student-filter />
 
-        <section id="addBtnAndPageSeletorContainer">
+        <section id="activeFormAndAddBtnContainer">
+            <form id="activeForm" [formGroup]="activeForm">
+                <div>
+                    <label for="activeStudentOption" class="body-text primary-text">Ativos</label>
+                    <input id="activeStudentOption" type="radio" formControlName="active" [value]="true" />
+                </div>
+                <div>
+                    <label for="disabledStudentOption" class="body-text primary-text">Inativos</label>
+                    <input id="disabledStudentOption" type="radio" formControlName="active" [value]="false" />
+                </div>
+            </form>
+
             <button id="addStudentBtn" class="primary-action-btn opacity-hover" (click)="openStudentCreationModal()">
                 <span class="material-symbols-rounded primary-icon">person_add</span>
                 <p class="body-text primary-text bold">Novo estudante</p>
             </button>
-
-            <div id="pageSelectorContainer">
-                @if (!isLoading) {
-                <p class="body-text secondary-text">Total de estudantes: 
-                    <span class="primary-text">{{ totalStudents }}</span>
-                </p>
-                }
-
-                <button class="opacity-hover" (click)="getPreviousStudents()"
-                    [disabled]="pseudoPageNumber === 1 || isLoading">
-                    <span class="material-symbols-rounded primary-icon">chevron_left</span>
-                </button>
-
-                @if (pseudoPageNumber !== 1) {
-                <p class="body-text primary-text pageCounter">{{ pseudoPageNumber - 1 }}</p>
-                }
-
-                <p id="pageNumber" class="body-text primary-text pageCounter">
-                    {{ pseudoPageNumber }}
-                </p>
-
-                <p class="body-text pageCounter" [class.primary-text]="hasNextPage" [class.secondary-text]="!hasNextPage">
-                    {{ pseudoPageNumber + 1 }}
-                </p>
-
-                <button class="opacity-hover" (click)="getNextStudents()" [disabled]="!hasNextPage || isLoading">
-                    <span class="material-symbols-rounded primary-icon">chevron_right</span>
-                </button>
-            </div>
         </section>
 
         <section id="studentsContainer">
@@ -56,10 +38,46 @@
             }
             }
         </section>
-
-        @if (isCreationModalOpened) {
-        <app-student-creation-modal (successCreationEmitter)="getStudents()"
-            (closeModalEmitter)="closeStudentCreationModal()" />
-        }
     </main>
+
+    <footer>
+        <div id="totalStudentsContainer">
+            <p class="body-text secondary-text">Total de estudantes:</p>
+            @if (totalStudents === 0) {
+                <span id="totalStudentsSkeleton" class="skeleton"></span>
+            } @else {
+                <span class="primary-text">{{ totalStudents < 10 ? `0${totalStudents}` : totalStudents }} </span>
+            }
+        </div>
+
+        <div id="pageSelectorContainer">
+            <button class="opacity-hover" (click)="getPreviousStudents()"
+                [disabled]="pseudoPageNumber === 1 || isLoading">
+                <span class="material-symbols-rounded primary-icon">chevron_left</span>
+            </button>
+
+            @if (pseudoPageNumber !== 1) {
+            <p class="body-text primary-text pageCounter">{{ pseudoPageNumber - 1 }}</p>
+            }
+
+            <p id="pageNumber" class="body-text primary-text pageCounter">
+                {{ pseudoPageNumber }}
+            </p>
+
+            <p class="body-text pageCounter" [class.primary-text]="hasNextPage" [class.secondary-text]="!hasNextPage">
+                {{ pseudoPageNumber + 1 }}
+            </p>
+
+            <button class="opacity-hover" (click)="getNextStudents()" [disabled]="!hasNextPage || isLoading">
+                <span class="material-symbols-rounded primary-icon">chevron_right</span>
+            </button>
+        </div>
+    </footer>
+
+    @if (isCreationModalOpened) {
+        <app-student-creation-modal 
+            (successCreationEmitter)="getStudents()"
+            (closeModalEmitter)="closeStudentCreationModal()" 
+        />
+    }
 </div>

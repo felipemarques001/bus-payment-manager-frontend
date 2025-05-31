@@ -26,68 +26,129 @@ header {
 }
 
 main {
+    padding-bottom: 60px;
+
     display: flex;
     flex-direction: column;
     gap: 16px;
+
+    #activeFormAndAddBtnContainer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        #activeForm {
+            display: flex;
+
+            div {
+                padding: $button-padding;
+                border: $default-border;
+                position: relative;
+
+                &:nth-child(1) {
+                    border-right: 0;
+                    border-top-left-radius: $input-border-radius;
+                    border-bottom-left-radius: $input-border-radius;
+                }
+
+                &:nth-child(2) {
+                    border-left: 0;
+                    border-top-right-radius: $input-border-radius;
+                    border-bottom-right-radius: $input-border-radius;
+                }
+
+                &:has(input:checked) {
+                    border: 1px solid $action-primary-bg-color;
+                }
+
+                input {
+                    all: unset;
+
+                    position: absolute;
+                    inset: 0;
+
+                    cursor: pointer;
+                }
+            }
+        }
+
+        #addStudentBtn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    }
 
     #studentsContainer {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
         gap: 8px;
     }
+}
 
-    #addBtnAndPageSeletorContainer {
-        #addStudentBtn {
+footer {
+    padding: 16px 8px;
+    border-top: $default-border;
+    background-color: $primary-bg-color;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    #totalStudentsContainer {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+
+        #totalStudentsSkeleton {
+            width: 20px;
+            height: 18px;
+        }
+    }
+
+    #pageSelectorContainer {
+        height: 28px;
+
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        .pageCounter {
+            width: 28px;
+            height: 100%;
+            border: $default-border;
+            border-radius: 8px;
+
             display: flex;
             align-items: center;
-            gap: 8px;
-
-            position: fixed;
-            right: 8px;
-            bottom: 16px;
-            z-index: 3;
+            justify-content: center;
         }
 
-        #pageSelectorContainer {
-            height: 28px;
+        #pageNumber {
+            background-color: $action-primary-bg-color;
+            border: none;
+        }
+
+        button {
+            width: 28px;
+            height: 100%;
+            background-color: $primary-bg-color;
+            border: none;
 
             display: flex;
-            gap: 8px;
             align-items: center;
-            justify-content: end;
+            justify-content: center;
 
-            .pageCounter {
-                width: 28px;
-                height: 100%;
-                border: $default-border;
-                border-radius: 8px;
+            &:disabled {
+                cursor: not-allowed;
 
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            #pageNumber {
-                background-color: $action-primary-bg-color;
-                border: none;
-            }
-
-            button {
-                width: 28px;
-                height: 100%;
-                background-color: $primary-bg-color;
-                border: none;
-
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                &:disabled {
-                    cursor: not-allowed;
-
-                    span {
-                        color: $terciary-bg-color;
-                    }
+                span {
+                    color: $terciary-bg-color;
                 }
             }
         }
@@ -106,29 +167,34 @@ main {
     }
 
     main {
-        #addBtnAndPageSeletorContainer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            #addStudentBtn {
-                position: static;
-            }
+        #activeFormAndAddBtnContainer {
+            gap: 16px;
+            justify-content: start;
         }
+    }
+
+    footer {
+        gap: 32px;
+        justify-content: center;
     }
 }
 
 @media (min-width: $notebook-screen) {
     main {
+        #filterAndAddStudentBtnContainer {
+            display: flex;
+            gap: 8px;
+
+            #addStudentBtn {
+                padding: $input-padding;
+                position: static;
+            }
+        }
+
         #pageActionsContainer {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-
-            #addStudentBtn {
-                padding: 4px 12px;
-                position: static;
-            }
         }
 
         #studentsContainer {

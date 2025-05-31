@@ -2,7 +2,6 @@ import { Student } from '../../models/student.interface';
 import { finalize } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { StudentService } from '../../services/student.service';
-import { ReactiveFormsModule } from '@angular/forms';
 import { StudentCardComponent } from '../../components/student-card/student-card.component';
 import { StudentFilterComponent } from '../../../../shared/components/student-filter/student-filter.component';
 import { StudentCardSkeletonComponent } from '../../components/student-card-skeleton/student-card-skeleton.component';
@@ -13,6 +12,12 @@ import {
   Component,
   Renderer2,
 } from '@angular/core';
+import { 
+  Validators,
+  FormBuilder, 
+  FormControl, 
+  ReactiveFormsModule, 
+} from '@angular/forms';
 
 @Component({
   selector: 'app-students-page',
@@ -29,6 +34,7 @@ import {
 })
 export class StudentsPageComponent implements OnInit {
   private readonly renderer = inject(Renderer2);
+  private readonly formBuilder = inject(FormBuilder);
   private readonly studentService = inject(StudentService);
   
   private readonly pageSize: number = 24;
@@ -42,8 +48,13 @@ export class StudentsPageComponent implements OnInit {
   protected isCreationModalOpened: boolean = false;
   protected readonly studentCardSkeletonQuantity = Array.from({ length: this.pageSize });
 
+  protected activeForm = this.formBuilder.nonNullable.group({
+    active: [true, [Validators.required]]
+  });
+
   ngOnInit(): void {
     this.getStudents();
+    this.activeControl.valueChanges.subscribe(() => this.resetStudents());
   }
 
   openStudentCreationModal(): void {
@@ -59,7 +70,7 @@ export class StudentsPageComponent implements OnInit {
   getStudents(): void {
     this.isLoading = true;
     this.studentService
-      .getStudents(this.pageNumber, this.pageSize)
+      .getStudents(this.pageNumber, this.pageSize, this.activeControl.value)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe((response) => {
         this.students = response.content;
@@ -83,11 +94,22 @@ export class StudentsPageComponent implements OnInit {
     this.getStudents();
   }
 
+  resetStudents(): void {
+    this.pageNumber = 0;
+    this.getStudents();
+  }
+
   inactivateStudent(studentId: string): void {
+    if (this.isLoading) return;
+
+    this.isLoading = true;
     this.studentService
       .patchActiveStatus(studentId, false)
-      .subscribe(() => {
-        this.students = this.students.filter((student) => student.id !== studentId);
-      });
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe(() => this.getStudents());
+  }
+
+  get activeControl(): FormControl<boolean> {
+    return this.activeForm.controls.active;
   }
 }

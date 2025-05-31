@@ -13,10 +13,11 @@ export class StudentService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiBaseUrl}/api/students`;
 
-  getStudents(pageNumber: number, pageSize: number): Observable<PageResponse<Student>> {
+  getStudents(pageNumber: number, pageSize: number, active: boolean): Observable<PageResponse<Student>> {
     const queriesParams = new HttpParams()
       .set("pageNumber", pageNumber)
-      .set("pageSize", pageSize);
+      .set("pageSize", pageSize)
+      .set("active", active);
 
     return this.http.get<PageResponse<Student>>(
       this.apiUrl,
@@ -26,6 +27,12 @@ export class StudentService {
 
   createStudent(student: StudentRequest) {
     return this.http.post(this.apiUrl, student);
+  }
+
+  patchActiveStatus(studentId: string, status: boolean) {
+    const url = `${this.apiUrl}/${studentId}/active`;
+    const reqBody = { active: status };
+    return this.http.patch(url, reqBody);
   }
 
   checkPhoneNumberExists(phoneNumber: String) {
