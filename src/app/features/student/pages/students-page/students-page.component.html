@@ -29,17 +29,16 @@
 
         <section id="studentsContainer">
             @if (isLoading) {
-            @for (i of studentCardSkeletonQuantity; track $index) {
-            <app-student-card-skeleton />
-            }
+                @for (i of studentCardSkeletonQuantity; track $index) {
+                    <app-student-card-skeleton />
+                }
             } @else {
-            @for (student of students; track $index) {
-            <app-student-card 
-                [student]="student" 
-                (updatedStudentEmitter)="getStudents()"
-                (inactiveStudentEmitter)="inactivateStudent($event)" 
-            />
-            }
+                @for (student of students; track $index) {
+                    <app-student-card 
+                        [student]="student" 
+                        (updatedStudentEmitter)="getStudents()"
+                    />
+                }
             }
         </section>
     </main>
@@ -61,7 +60,7 @@
             </button>
 
             @if (pseudoPageNumber !== 1) {
-            <p class="body-text primary-text pageCounter">{{ pseudoPageNumber - 1 }}</p>
+                <p class="body-text primary-text pageCounter">{{ pseudoPageNumber - 1 }}</p>
             }
 
             <p id="pageNumber" class="body-text primary-text pageCounter">

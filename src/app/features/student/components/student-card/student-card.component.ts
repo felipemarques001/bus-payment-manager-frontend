@@ -2,11 +2,15 @@ import { Student } from '../../models/student.interface';
 import { PhoneNumberPipe } from '../../../../shared/pipes/phone-number.pipe';
 import { StudentUpdateModalComponent } from '../student-update-modal/student-update-modal.component';
 import { Component, EventEmitter, inject, Input, Output, Renderer2 } from '@angular/core';
+import { StudentService } from '../../services/student.service';
+import { finalize } from 'rxjs';
+import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 
 @Component({
   selector: 'app-student-card',
   imports: [
     PhoneNumberPipe,
+    SpinnerComponent,
     StudentUpdateModalComponent,
   ],
   templateUrl: './student-card.component.html',
@@ -14,14 +18,14 @@ import { Component, EventEmitter, inject, Input, Output, Renderer2 } from '@angu
 })
 export class StudentCardComponent {
   private readonly renderer = inject(Renderer2);
+  private readonly studentService = inject(StudentService);
 
+  protected isLoading: boolean = false;
   protected openActionsMenu: boolean = false;
   protected isUpdateModalOpened: boolean = false;
 
   @Input({ required: true }) student!: Student;
-  @Output() private readonly activeStudentEmitter = new EventEmitter<string>(); 
   @Output() private readonly updatedStudentEmitter = new EventEmitter<void>();
-  @Output() private readonly inactiveStudentEmitter = new EventEmitter<string>(); 
 
   toogleMenu(): void {
     this.openActionsMenu = !this.openActionsMenu;
@@ -44,6 +48,7 @@ export class StudentCardComponent {
   }
 
   changeStudentActiveStatus(): void {
+    this.openActionsMenu = false;
     if (this.student.active) {
       this.inactivateStudent();
     } else {
@@ -52,10 +57,18 @@ export class StudentCardComponent {
   }
 
   activateStudent(): void {
-    this.activeStudentEmitter.emit(this.student.id);
+    this.isLoading = true;
+    this.studentService
+      .patchActiveStatus(this.student.id, true)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe(() => this.updatedStudentEmitter.emit());
   }
 
   inactivateStudent(): void {
-    this.inactiveStudentEmitter.emit(this.student.id);
+    this.isLoading = true;
+    this.studentService
+      .patchActiveStatus(this.student.id, false)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe(() => this.updatedStudentEmitter.emit());
   }
 }

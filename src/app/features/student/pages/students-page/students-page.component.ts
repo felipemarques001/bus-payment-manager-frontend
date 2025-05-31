@@ -99,16 +99,6 @@ export class StudentsPageComponent implements OnInit {
     this.getStudents();
   }
 
-  inactivateStudent(studentId: string): void {
-    if (this.isLoading) return;
-
-    this.isLoading = true;
-    this.studentService
-      .patchActiveStatus(studentId, false)
-      .pipe(finalize(() => this.isLoading = false))
-      .subscribe(() => this.getStudents());
-  }
-
   get activeControl(): FormControl<boolean> {
     return this.activeForm.controls.active;
   }

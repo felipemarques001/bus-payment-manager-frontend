@@ -36,10 +36,14 @@
     </div>
 
     @if (isUpdateModalOpened) {
-    <app-student-update-modal 
-        [student]="student" 
-        (closeModalEmitter)="closeStudentUpdateModal()" 
-        (successUpdateEmitter)="emmitStudentUpdated()"
-    />
+        <app-student-update-modal 
+            [student]="student" 
+            (closeModalEmitter)="closeStudentUpdateModal()" 
+            (successUpdateEmitter)="emmitStudentUpdated()"
+        />
     }
 </div>
+
+@if (isLoading) {
+    <app-spinner />
+}
