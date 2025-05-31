@@ -49,25 +49,9 @@ export class StudentCardComponent {
 
   changeStudentActiveStatus(): void {
     this.openActionsMenu = false;
-    if (this.student.active) {
-      this.inactivateStudent();
-    } else {
-      this.activateStudent();
-    }
-  }
-
-  activateStudent(): void {
     this.isLoading = true;
     this.studentService
-      .patchActiveStatus(this.student.id, true)
-      .pipe(finalize(() => this.isLoading = false))
-      .subscribe(() => this.updatedStudentEmitter.emit());
-  }
-
-  inactivateStudent(): void {
-    this.isLoading = true;
-    this.studentService
-      .patchActiveStatus(this.student.id, false)
+      .patchActiveStatus(this.student.id, !this.student.active)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe(() => this.updatedStudentEmitter.emit());
   }
