@@ -24,9 +24,13 @@
                 <span class="material-symbols-rounded secondary-icon">edit</span>
                 <p class="body-text secondary-text">Editar</p>
             </li>
-            <li>
-                <span class="material-symbols-rounded secondary-icon">archive</span>
-                <p class="body-text secondary-text">Tornar inativo</p>
+            <li (click)="changeStudentActiveStatus()">
+                <span class="material-symbols-rounded secondary-icon">
+                    {{ student.active ? "archive" : "unarchive"}}
+                </span>
+                <p class="body-text secondary-text">
+                    {{ student.active ? "Desativar" : "Ativar"}}
+                </p>
             </li>
         </ul>
     </div>

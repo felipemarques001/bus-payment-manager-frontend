@@ -35,31 +35,4 @@
         height: 24px;
         border-radius: 50%;
     }
-
-    .skeleton {
-        background-color: $terciary-bg-color;
-        border-radius: 4px;
-        position: relative;
-        overflow: hidden;
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150px;
-            height: 100%;
-            width: 150px;
-            background: linear-gradient(to right,
-                    transparent 0%,
-                    rgba(255, 255, 255, 0.2) 50%,
-                    transparent 100%);
-            animation: shimmer 1.5s infinite;
-        }
-    }
-}
-
-@keyframes shimmer {
-    100% {
-        transform: translateX(100%);
-    }
 }
