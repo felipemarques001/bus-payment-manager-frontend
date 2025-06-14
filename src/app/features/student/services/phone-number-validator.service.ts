@@ -1,8 +1,8 @@
-import { StudentService } from "./student.service";
-import { inject, Injectable } from "@angular/core";
-import { catchError, map, Observable, of } from "rxjs";
-import { AbstractControl, AsyncValidatorFn, ValidationErrors } from "@angular/forms";
-import { Student } from "../models/student.interface";
+import { Student } from '../models/student.interface';
+import { StudentService } from '../../../core/services/student.service';
+import { inject, Injectable } from '@angular/core';
+import { catchError, map, Observable, of } from 'rxjs';
+import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
