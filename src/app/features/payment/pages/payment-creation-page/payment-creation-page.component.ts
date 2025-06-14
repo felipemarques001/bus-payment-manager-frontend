@@ -1,18 +1,24 @@
-import { Component, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { StudentService } from '../../../../core/services/student.service';
 import { finalize } from 'rxjs';
-import { PaymentDateValidatorService } from '../../services/payment-date-validator.service';
-import { NgxMaskDirective } from 'ngx-mask';
-import { StudentSummaryCardComponent } from '../../components/student-summary-card/student-summary-card.component';
-import { StudentSummary } from '../../models/student-summary.interface';
-import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
-import { AmountValidatorService } from '../../services/amount-validator.service';
-import { PaymentRequest } from '../../models/payment-request.interface';
-import { FinancialHelpRequest } from '../../models/financial-help-request.interface';
 import { ToastrService } from 'ngx-toastr';
 import { PaymentService } from '../../services/payment.service';
+import { StudentService } from '../../../../core/services/student.service';
+import { StudentSummary } from '../../models/student-summary.interface';
+import { PaymentRequest } from '../../models/payment-request.interface';
+import { NgxMaskDirective } from 'ngx-mask';
+import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
+import { inject, Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { AmountValidatorService } from '../../services/amount-validator.service';
+import { FinancialHelpRequest } from '../../models/financial-help-request.interface';
+import { PaymentDateValidatorService } from '../../services/payment-date-validator.service';
+import { StudentSummaryCardComponent } from '../../components/student-summary-card/student-summary-card.component';
+import { 
+  FormArray,
+  Validators,
+  FormBuilder,
+  FormControl, 
+  ReactiveFormsModule, 
+} from '@angular/forms';
 
 @Component({
   selector: 'app-payment-creation-page',
