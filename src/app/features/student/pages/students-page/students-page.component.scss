@@ -59,6 +59,7 @@ main {
 
                 &:has(input:checked) {
                     border: 1px solid $action-primary-bg-color;
+                    background-color: $secondary-bg-color;
                 }
 
                 input {
