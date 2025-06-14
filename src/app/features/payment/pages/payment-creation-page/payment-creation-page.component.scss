@@ -1,0 +1,278 @@
+@use "../../../../../styles/variables.scss" as *;
+
+$gap-between-inputs: 8px;
+$gap-between-sections: 28px;
+
+header {
+    display: flex;
+    align-items: center;
+
+    #backBtn {
+        padding: 4px;
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        text-decoration: none;
+        transition: $hover-transition;
+
+        &:hover {
+            background-color: $terciary-bg-color;
+        }
+    }
+
+    h1 {
+        margin: auto;
+    }
+}
+
+main {
+    padding-bottom: 60px;
+
+    display: flex;
+    flex-direction: column;
+    gap: $gap-between-sections;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: $gap-between-sections;
+
+        section {
+            display: flex;
+            flex-direction: column;
+            gap: $gap-between-inputs;
+
+            .input-container {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+        }
+
+        #initialDataContainer {
+            .initial-data-row {
+                display: flex;
+                gap: $gap-between-inputs;
+
+                div {
+                    flex: 1;
+                }
+
+                #filterMonthContainer {
+                    position: relative;
+
+                    div {
+                        width: 100%;
+
+                        button {
+                            padding: 4px 8px;
+
+                            flex: 1;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+
+                            #chevron {
+                                transition: $open-close-transition;
+
+                                &.options-opened {
+                                    transform: rotate(-0.5turn);
+                                }
+                            }
+                        }
+                    }
+
+                    ul {
+                        width: 100%;
+                        padding: 8px 4px;
+                        margin-top: 4px;
+                        border: $default-border;
+                        border-radius: $container-border-radius;
+
+                        display: flex;
+                        flex-direction: column;
+                        gap: 4px;
+
+                        background-color: $primary-bg-color;
+
+                        position: absolute;
+                        z-index: 2;
+
+                        opacity: 0;
+                        visibility: hidden;
+                        transition: $open-close-transition;
+                        transform: translateY(-10px);
+
+                        &.open {
+                            opacity: 1;
+                            visibility: visible;
+                            transform: translateY(0);
+                        }
+
+                        li {
+                            width: 100%;
+                            padding: 4px 8px;
+                            border-radius: 4px;
+
+                            display: flex;
+                            align-items: center;
+
+                            position: relative;
+                            transition: $hover-transition;
+
+                            &:hover {
+                                background-color: $terciary-bg-color;
+                            }
+
+                            input {
+                                all: unset;
+
+                                position: absolute;
+                                inset: 0;
+
+                                cursor: pointer;
+                            }
+
+                            .check-icon {
+                                margin-left: auto;
+                                display: none;
+                            }
+
+                            &:has(input:checked) {
+                                background-color: $terciary-bg-color;
+
+                                .check-icon {
+                                    display: block;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        #financialHelpsContainer {
+            #emptyFinancialHelpsText {
+                margin-top: 8px;
+            }
+
+            .financial-help-row {
+                display: flex;
+                align-items: start;
+                gap: $gap-between-inputs;
+
+                .name-input-container {
+                    flex: 3;
+                }
+
+                .amount-input-container {
+                    flex: 2;
+                }
+
+                input {
+                    width: 100%;
+                }
+
+                button {
+                    height: 31px;
+                    margin-top: 25px;
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+
+            #addFinancialHelpBtn {  
+                margin-top: 8px;
+                max-width: 420px;
+            }
+        }
+    }
+
+    #studentsContainer {
+        p {
+            margin-bottom: 8px;
+        }
+
+        #cardsContainer {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 8px;
+        }
+    }
+}
+
+footer {
+    padding: 16px 8px;
+    border-top: $default-border;
+    background-color: $primary-bg-color;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $gap-between-inputs;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    button {
+        flex: 1;
+        max-width: 240px;
+    }
+}
+
+@media (min-width: $tablet-screen) {
+    header {
+        #backBtn {
+            display: none;
+        }
+
+        h1 {
+            margin: 0;
+        }
+    }
+}
+
+@media (min-width: $notebook-screen) {
+    main {
+        padding-bottom: 80px;
+        gap: 0;
+
+        form {
+            flex-direction: row;
+            gap: 0;
+
+            .input-action {
+                height: 35px;
+                margin-top: 29px;
+            }
+
+            section {
+                width: 50%;
+            }
+
+            #initialDataContainer {
+                padding-right: 4%;
+                padding-bottom: $gap-between-sections;
+            }
+
+            #financialHelpsContainer {
+                padding-left: 4%;
+                border-left: $card-border;
+
+                .financial-help-row {
+                    button {
+                        height: 35px;
+                        margin-top: 29px;
+                    }
+                }
+            }
+        }
+    }
+}

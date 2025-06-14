@@ -1,0 +1,18 @@
+<div id="cardContainer" [class.unchecked]="!isStudentInPayment">
+    <div>
+        <p class="body-text primary-text">{{ student.name }}</p>
+        <p class="small-body-text secondary-text">{{ student.phoneNumber | phoneNumber }}</p>
+    </div>
+
+    <div id="actionsBtns">
+        @if (isStudentInPayment) {
+            <button id="removeBtn" (click)="removeStudentFromPayment()">
+                <span class="material-symbols-rounded primary-icon">remove</span>
+            </button>
+        } @else {
+            <button id="addBtn" (click)="addStudentToPayment()">
+                <span class="material-symbols-rounded primary-icon">add</span>
+            </button>
+        }
+    </div>
+</div>

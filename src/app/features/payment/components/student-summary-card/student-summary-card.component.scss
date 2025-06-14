@@ -1,0 +1,49 @@
+@use "../../../../../styles/variables.scss" as *;
+
+#cardContainer {
+    padding: 4px 8px;
+    border: $card-border;
+    border-radius: $container-border-radius;
+
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+
+    &.unchecked {
+        p {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+    }
+
+    #actionsBtns {
+        button {
+            padding: 2px;
+            border: $default-border;
+            border-radius: 50%;
+
+            background-color: transparent;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+            transition: 200ms ease-in;
+        }
+
+        #removeBtn {
+            &:hover {
+                border: 1px solid $delete-action-color;
+                background-color: $delete-action-color;
+            }
+        }
+
+        #addBtn {
+            &:hover {
+                border: 1px solid $action-primary-bg-color;
+                background-color: $action-primary-bg-color;
+            }
+        }
+    }
+}

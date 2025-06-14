@@ -1,0 +1,213 @@
+<div class="page-container">
+    <header>
+        <a id="backBtn" routerLink="/payments">
+            <span class="material-symbols-rounded secondary-icon">arrow_back</span>
+        </a>
+        <h1 class="title-text primary-text">Novo pagamento</h1>
+    </header>
+
+    <main>
+        <form [formGroup]="paymentFormGroup">
+            <section id="initialDataContainer">
+                <div>
+                    <h2 class="subtitle-text primary-text">Dados Essenciais</h2>
+                    <p class="body-text secondary-text">Dados essenciais para gerar o pagamento</p>
+                </div>
+
+                <div class="input-container">
+                    <label 
+                        for="totalAmount"
+                        class="input-field-label body-text secondary-text" 
+                    >
+                        Valor total:
+                    </label>
+                    <input 
+                        id="totalAmount" 
+                        class="input-field body-text primary-text" 
+                        type="text"
+                        placeholder="R$ 20.000" 
+                        formControlName="totalAmount" 
+                        prefix="R$ " 
+                        mask="separator.2"
+                        decimalMarker="," 
+                        thousandSeparator="."
+                    >
+                    @if (totalAmountControl.errors?.['required'] && totalAmountControl.touched) {
+                        <p class="invalid-input-message small-body-text">Campo obrigatório</p>
+                    }
+                    @if (totalAmountControl.errors?.['lessThanOne'] && totalAmountControl.dirty) {
+                        <p class="invalid-input-message small-body-text">Valor precisa ser maior que R$ 1,00</p>
+                    }
+                </div>
+
+                <div class="initial-data-row">
+                    <div id="filterMonthContainer">
+                        <div class="input-container">
+                            <p class="body-text secondary-text">Mês:</p>
+                            <button 
+                                type="button" 
+                                class="secondary-action-btn opacity-hover"
+                                (click)="toggleIsMonthsOptionsOpened()"
+                            >
+                                <span class="body-text primary-text">{{ monthControl.value }}</span>
+                                <span 
+                                    id="chevron" 
+                                    class="material-symbols-rounded primary-icon"
+                                    [class.options-opened]="isMonthsOptionsOpened"
+                                >
+                                    keyboard_arrow_down
+                                </span>
+                            </button>
+                        </div>
+
+                        <ul [class.open]="isMonthsOptionsOpened">
+                            @for (month of monthsOptions; track $index) {
+                                <li>
+                                    <input 
+                                        type="radio" 
+                                        name="month" 
+                                        formControlName="month" 
+                                        [value]="month"
+                                        (click)="toggleIsMonthsOptionsOpened()"
+                                    >
+                                    <p class="body-text primary-text">{{ month }}</p>
+                                    <span class="material-symbols-rounded primary-icon check-icon">check</span>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <div class="input-container">
+                        <label class="input-field-label body-text secondary-text" for="year">Ano:</label>
+                        <input 
+                            id="year" 
+                            class="input-field body-text primary-text" 
+                            type="text"
+                            mask="0000"
+                            formControlName="year" 
+                            [readOnly]="isLoading"
+                        >
+                        @if (yearControl.errors?.['required'] && yearControl.touched) {
+                            <p class="invalid-input-message small-body-text">Campo obrigatório</p>
+                        }
+                        @if (yearControl.errors?.['invalid'] && yearControl.dirty) {
+                            <p class="invalid-input-message small-body-text">O ano deve ter 4 dígitos</p>
+                        }
+                    </div>
+                </div>
+            </section>
+
+            <section id="financialHelpsContainer" formArrayName="financialHelps">
+                <div>
+                    <h2 class="subtitle-text primary-text">Auxílios Financeiros</h2>
+                    <p class="body-text secondary-text">Auxílios externos associados ao pagamento</p>
+                    @if (financialHelps.controls.length === 0) {
+                        <p id="emptyFinancialHelpsText" class="body-text secondary-text">Sem auxílios financeiros no momento...</p>
+                    }
+                </div>
+                
+                @for (financialHelp of financialHelps.controls; track financialHelp; let index = $index) {
+                    <div class="financial-help-row" [formGroupName]="index">
+                        <div class="name-input-container input-container">
+                            <label 
+                                [for]="`name${index}`"
+                                class="input-field-label body-text secondary-text" 
+                            >
+                                Nome:
+                            </label>
+                            <input 
+                                [id]="`name${index}`" 
+                                class="input-field body-text primary-text" 
+                                type="text"
+                                formControlName="name"
+                            >
+                            @if (financialHelp.get('name')?.errors?.['required'] && financialHelp.get('name')?.touched) {
+                                <p class="invalid-input-message small-body-text">Campo obrigatório</p>
+                            }
+                        </div>
+
+                        <div class="amount-input-container input-container">
+                            <label 
+                                class="input-field-label body-text secondary-text"
+                                [for]="`amount${index}`"
+                            >
+                                Valor:
+                            </label>
+                            <input 
+                                [id]="`amount${index}`" 
+                                class="input-field body-text primary-text" 
+                                type="text"
+                                placeholder="R$ 3.000" 
+                                formControlName="amount" 
+                                prefix="R$ " 
+                                mask="separator.2"
+                                decimalMarker="," 
+                                thousandSeparator="."
+                            >
+                            @if (financialHelp.get('amount')?.errors?.['required'] && financialHelp.get('amount')?.touched) {
+                                <p class="invalid-input-message small-body-text">Campo obrigatório</p>
+                            }
+                            @if (financialHelp.get('amount')?.errors?.['lessThanOne'] && financialHelp.get('amount')?.dirty) {
+                                <p class="invalid-input-message small-body-text">Valor precisa ser maior que R$ 1,00</p>
+                            }
+                        </div>
+
+                        <button 
+                            type="button" 
+                            class="delete-action-btn opacity-hover primary-text bold input-action"
+                            (click)="removeFinancialHelp(index)"
+                        >
+                            <span class="material-symbols-rounded primary-icon">delete</span>
+                        </button>
+                    </div>
+                }
+
+                @if (paymentFormGroup.errors?.['financialHelpsExceedTotal']) {
+                    <p class="invalid-input-message small-body-text">A soma dos auxílios financeiros não pode ser maior ou igual ao valor do pagamento</p>
+                }
+
+                <button id="addFinancialHelpBtn" type="button"
+                    class="secondary-action-btn opacity-hover primary-text bold" (click)="addFinancialHelp()">
+                    Adicionar auxílio financeiro
+                </button>
+            </section>
+        </form>
+
+        <section id="studentsContainer">
+            <div>
+                <h2 class="subtitle-text primary-text">Estudantes</h2>
+                <p class="body-text secondary-text">
+                    Quantidade de estudantes associados ao pagamento:
+                    <span class="primary-text">{{ paymentStudentsIds.length }}</span>
+                </p>
+            </div>
+
+            <div id="cardsContainer">
+                @for (student of activeStudents; track $index) {
+                <app-student-summary-card [student]="student" (addStudentToPaymentEmmiter)="addStudentToPayment($event)"
+                    (removeStudentFromPaymentEmmiter)="removeStudentFromPayment($event)" />
+                }
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <button 
+            class="secondary-action-btn opacity-hover body-text primary-text bold" 
+            [disabled]="paymentFormGroup.invalid"
+        >
+            Calcular Valores
+        </button>
+        <button 
+            class="primary-action-btn opacity-hover body-text primary-text bold" 
+            [disabled]="paymentFormGroup.invalid"
+            (click)="createPayment()"
+        >
+            Gerar Pagamento
+        </button>
+    </footer>
+
+    @if (isLoading) {
+        <app-spinner />
+    }
+</div>
