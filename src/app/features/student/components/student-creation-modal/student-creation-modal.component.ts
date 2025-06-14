@@ -1,6 +1,6 @@
 import { finalize } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { StudentService } from '../../services/student.service';
+import { StudentService } from '../../../../core/services/student.service';
 import { StudentRequest } from '../../models/student-request.interface';
 import { NgxMaskDirective } from 'ngx-mask';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';

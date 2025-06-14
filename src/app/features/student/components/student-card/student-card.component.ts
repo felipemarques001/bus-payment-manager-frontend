@@ -1,6 +1,6 @@
 import { Student } from '../../models/student.interface';
 import { finalize } from 'rxjs';
-import { StudentService } from '../../services/student.service';
+import { StudentService } from '../../../../core/services/student.service';
 import { PhoneNumberPipe } from '../../../../shared/pipes/phone-number.pipe';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { StudentUpdateModalComponent } from '../student-update-modal/student-update-modal.component';
