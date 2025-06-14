@@ -82,7 +82,7 @@ body {
 
     &::placeholder {
         color: $secondary-text-color;
-        opacity: $default-opacit;
+        opacity: $default-opacity;
     }
 }
 
@@ -92,7 +92,7 @@ body {
 
 .invalid-input-message {
     padding-left: 4px;
-    color: #d32f2f;
+    color: $delete-action-color;
 }
 
 .primary-action-btn {
@@ -110,7 +110,7 @@ body {
 
     &:disabled {
         cursor: not-allowed;
-        opacity: $default-opacit;
+        opacity: $default-opacity;
     }
 }
 
@@ -125,13 +125,37 @@ body {
     &:focus {
         outline: 1px solid $action-primary-bg-color;
     }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: $default-opacity;
+    }
+}
+
+.delete-action-btn {
+    padding: $button-padding;
+    border: none;
+    border-radius: $button-border-radius;
+
+    background-color: $delete-action-color;
+
+    outline: none;
+
+    &:focus {
+        outline: 1px solid $primary-text-color;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: $default-opacity;
+    }
 }
 
 .opacity-hover {
     cursor: pointer;
 
     &:hover {
-        opacity: $default-opacit;
+        opacity: $default-opacity;
         transition: $hover-transition;
     }
 }
