@@ -1,7 +1,7 @@
 import { Student } from '../../models/student.interface';
 import { finalize } from 'rxjs';
 import { RouterLink } from '@angular/router';
-import { StudentService } from '../../services/student.service';
+import { StudentService } from '../../../../core/services/student.service';
 import { StudentCardComponent } from '../../components/student-card/student-card.component';
 import { StudentFilterComponent } from '../../../../shared/components/student-filter/student-filter.component';
 import { StudentCardSkeletonComponent } from '../../components/student-card-skeleton/student-card-skeleton.component';
