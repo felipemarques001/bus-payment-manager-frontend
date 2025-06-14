@@ -1,10 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Student } from '../models/student.interface';
-import { PageResponse } from '../../../shared/models/page-response.interface';
-import { environment } from '../../../../environments/environment';
-import { StudentRequest } from '../models/student-request.interface';
+import { environment } from '../../../environments/environment';
+import { Student } from '../../features/student/models/student.interface';
+import { PageResponse } from '../../shared/models/page-response.interface';
+import { StudentRequest } from '../../features/student/models/student-request.interface';
+import { StudentsForPayment } from '../../features/payment/models/students-for-payment.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,11 @@ export class StudentService {
       { params: queriesParams },
     );
   }
+
+  getStudentsForPayment(): Observable<StudentsForPayment> {
+    const url = `${this.apiUrl}/for-payment`;
+    return this.http.get<StudentsForPayment>(url);
+  } 
 
   createStudent(student: StudentRequest) {
     return this.http.post(this.apiUrl, student);
