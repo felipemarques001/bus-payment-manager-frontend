@@ -14,16 +14,16 @@
         @if (paymentAmounts$ | async; as paymentAmounts) {
             <ul>
                 <li class="body-text primary-text">
-                    Valor total: <span class="bold">R$ {{ paymentAmounts.totalAmount }}</span>
+                    Valor total: <span class="bold">{{ paymentAmounts.totalAmount | currency }}</span>
                 </li>
                 <li class="body-text primary-text">
-                    Valor a ser pago: <span class="bold">R$ {{ paymentAmounts.amountToBePaid }}</span>
+                    Valor a ser pago: <span class="bold">{{ paymentAmounts.amountToBePaid | currency }}</span>
                 </li>
                 <li class="body-text primary-text">
                     Quantidade de estudantes: <span class="bold">{{ paymentAmounts.studentsQuantity }}</span>
                 </li>
                 <li class="body-text primary-text">
-                    Valor da mensalidade: <span class="bold">R$ {{ paymentAmounts.tuitionAmount }}</span>
+                    Valor da mensalidade: <span class="bold">{{ paymentAmounts.tuitionAmount | currency }}</span>
                 </li>
             </ul>
         } @else {

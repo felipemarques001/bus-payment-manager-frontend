@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { PaymentService } from '../../services/payment.service';
 import { FinancialHelpRequest } from '../../models/financial-help-request.interface';
@@ -16,7 +16,7 @@ import {
 
 @Component({
   selector: 'app-payment-amounts-modal',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, CurrencyPipe],
   templateUrl: './payment-amounts-modal.component.html',
   styleUrl: './payment-amounts-modal.component.scss'
 })
@@ -56,7 +56,7 @@ export class PaymentAmountsModalComponent implements OnInit {
       );
   }
 
-  private handleCalculationErrors(errorMessage: string) {
+  private handleCalculationErrors(errorMessage: string): void {
     this.toastrService.error(errorMessage, '', { progressBar: true });
     this.emitCloseModal();
   }
