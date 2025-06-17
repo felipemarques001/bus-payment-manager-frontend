@@ -1,11 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Student } from '../../features/student/models/student.interface';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { Student } from '../../features/student/models/student.interface';
 import { PageResponse } from '../../shared/models/page-response.interface';
 import { StudentRequest } from '../../features/student/models/student-request.interface';
 import { StudentsForPayment } from '../../features/payment/models/students-for-payment.interface';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
