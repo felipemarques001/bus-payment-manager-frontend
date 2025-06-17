@@ -1,0 +1,38 @@
+<section>
+    <div id="modalContainer">
+        <div id="titleContainer">
+            <h2 class="subtitle-text primary-text">Valores do Pagamento</h2>
+            <button (click)="emitCloseModal()">
+                <span class="material-symbols-rounded primary-icon">close</span>
+            </button>
+        </div>
+
+        <p class="body-text secondary-text">
+            Com base nos dados informados, o seu pagamento terá os seguintes valores:
+        </p>
+
+        @if (paymentAmounts$ | async; as paymentAmounts) {
+            <ul>
+                <li class="body-text primary-text">
+                    Valor total: <span class="bold">R$ {{ paymentAmounts.totalAmount }}</span>
+                </li>
+                <li class="body-text primary-text">
+                    Valor a ser pago: <span class="bold">R$ {{ paymentAmounts.amountToBePaid }}</span>
+                </li>
+                <li class="body-text primary-text">
+                    Quantidade de estudantes: <span class="bold">{{ paymentAmounts.studentsQuantity }}</span>
+                </li>
+                <li class="body-text primary-text">
+                    Valor da mensalidade: <span class="bold">R$ {{ paymentAmounts.tuitionAmount }}</span>
+                </li>
+            </ul>
+        } @else {
+            <div id="skeletonsContainer">
+                <div class="skeleton amount-skeleton"></div>
+                <div class="skeleton amount-skeleton"></div>
+                <div class="skeleton amount-skeleton"></div>
+                <div class="skeleton amount-skeleton"></div>
+            </div>
+        }
+    </div>
+</section>

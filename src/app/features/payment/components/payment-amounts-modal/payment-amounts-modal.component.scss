@@ -1,0 +1,79 @@
+@use "../../../../../styles/variables.scss" as *;
+
+section {
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.8);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    #modalContainer {
+        width: 100%;
+        max-width: 460px;
+        padding: 16px;
+        border: $default-border;
+        border-radius: $container-border-radius;
+
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        background-color: $primary-bg-color;
+
+        #titleContainer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            button {
+                padding: 4px;
+                border-radius: 50%;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: none;
+
+                background-color: transparent;
+
+                cursor: pointer;
+                transition: $open-close-transition;
+
+                &:hover {
+                    background-color: $terciary-bg-color;
+                }
+            }
+        }
+
+        ul {
+            margin-left: 24px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        #skeletonsContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            .amount-skeleton {
+                width: 200px;
+                height: 24px;
+            }
+
+            .amount-skeleton:nth-child(3), .amount-skeleton:nth-child(4) {
+                width: 260px;
+            }
+        }
+    }
+}
