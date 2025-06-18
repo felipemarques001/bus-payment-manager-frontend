@@ -1,4 +1,4 @@
-import { finalize } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { PaymentService } from '../../services/payment.service';
 import { StudentService } from '../../../../core/services/student.service';
@@ -6,34 +6,48 @@ import { StudentSummary } from '../../models/student-summary.interface';
 import { PaymentRequest } from '../../models/payment-request.interface';
 import { NgxMaskDirective } from 'ngx-mask';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
-import { inject, Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { StudentsForPayment } from '../../models/students-for-payment.interface';
 import { AmountValidatorService } from '../../services/amount-validator.service';
 import { FinancialHelpRequest } from '../../models/financial-help-request.interface';
 import { PaymentDateValidatorService } from '../../services/payment-date-validator.service';
 import { StudentSummaryCardComponent } from '../../components/student-summary-card/student-summary-card.component';
+import { PaymentAmountsModalComponent } from '../../components/payment-amounts-modal/payment-amounts-modal.component';
+import { inject, Component, Renderer2 } from '@angular/core';
+import { StudentSummaryCardSkeletonComponent } from '../../components/student-summary-card-skeleton/student-summary-card-skeleton.component';
 import { 
+  of,
+  map, 
+  finalize, 
+  Observable, 
+  catchError, 
+} from 'rxjs';
+import {
   FormArray,
   Validators,
   FormBuilder,
-  FormControl, 
-  ReactiveFormsModule, 
+  FormControl,
+  ReactiveFormsModule,
 } from '@angular/forms';
 
 @Component({
   selector: 'app-payment-creation-page',
   imports: [
+    AsyncPipe,
     RouterLink,
     SpinnerComponent,
     NgxMaskDirective,
     ReactiveFormsModule,
     StudentSummaryCardComponent,
+    PaymentAmountsModalComponent,
+    StudentSummaryCardSkeletonComponent,
   ],
   templateUrl: './payment-creation-page.component.html',
   styleUrl: './payment-creation-page.component.scss'
 })
 export class PaymentCreationPageComponent {
   private readonly router = inject(Router);
+  private readonly renderer = inject(Renderer2);
   private readonly formBuilder = inject(FormBuilder);
   private readonly toastrService = inject(ToastrService);
   private readonly studentService = inject(StudentService);
@@ -42,9 +56,11 @@ export class PaymentCreationPageComponent {
   private readonly paymentDateValidator = inject(PaymentDateValidatorService);
 
   protected isLoading: boolean = false;
-  protected activeStudents: StudentSummary[] = [];
+  protected activeStudents$ = new Observable<StudentSummary[]>;
   protected isMonthsOptionsOpened: boolean = false;
+  protected isPaymentAmountsModalOpened: boolean = false;
 
+  protected readonly studentCardSkeletonQuantity = Array.from({ length: 30 });
   protected readonly paymentStudentsIds: string[] = [];
   protected readonly monthsOptions = [
     'Janeiro',
@@ -78,17 +94,26 @@ export class PaymentCreationPageComponent {
   }
 
   getActiveStudents(): void {
-    this.isLoading = true;
-    this.studentService.getStudentsForPayment()
-      .pipe(finalize(() => this.isLoading = false))
-      .subscribe((response) => {
-        this.activeStudents = response.students;
-        response.students.map((student) => this.paymentStudentsIds.push(student.id));
-        this.initPaymentForm();
-      });
+    this.activeStudents$ = this.studentService.getStudentsForPayment()
+      .pipe(
+        map((response: StudentsForPayment) => {
+          response.students.map(
+            (student: StudentSummary) => this.paymentStudentsIds.push(student.id)
+          );
+          return response.students;
+        }),
+
+        finalize(() => this.initPaymentFormValues()),
+
+        catchError((_) => {
+          this.toastrService.error('Erro durante o carregamento dos estudantes');
+          this.router.navigate(['/']);
+          return of();
+        }),
+      );
   }
 
-  initPaymentForm(): void {
+  initPaymentFormValues(): void {
     const actualYear = new Date().getFullYear().toString();
     const actualMonthIndex = new Date().getMonth();
 
@@ -146,7 +171,17 @@ export class PaymentCreationPageComponent {
       .subscribe(() => this.toastrService.success('Pagamento criado com sucesso!'));
   }
 
-  private generateFinancialHelpsRequestList() {
+  openPaymentAmountsModal(): void {
+    this.isPaymentAmountsModalOpened = true;
+    this.renderer.addClass(document.body, 'overflow-hidden');
+  }
+
+  closePaymentAmountsModal(): void {
+    this.isPaymentAmountsModalOpened = false;
+    this.renderer.removeClass(document.body, 'overflow-hidden');
+  }
+
+  generateFinancialHelpsRequestList() {
     const financialHelpsList: FinancialHelpRequest[] = [];
 
     this.financialHelps.controls.forEach((financialHelp) => {

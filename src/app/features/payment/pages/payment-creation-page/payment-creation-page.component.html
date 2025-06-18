@@ -183,9 +183,18 @@
             </div>
 
             <div id="cardsContainer">
-                @for (student of activeStudents; track $index) {
-                <app-student-summary-card [student]="student" (addStudentToPaymentEmmiter)="addStudentToPayment($event)"
-                    (removeStudentFromPaymentEmmiter)="removeStudentFromPayment($event)" />
+                @if (activeStudents$ | async; as activeStudents) {
+                    @for (student of activeStudents; track $index) {
+                        <app-student-summary-card 
+                            [student]="student" 
+                            (addStudentToPaymentEmmiter)="addStudentToPayment($event)"
+                            (removeStudentFromPaymentEmmiter)="removeStudentFromPayment($event)"
+                        />
+                    }
+                } @else {
+                    @for (i of studentCardSkeletonQuantity; track $index) { 
+                        <app-student-summary-card-skeleton />
+                    }
                 }
             </div>
         </section>
@@ -195,6 +204,7 @@
         <button 
             class="secondary-action-btn opacity-hover body-text primary-text bold" 
             [disabled]="paymentFormGroup.invalid"
+            (click)="openPaymentAmountsModal()"
         >
             Calcular Valores
         </button>
@@ -206,6 +216,15 @@
             Gerar Pagamento
         </button>
     </footer>
+
+    @if (isPaymentAmountsModalOpened) {
+        <app-payment-amounts-modal 
+            [totalAmount]="totalAmountControl.value"
+            [studentsQuantity]="paymentStudentsIds.length"
+            [financialHelps]="generateFinancialHelpsRequestList()"
+            (closeModalEmitter)="closePaymentAmountsModal()" 
+        />
+    }
 
     @if (isLoading) {
         <app-spinner />
