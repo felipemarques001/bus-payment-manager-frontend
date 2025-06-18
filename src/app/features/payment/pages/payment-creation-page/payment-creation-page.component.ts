@@ -108,8 +108,8 @@ export class PaymentCreationPageComponent {
 
         finalize(() => this.initPaymentFormValues()),
 
-        catchError((_) => {
-          this.toastrService.error('Erro durante o carregamento dos estudantes');
+        catchError((errorMessage: string) => {
+          this.toastrService.error(errorMessage);
           this.router.navigate(['/']);
           return of();
         }),
