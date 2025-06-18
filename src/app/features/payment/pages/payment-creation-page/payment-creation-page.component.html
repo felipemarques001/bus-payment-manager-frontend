@@ -1,10 +1,5 @@
 <div class="page-container">
-    <header>
-        <a id="backBtn" routerLink="/payments">
-            <span class="material-symbols-rounded secondary-icon">arrow_back</span>
-        </a>
-        <h1 class="title-text primary-text">Novo pagamento</h1>
-    </header>
+    <app-page-header backRouterLink="/home" title="Novo Pagamento" />
 
     <main>
         <form [formGroup]="paymentFormGroup">
@@ -20,7 +15,7 @@
                         class="input-field-label body-text secondary-text" 
                     >
                         Valor total:
-                    </label>
+                    </label> 
                     <input 
                         id="totalAmount" 
                         class="input-field body-text primary-text" 

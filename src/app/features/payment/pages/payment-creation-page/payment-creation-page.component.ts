@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { PaymentService } from '../../services/payment.service';
@@ -6,8 +7,8 @@ import { StudentSummary } from '../../models/student-summary.interface';
 import { PaymentRequest } from '../../models/payment-request.interface';
 import { NgxMaskDirective } from 'ngx-mask';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
-import { Router, RouterLink } from '@angular/router';
 import { StudentsForPayment } from '../../models/students-for-payment.interface';
+import { PageHeaderComponent } from '../../../../shared/components/default-page-header/page-header.component';
 import { AmountValidatorService } from '../../services/amount-validator.service';
 import { FinancialHelpRequest } from '../../models/financial-help-request.interface';
 import { PaymentDateValidatorService } from '../../services/payment-date-validator.service';
@@ -34,10 +35,10 @@ import {
   selector: 'app-payment-creation-page',
   imports: [
     AsyncPipe,
-    RouterLink,
     SpinnerComponent,
     NgxMaskDirective,
     ReactiveFormsModule,
+    PageHeaderComponent,
     StudentSummaryCardComponent,
     PaymentAmountsModalComponent,
     StudentSummaryCardSkeletonComponent,

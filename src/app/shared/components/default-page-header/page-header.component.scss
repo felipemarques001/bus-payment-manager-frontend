@@ -1,0 +1,38 @@
+@use "../../../../styles/variables.scss" as *;
+
+header {
+    display: flex;
+    align-items: center;
+
+    #backBtn {
+        padding: 4px;
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        text-decoration: none;
+        transition: $hover-transition;
+
+        &:hover {
+            background-color: $terciary-bg-color;
+        }
+    }
+
+    h1 {
+        margin: auto;
+    }
+}
+
+@media (min-width: $tablet-screen) {
+    header {
+        #backBtn {
+            display: none;
+        }
+
+        h1 {
+            margin: 0;
+        }
+    }
+}

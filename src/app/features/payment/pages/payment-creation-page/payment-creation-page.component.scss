@@ -3,31 +3,6 @@
 $gap-between-inputs: 8px;
 $gap-between-sections: 28px;
 
-header {
-    display: flex;
-    align-items: center;
-
-    #backBtn {
-        padding: 4px;
-        border-radius: 50%;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        text-decoration: none;
-        transition: $hover-transition;
-
-        &:hover {
-            background-color: $terciary-bg-color;
-        }
-    }
-
-    h1 {
-        margin: auto;
-    }
-}
-
 main {
     padding-bottom: 60px;
 
@@ -74,6 +49,8 @@ main {
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
+
+                            background-color: $secondary-bg-color;
 
                             #chevron {
                                 transition: $open-close-transition;
@@ -224,18 +201,6 @@ footer {
     button {
         flex: 1;
         max-width: 240px;
-    }
-}
-
-@media (min-width: $tablet-screen) {
-    header {
-        #backBtn {
-            display: none;
-        }
-
-        h1 {
-            margin: 0;
-        }
     }
 }
 
