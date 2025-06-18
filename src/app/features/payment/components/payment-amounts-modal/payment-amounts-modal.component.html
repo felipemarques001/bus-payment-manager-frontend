@@ -1,5 +1,5 @@
-<section>
-    <div id="modalContainer">
+<section class="modal-container">
+    <div id="bodyContainer">
         <div id="titleContainer">
             <h2 class="subtitle-text primary-text">Valores do Pagamento</h2>
             <button (click)="emitCloseModal()">
@@ -28,10 +28,10 @@
             </ul>
         } @else {
             <div id="skeletonsContainer">
-                <div class="skeleton amount-skeleton"></div>
-                <div class="skeleton amount-skeleton"></div>
-                <div class="skeleton amount-skeleton"></div>
-                <div class="skeleton amount-skeleton"></div>
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
             </div>
         }
     </div>
