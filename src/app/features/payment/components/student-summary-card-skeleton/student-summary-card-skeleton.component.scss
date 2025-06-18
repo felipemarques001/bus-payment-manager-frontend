@@ -1,0 +1,28 @@
+@use "../../../../../styles/variables.scss" as *;
+
+#cardContainer {
+    padding: 4px 8px;
+    border: $card-border;
+    border-radius: $container-border-radius;
+
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .skeleton {
+            width: 200px;
+            height: 18px;
+        }
+    }
+
+    #actionsSkeleton {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+    }
+}
