@@ -14,7 +14,13 @@ export class PaymentService {
     private readonly apiUrl = `${environment.apiBaseUrl}/api/payments`;
 
     createPayment(payment: PaymentRequest) {
-        return this.http.post(this.apiUrl, payment);
+        return this.http.post(this.apiUrl, payment)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    const errorMessage = this.handleCreatePaymentRequestError(error);
+                    return throwError(() => errorMessage);
+                })
+            );
     }
 
     calculateAmounts(request: PaymentAmountsRequest): Observable<PaymentAmountsResponse> {
@@ -32,5 +38,22 @@ export class PaymentService {
         return error.status === 0
             ? 'Erro ao calcular os valores, verifique sua conexão com a internet'
             : 'Serviço indisponível, tente mais tarde';
+    }
+
+    private handleCreatePaymentRequestError(error: HttpErrorResponse): string {
+        let errorMessage = 'Erro ao criar o pagamento, ';
+
+        switch (error.status) {
+            case 0:
+                errorMessage += 'verifique sua conexão com a internet';
+                break;
+            case 500:
+                errorMessage += 'falha interna no servidor, tente novamente mais tarde';
+                break;
+            default:
+                errorMessage += 'falha desconhecida, tente novamente mais tarde';
+        }
+
+        return errorMessage;
     }
 }

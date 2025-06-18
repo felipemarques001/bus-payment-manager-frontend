@@ -176,8 +176,18 @@ export class PaymentCreationPageComponent {
     };
 
     this.paymentService.createPayment(payment)
-      .pipe(finalize(() => this.router.navigate(['/'])))
-      .subscribe(() => this.toastrService.success('Pagamento criado com sucesso!'));
+      .pipe(
+        catchError((errorMessage: string) => {
+          this.toastrService.error(errorMessage);
+          return of();
+        }),
+
+        finalize(() => this.isLoading = false)
+      )
+      .subscribe(() => {
+        this.toastrService.success('Pagamento criado com sucesso!');
+        this.router.navigate(['/']);
+      });
   }
 
   openPaymentAmountsModal(): void {
