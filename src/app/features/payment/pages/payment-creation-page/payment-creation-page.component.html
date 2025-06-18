@@ -195,7 +195,7 @@
         </section>
     </main>
 
-    <footer>
+    <app-page-footer>
         <button 
             class="secondary-action-btn opacity-hover body-text primary-text bold" 
             [disabled]="paymentFormGroup.invalid"
@@ -210,7 +210,7 @@
         >
             Gerar Pagamento
         </button>
-    </footer>
+    </app-page-footer>
 
     @if (isPaymentAmountsModalOpened) {
         <app-payment-amounts-modal 

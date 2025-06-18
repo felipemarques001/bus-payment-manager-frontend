@@ -183,21 +183,7 @@ main {
     }
 }
 
-footer {
-    padding: 16px 8px;
-    border-top: $default-border;
-    background-color: $primary-bg-color;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: $gap-between-inputs;
-
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
+app-page-footer {
     button {
         flex: 1;
         max-width: 240px;

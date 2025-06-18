@@ -8,9 +8,10 @@ import { PaymentRequest } from '../../models/payment-request.interface';
 import { NgxMaskDirective } from 'ngx-mask';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { StudentsForPayment } from '../../models/students-for-payment.interface';
-import { PageHeaderComponent } from '../../../../shared/components/default-page-header/page-header.component';
-import { AmountValidatorService } from '../../services/amount-validator.service';
+import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
+import { PageFooterComponent } from '../../../../shared/components/page-footer/page-footer.component';
 import { FinancialHelpRequest } from '../../models/financial-help-request.interface';
+import { AmountValidatorService } from '../../services/amount-validator.service';
 import { PaymentDateValidatorService } from '../../services/payment-date-validator.service';
 import { StudentSummaryCardComponent } from '../../components/student-summary-card/student-summary-card.component';
 import { PaymentAmountsModalComponent } from '../../components/payment-amounts-modal/payment-amounts-modal.component';
@@ -38,6 +39,7 @@ import {
     SpinnerComponent,
     NgxMaskDirective,
     ReactiveFormsModule,
+    PageFooterComponent,
     PageHeaderComponent,
     StudentSummaryCardComponent,
     PaymentAmountsModalComponent,

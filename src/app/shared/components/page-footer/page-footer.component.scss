@@ -1,0 +1,17 @@
+@use "../../../../styles/variables.scss" as *;
+
+footer {
+    padding: 16px 8px;
+    border-top: $default-border;
+    background-color: $primary-bg-color;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
