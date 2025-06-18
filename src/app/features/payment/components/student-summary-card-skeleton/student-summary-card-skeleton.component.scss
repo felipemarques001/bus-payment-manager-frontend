@@ -15,8 +15,15 @@
         gap: 4px;
 
         .skeleton {
-            width: 200px;
             height: 18px;
+
+            &:nth-child(1) {
+                width: 250px;
+            }
+
+            &:nth-child(2) {
+                width: 200px;
+            }
         }
     }
 
