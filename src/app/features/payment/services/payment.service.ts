@@ -5,12 +5,15 @@ import { PaymentAmountsRequest } from "../models/payment-amounts-request.interfa
 import { PaymentAmountsResponse } from "../models/payment-amounts-response.interface";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { catchError, Observable, throwError } from "rxjs";
+import { GlobalApiErrorHandler } from "../../../core/services/global-api-error-handler.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PaymentService {
     private readonly http = inject(HttpClient);
+    private readonly globalApiErrorHandler = inject(GlobalApiErrorHandler);
+
     private readonly apiUrl = `${environment.apiBaseUrl}/api/payments`;
 
     createPayment(payment: PaymentRequest) {
@@ -41,19 +44,8 @@ export class PaymentService {
     }
 
     private handleCreatePaymentRequestError(error: HttpErrorResponse): string {
-        let errorMessage = 'Erro ao criar o pagamento, ';
-
-        switch (error.status) {
-            case 0:
-                errorMessage += 'verifique sua conexão com a internet';
-                break;
-            case 500:
-                errorMessage += 'falha interna no servidor, tente novamente mais tarde';
-                break;
-            default:
-                errorMessage += 'falha desconhecida, tente novamente mais tarde';
-        }
-
-        return errorMessage;
+        const errorBaseMessage = 'Erro ao criar o pagamento';
+        const errorSpecificMessage = this.globalApiErrorHandler.handleApiRequestError(error);
+        return `${errorBaseMessage}, ${errorSpecificMessage}`;
     }
 }
