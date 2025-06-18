@@ -1,16 +1,19 @@
 import { Student } from '../../features/student/models/student.interface';
-import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { PageResponse } from '../../shared/models/page-response.interface';
 import { StudentRequest } from '../../features/student/models/student-request.interface';
 import { StudentsForPayment } from '../../features/payment/models/students-for-payment.interface';
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { GlobalApiErrorHandler } from './global-api-error-handler.service';
+import { catchError, Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
+  private readonly globalApiErrorHandler = inject(GlobalApiErrorHandler);
+
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.apiBaseUrl}/api/students`;
 
@@ -28,8 +31,14 @@ export class StudentService {
 
   getStudentsForPayment(): Observable<StudentsForPayment> {
     const url = `${this.apiUrl}/for-payment`;
-    return this.http.get<StudentsForPayment>(url);
-  } 
+    return this.http.get<StudentsForPayment>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          const errorMessage = this.handleGetStudentsForPaymentRequestError(error);
+          return throwError(() => errorMessage);
+        })
+      );
+  }
 
   createStudent(student: StudentRequest) {
     return this.http.post(this.apiUrl, student);
@@ -49,5 +58,11 @@ export class StudentService {
   checkPhoneNumberExists(phoneNumber: String) {
     const url = `${this.apiUrl}/check-phone-number/${phoneNumber}`;
     return this.http.get<boolean>(url);
+  }
+
+  private handleGetStudentsForPaymentRequestError(error: HttpErrorResponse): string {
+    const errorBaseMessage = 'Erro ao buscar os estudantes para o pagamento';
+    const errorSpecificMessage = this.globalApiErrorHandler.handleApiRequestError(error);
+    return `${errorBaseMessage}, ${errorSpecificMessage}`;
   }
 }
