@@ -17,12 +17,12 @@ import { StudentSummaryCardComponent } from '../../components/student-summary-ca
 import { PaymentAmountsModalComponent } from '../../components/payment-amounts-modal/payment-amounts-modal.component';
 import { inject, Component, Renderer2 } from '@angular/core';
 import { StudentSummaryCardSkeletonComponent } from '../../components/student-summary-card-skeleton/student-summary-card-skeleton.component';
-import { 
+import {
   of,
-  map, 
-  finalize, 
-  Observable, 
-  catchError, 
+  map,
+  finalize,
+  Observable,
+  catchError,
 } from 'rxjs';
 import {
   FormArray,
@@ -160,7 +160,13 @@ export class PaymentCreationPageComponent {
   createPayment(): void {
     if (this.paymentFormGroup.invalid || this.isLoading) return;
 
+    if (this.paymentStudentsIds.length === 0) {
+      this.toastrService.error('Não é possível gerar o pagamento sem estudantes');
+      return;
+    }
+
     this.isLoading = true;
+
     const payment: PaymentRequest = {
       year: this.yearControl.value,
       month: this.monthControl.value,
@@ -175,6 +181,11 @@ export class PaymentCreationPageComponent {
   }
 
   openPaymentAmountsModal(): void {
+    if (this.paymentStudentsIds.length === 0) {
+      this.toastrService.error('Não é possível calcular o pagamento sem estudantes');
+      return;
+    }
+
     this.isPaymentAmountsModalOpened = true;
     this.renderer.addClass(document.body, 'overflow-hidden');
   }
