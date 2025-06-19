@@ -1,0 +1,31 @@
+<div class="page-container">
+    <app-page-header backRouterLink="/home" title="Pagamentos" />
+
+    <main>
+        <div id="addBtnContainer">
+            <app-button type="primary-btn" iconName="request_page" bodyText="Novo pagamento" />
+        </div>
+
+        <section id="paymentsCardsContainer">
+            @if (paymentSummaries$ | async; as paymentSummaries) {
+                @for (paymentSummary of paymentSummaries; track $index) {
+                    <app-payment-summary-card [paymentSummary]="paymentSummary" />
+                }
+            } @else {
+                @for (_ of paymentSummariesCardSkeletonList; track $index) {
+                    <app-payment-summary-card-skeleton />
+                }
+            }
+        </section>
+    </main>
+
+    <app-page-counter
+        entityName="pagamentos"
+        [isLoading]="isLoading"
+        [pageNumber]="pageNumber + 1"
+        [hasNextPage]="hasNextPage"
+        [totalEntities]="totalPayments"
+        (getNextEntitiesEmitter)="getNextPayments()"
+        (getPreviousEntitiesEmitter)="getPreviousPayments()"
+    />
+</div>
