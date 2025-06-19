@@ -18,7 +18,9 @@ export class PaymentService {
 
     private readonly apiUrl = `${environment.apiBaseUrl}/api/payments`;
 
-    getPaymentSummaries(pageNumber: number, pageSize: number): Observable<PageResponse<PaymentSummary>> {
+    getPaymentSummaries(pageNumber: number): Observable<PageResponse<PaymentSummary>> {
+        const pageSize: number = 24;
+        
         const queriesParams = new HttpParams()
             .set('pageNumber', pageNumber)
             .set('pageSize', pageSize);
