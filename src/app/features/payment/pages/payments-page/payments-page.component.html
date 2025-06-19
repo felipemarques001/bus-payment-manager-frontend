@@ -3,7 +3,12 @@
 
     <main>
         <div id="addBtnContainer">
-            <app-button type="primary-btn" iconName="request_page" bodyText="Novo pagamento" />
+            <app-button 
+                type="primary-btn" 
+                iconName="request_page" 
+                bodyText="Novo pagamento" 
+                (buttonClickedEmitter)="goToPaymentCreationPage()"
+            />
         </div>
 
         <section id="paymentsCardsContainer">
