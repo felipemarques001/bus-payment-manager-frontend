@@ -1,0 +1,55 @@
+@use "../../../../styles/variables.scss" as *;
+
+#entitiesTotalContainer {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+
+    #totalStudentsSkeleton {
+        width: 20px;
+        height: 18px;
+    }
+}
+
+#pageSelectorContainer {
+    height: 28px;
+
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    .page-counter {
+        width: 28px;
+        height: 100%;
+        border: $default-border;
+        border-radius: 8px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #pageNumber {
+        background-color: $action-primary-bg-color;
+        border: none;
+    }
+
+    button {
+        width: 28px;
+        height: 100%;
+        background-color: $primary-bg-color;
+        border: none;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:disabled {
+            cursor: not-allowed;
+
+            span {
+                color: $terciary-bg-color;
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+<app-page-footer>
+         <div id="entitiesTotalContainer">
+            <p class="body-text secondary-text">Quantidade de {{ entityName }}:</p>
+            @if (isLoading) {
+                <div class="skeleton"></div>
+            } @else {
+                <span class="primary-text">{{ totalEntities < 10 ? `0${totalEntities}` : totalEntities }} </span>
+            }
+        </div>
+
+        <div id="pageSelectorContainer">
+            <button 
+                class="opacity-hover" 
+                (click)="getPreviousEntities()"
+                [disabled]="pageNumber === 1 || isLoading"
+            >
+                <span class="material-symbols-rounded primary-icon">chevron_left</span>
+            </button>
+
+            @if (pageNumber !== 1) {
+                <p class="body-text primary-text page-counter">{{ pageNumber - 1 }}</p>
+            }
+
+            <p id="pageNumber" class="body-text primary-text page-counter">
+                {{ pageNumber }}
+            </p>
+
+            <p class="body-text page-counter" [class.primary-text]="hasNextPage" [class.secondary-text]="!hasNextPage">
+                {{ pageNumber + 1 }}
+            </p>
+
+            <button 
+                class="opacity-hover" 
+                (click)="getNextEntities()" 
+                [disabled]="!hasNextPage || isLoading"
+            >
+                <span class="material-symbols-rounded primary-icon">chevron_right</span>
+            </button>
+        </div>
+    </app-page-footer>
