@@ -1,0 +1,7 @@
+<button [class]="type" (click)="emitButtonClicked()">
+    @if (iconName) {
+        <span class="material-symbols-rounded primary-icon">{{ iconName }}</span>
+    }
+
+    <p class="body-text primary-text bold">{{ bodyText }}</p>
+</button>

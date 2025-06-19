@@ -1,0 +1,45 @@
+@use "../../../../styles/variables.scss" as *;
+
+button {
+    width: 100%;
+    padding: $button-padding;
+    border-radius: $button-border-radius;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+        opacity: $default-opacity;
+        transition: $hover-transition;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: $default-opacity;
+    }
+
+    &.primary-btn {
+        border: none;
+
+        background-color: $action-primary-bg-color;
+
+        &:focus {
+            outline: 1px solid $primary-text-color;
+        }
+    }
+
+    &.secondary-btn {
+        border: $default-border;
+
+        background-color: transparent;
+
+        &:focus {
+            outline: 1px solid $action-primary-bg-color;
+        }
+    }
+}
