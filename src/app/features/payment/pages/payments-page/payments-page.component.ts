@@ -42,6 +42,10 @@ export class PaymentsPageComponent implements OnInit {
     this.getPayments();
   }
 
+  goToPaymentCreationPage(): void {
+    this.router.navigate(['/payments/create']);
+  }
+
   getPayments(): void {
     this.isLoading = true;
 
