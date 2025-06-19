@@ -1,0 +1,29 @@
+@use "../../../../../styles/variables.scss" as *;
+
+#cardContainer {
+    padding: 4px 8px;
+    border: $card-border;
+    border-radius: $container-border-radius;
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    gap: 4px;
+
+    #dateSkeleton {
+        width: 300px;
+        height: 18px;
+    }
+
+    #amountsSkeleton {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .skeleton {
+            width: 250px;
+            height: 18px;
+        }
+    }
+}

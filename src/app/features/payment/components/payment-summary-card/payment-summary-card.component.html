@@ -1,0 +1,16 @@
+<div id="cardContainer">
+    <div id="dateContainer">
+        <p class="body-text primary-text bold">{{ paymentSummary?.month }}</p>
+        <p class="body-text primary-text bold">-</p>
+        <p class="body-text primary-text bold">{{ paymentSummary?.year }}</p>
+    </div>
+
+    <div>
+        <p class="small-body-text secondary-text">
+            Valor da mensalidade: <span class="primary-text bold">{{ paymentSummary?.tuitionAmount | currency }}</span>
+        </p>
+        <p class="small-body-text secondary-text">
+            Valor total do pagamento: <span class="primary-text bold">{{ paymentSummary?.totalAmount | currency }}</span>
+        </p>
+    </div>
+</div>
