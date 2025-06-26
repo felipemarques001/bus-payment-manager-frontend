@@ -1,0 +1,45 @@
+@use "../../../../../styles/variables.scss" as *;
+
+#card {
+    min-height: 107px;
+    padding: 4px 8px;
+    border: $card-border;
+    border-radius: $container-border-radius;
+
+    .skeleton {
+        width: 200px;
+        height: 16px;
+    }
+
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .skeleton:nth-child(1) {
+            width: 250px;
+        }
+    }
+
+    #status {
+        width: 100%;
+        margin-top: 8px;
+        border-top: $default-border;
+
+        .skeleton {
+            margin-top: 8px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}
+
+@media (min-width: $notebook-screen) {
+    #card {
+        min-height: 121px;
+
+        .skeleton {
+            height: 20px;
+        }
+    }
+}

@@ -1,0 +1,54 @@
+@if (!isLoading) {
+    <div id="card">
+        <p class="body-text primary-text">{{ student.name }}</p>
+        <p class="small-body-text secondary-text">{{ student.major + ' - ' + student.college }}</p>
+        <p class="small-body-text secondary-text">{{ student.phoneNumber | phoneNumber }}</p>
+
+        <div id="payment-data">
+            <div id="status-toggle" (click)="toggleIsDetailsOpened()">
+                <p class="body-text primary-text">Status:</p>
+                @if (tuition.isPaid) {
+                    <p class="body-text paid-text">Paga</p>
+                } @else {
+                    <p class="body-text pending-text">Pendente</p>
+                }
+                <span 
+                    class="material-symbols-rounded primary-icon" 
+                    [class.details-opened]="isDetailsOpened"
+                >
+                    keyboard_arrow_down
+                </span>
+            </div>
+
+            <div id="payment-details" [@openClosePaymentDetails]="isDetailsOpened ? 'open' : 'closed'">
+                @if (tuition.isPaid) {
+                    <div id="payment-paid-details">
+                        <div>
+                            <p class="small-body-text secondary-text">Formato:</p>
+                            <p class="body-text primary-text">{{ paymentFormat }}</p>
+                        </div>
+                        
+                        <div>
+                            <p class="small-body-text secondary-text">Paga em:</p>
+                            <p class="body-text primary-text">{{ paymentDate }}</p>
+                        </div>
+                        
+                        <app-button type="delete-btn" bodyText="Cancelar" (buttonClickedEmitter)="updateTuitionToNotPaid()"/>
+                    </div>
+                } @else {
+                    <div id="payment-not-paid-details">
+                        <app-select
+                            labelText="Formato" 
+                            [options]="paymentOptionsLabels" 
+                            (selectedOptionIndexEmitter)="updatePaymentOption($event)" 
+                        />
+
+                        <app-button type="primary-btn" bodyText="Pagar" (buttonClickedEmitter)="updateTuitionToPaid()" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+} @else {
+    <app-tuition-card-skeleton />
+}

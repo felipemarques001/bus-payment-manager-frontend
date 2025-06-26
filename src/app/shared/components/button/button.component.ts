@@ -9,7 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ButtonComponent {
   @Input() iconName: string | null = null;
   @Input({ required: true }) bodyText: string = '';
-  @Input({ required: true }) type: 'primary-btn' | 'secondary-btn' = 'secondary-btn';
+  @Input({ required: true }) type: 'primary-btn' | 'secondary-btn' | 'delete-btn' = 'secondary-btn';
  
   @Output() private readonly buttonClickedEmitter = new EventEmitter<void>();
 

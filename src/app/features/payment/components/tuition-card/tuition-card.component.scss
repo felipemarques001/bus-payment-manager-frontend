@@ -1,0 +1,98 @@
+@use "../../../../../styles/variables.scss" as *;
+
+#card {
+    padding: 4px 8px;
+    border: $card-border;
+    border-radius: $container-border-radius;
+
+    #payment-data {
+        margin-top: 8px;
+        border-top: $default-border;
+
+        #status-toggle {
+            padding: 4px 0 0 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+
+            cursor: pointer;
+            transition: $hover-transition;
+
+            &:hover {
+                background-color: $terciary-bg-color;
+            }
+
+            p:nth-child(1) {
+                margin-right: 2px;
+            }
+
+            .paid-text {
+                color: #16A34A;
+            }
+
+            .pending-text {
+                color: $delete-action-color;
+            }
+
+            span {
+                transition: $open-close-transition;
+
+                &.details-opened {
+                    transform: rotate(-0.5turn);
+                }
+            }
+        }
+
+        #payment-details {
+            background-color: $primary-bg-color;
+
+            #payment-paid-details,
+            #payment-not-paid-details {
+                display: flex;
+                align-items: end;
+                justify-content: space-between;
+                gap: 12px;
+            }
+
+            #payment-paid-details {
+                >div:nth-child(1) {
+                    flex: 1;
+                }
+
+                >div:nth-child(2) {
+                    flex: 3;
+                }
+
+                app-button {
+                    min-width: 100px;
+                }
+            }
+
+            #payment-not-paid-details {
+                app-select {
+                    flex: 1;
+                }
+
+                app-button {
+                    flex: 1;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: $notebook-screen) {
+    #card {
+        #payment-data {
+            #payment-details {
+                #payment-paid-details {
+                    app-button {
+                        flex: 2;
+                    }
+                }
+            }
+        }
+    }
+}

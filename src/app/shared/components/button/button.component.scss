@@ -2,6 +2,7 @@
 
 button {
     width: 100%;
+    min-height: $mobile-button-input-min-height;
     padding: $button-padding;
     border-radius: $button-border-radius;
 
@@ -41,5 +42,21 @@ button {
         &:focus {
             outline: 1px solid $action-primary-bg-color;
         }
+    }
+
+    &.delete-btn {
+        border: none;
+
+        background-color: $delete-action-color;
+
+        &:focus {
+            outline: 1px solid $primary-text-color;
+        }
+    }
+}
+
+@media (min-width: $notebook-screen) {
+    button {
+        min-height: $notebook-button-input-min-height;
     }
 }
