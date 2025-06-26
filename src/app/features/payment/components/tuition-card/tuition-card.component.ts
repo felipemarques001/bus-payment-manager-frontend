@@ -111,7 +111,7 @@ export class TuitionCardComponent {
         timeStyle: 'short',
       }).format(paymentDate);
 
-      return formatedPaymentDate.replace(',', ' às').concat('hr');
+      return formatedPaymentDate.replace(',', ' -').concat('h');
     }
 
     return 'Não há data de pagamento definida';
