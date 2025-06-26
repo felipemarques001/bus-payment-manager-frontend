@@ -1,0 +1,105 @@
+@use "../../../../styles/variables.scss" as *;
+
+#mainContainer {
+    width: 100%;
+
+    position: relative;
+
+    #buttonContainer {
+        width: 100%;
+
+        button {
+            min-height: $mobile-button-input-min-height;
+            padding: $input-padding;
+            width: 100%;
+
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background-color: $secondary-bg-color;
+
+            #chevron {
+                transition: $open-close-transition;
+
+                &.options-opened {
+                    transform: rotate(-0.5turn);
+                }
+            }
+        }
+    }
+
+    ul {
+        width: 100%;
+        padding: 8px 4px;
+        margin-top: 4px;
+        border: $default-border;
+        border-radius: $container-border-radius;
+
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        background-color: $primary-bg-color;
+
+        position: absolute;
+        z-index: 2;
+
+        opacity: 0;
+        visibility: hidden;
+        transition: $open-close-transition;
+        transform: translateY(-10px);
+
+        &.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        li {
+            width: 100%;
+            padding: 4px 8px;
+            border-radius: 4px;
+
+            display: flex;
+            align-items: center;
+
+            position: relative;
+            transition: $hover-transition;
+
+            cursor: pointer;
+
+            .check-icon {
+                margin-left: auto;
+                display: none;
+            }
+
+            &:hover {
+                background-color: $terciary-bg-color;
+            }
+
+            &.selected {
+                background-color: $terciary-bg-color;
+
+                .check-icon {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: $notebook-screen) {
+    #mainContainer {
+        position: relative;
+
+        #buttonContainer {
+            width: 100%;
+
+            button {
+                min-height: $notebook-button-input-min-height;
+            }
+        }
+    }
+}

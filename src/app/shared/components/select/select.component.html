@@ -1,0 +1,31 @@
+<div id="mainContainer">
+    <div id="buttonContainer">
+        <p class="small-body-text secondary-text">{{ labelText + ':' }}</p>
+        <button 
+            type="button" 
+            class="secondary-action-btn opacity-hover body-text primary-text" 
+            (click)="toggleIsOptionsOpened()"
+        >
+            {{ optionSelected }}
+            <span 
+                id="chevron" 
+                class="material-symbols-rounded primary-icon"
+                [class.options-opened]="isOptionsOpened"
+            >
+                keyboard_arrow_down
+            </span>
+        </button>
+    </div>
+
+    <ul [class.open]="isOptionsOpened">
+        @for (option of options; track $index) {
+            <li 
+                [class.selected]="optionSelected === option"
+                (click)="selectOption($index)"
+            >
+                <p class="body-text primary-text">{{ option }}</p>
+                <span class="material-symbols-rounded primary-icon check-icon">check</span>
+            </li>
+        }
+    </ul>
+</div>
