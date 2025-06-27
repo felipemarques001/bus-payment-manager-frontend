@@ -1,9 +1,18 @@
 @use "../../../../../styles/variables.scss" as *;
 
 #card {
+    height: 104px;
     padding: 4px 8px;
     border: $card-border;
     border-radius: $container-border-radius;
+
+    overflow: hidden;
+    transition: $default-transition;
+
+    &.show-payment-details {
+        height: 152px;
+        overflow: visible;
+    }
 
     #payment-data {
         margin-top: 8px;
@@ -46,10 +55,21 @@
         }
 
         #payment-details {
+            height: 48px;
+            display: flex;
             background-color: $primary-bg-color;
+
+            opacity: 0;
+            transition: 150ms ease-in;
+
+            &.open {
+                opacity: 1;
+            }
 
             #payment-paid-details,
             #payment-not-paid-details {
+                width: 100%;
+
                 display: flex;
                 align-items: end;
                 justify-content: space-between;
@@ -85,8 +105,16 @@
 
 @media (min-width: $notebook-screen) {
     #card {
+        height: 120px;
+
+        &.show-details {
+            height: 180px;
+        }
+
         #payment-data {
             #payment-details {
+                height: 60px;
+
                 #payment-paid-details {
                     app-button {
                         flex: 2;
