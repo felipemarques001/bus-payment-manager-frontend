@@ -1,0 +1,70 @@
+<div class="page-container">
+    <app-page-header backRouterLink="/payments" title="Detalhes do Pagamento" />
+
+    <main>
+        @if (payment$ | async; as payment) {
+            <div id="paymentAmountsContainer">
+                <section id="dataContainer">
+                    <h2 class="subtitle-text primary-text">Valores:</h2>
+                    <ul>
+                        <div class="cards-row">
+                            <li class="data-card">
+                                <p class="body-text secondary-text">Data:</p>
+                                <span class="subtitle-text primary-text bold">{{ payment.month + '/' + payment.year }}</span>
+                            </li>
+                            <li class="data-card">
+                                <p class="body-text secondary-text">Total:</p>
+                                <span class="subtitle-text primary-text bold">{{ payment.totalAmount | currency }}</span>
+                            </li>
+                        </div>
+
+                        <div class="cards-row">
+                            <li class="data-card">
+                                <p class="body-text secondary-text">Total a ser pago: </p>
+                                <span class="subtitle-text primary-text bold">{{ payment.totalToBePaid | currency }}</span>
+                            </li>
+
+                            <li class="data-card">
+                                <p class="body-text secondary-text">Mensalidade:</p>
+                                <span class="subtitle-text primary-text bold">{{ payment.tuitionAmount | currency }}</span>
+                            </li>
+                        </div>
+                    </ul>
+                </section>
+
+                <section id="financialHelpsContainer">
+                    <h2 class="subtitle-text primary-text">Auxílios financeiros:</h2>
+                    @if (payment.financialHelps.length !== 0) {
+                        <ul>
+                            @for (financialHelp of payment.financialHelps; track $index) {
+                                <li>
+                                    <p class="body-text secondary-text">{{ financialHelp.name + ':' }}</p>
+                                    <p class="body-text primary-text bold">{{ financialHelp.amount | currency }}</p>
+                                </li>
+                            }
+                        </ul>
+                    } @else {
+                        <p class="body-text secondary-text">Não há auxílios financeiros registrados para esse pagamento...</p>
+                    }
+                </section>
+            </div>
+
+            <div>
+                <section id="tuitionsContainer">
+                    <h2 class="subtitle-text primary-text">Mensalidades:</h2>
+                    <div>
+                        @for (tuition of payment.tuitions; track $index) {
+                            <app-tuition-card [tuition]="tuition" />
+                        }
+                    </div>
+                </section>
+            </div>
+        }
+    </main>
+
+    <app-page-footer>
+        <p class="body-text primary-text">Listar mensalidades:</p>
+        <app-button bodyText="Pagas" type="primary-btn" (buttonClickedEmitter)="copyStudentsNamesFromTuitons(true)" />
+        <app-button bodyText="Pendentes" type="primary-btn" (buttonClickedEmitter)="copyStudentsNamesFromTuitons(false)" />
+    </app-page-footer>
+</div>

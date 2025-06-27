@@ -8,6 +8,7 @@ import { PaymentAmountsRequest } from "../models/payment-amounts-request.interfa
 import { PaymentAmountsResponse } from "../models/payment-amounts-response.interface";
 import { catchError, Observable, throwError } from "rxjs";
 import { HttpClient, HttpErrorResponse, HttpParams } from "@angular/common/http";
+import { PaymentResponse } from "../models/payment-response.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -32,6 +33,11 @@ export class PaymentService {
                     return throwError(() => errorMessage);
                 })
             );
+    }
+
+    getPayment(paymentId: string): Observable<PaymentResponse> {
+        const url = `${this.apiUrl}/${paymentId}`;
+        return this.http.get<PaymentResponse>(url);
     }
 
     createPayment(payment: PaymentRequest) {

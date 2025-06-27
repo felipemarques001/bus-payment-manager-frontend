@@ -1,6 +1,7 @@
 import { CurrencyPipe } from '@angular/common';
 import { PaymentSummary } from '../../models/payment-summary.interface';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment-summary-card',
@@ -9,5 +10,11 @@ import { Component, Input } from '@angular/core';
   styleUrl: './payment-summary-card.component.scss'
 })
 export class PaymentSummaryCardComponent {
+  private readonly router = inject(Router);
+
   @Input({ required: true }) paymentSummary: PaymentSummary | null = null;
+
+  openPaymentDetails(): void {
+    this.router.navigate(['/payments', this.paymentSummary?.id]);
+  }
 }

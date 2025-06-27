@@ -1,0 +1,145 @@
+@use "../../../../../styles/variables.scss" as *;
+
+$gap-between-sections: 20px;
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-between-sections;
+    padding-bottom: 60px;
+
+    h2 {
+        margin-bottom: 4px;
+    }
+
+    #paymentAmountsContainer {
+        display: flex;
+        flex-direction: column;
+        gap: $gap-between-sections;
+
+        #dataContainer {
+            flex: 1;
+
+            ul {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+                list-style: none;
+
+                .cards-row {
+                    display: flex;
+                    gap: 8px;
+
+                    .data-card {
+                        padding: 8px 12px;
+                        border: $card-border;
+                        border-radius: $container-border-radius;
+
+                        flex: 1;
+                    }
+                }
+            }
+        }
+
+        #financialHelpsContainer {
+            flex: 1;
+            max-width: 600px;
+
+            ul {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+                list-style: none;
+
+                li {
+                    border-bottom: $default-border;
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+            }
+        }
+    }
+
+    #tuitionsContainer {
+        div {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 8px;
+        }
+    }
+}
+
+app-page-footer {
+    p {
+        flex: 2;
+        max-width: 144px;
+    }
+
+    app-button {
+        flex: 1;
+        max-width: 120px;
+    }
+}
+
+@media (min-width: $tablet-screen) {
+    main {
+        #paymentAmountsContainer {
+            flex-direction: row;
+            gap: 40px;
+
+            #dataContainer {
+                ul {
+                    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+                    .cards-row {
+                        .data-card {
+                            padding: 8px 16px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    app-page-footer {
+        app-button {
+            max-width: 180px;
+        }
+    }
+}
+
+@media (min-width: $notebook-screen) {
+    main {
+        #paymentAmountsContainer {
+            gap: 80px;
+
+            #dataContainer {
+                ul {
+                    .cards-row {
+                        .data-card {
+                            padding: 8px 16px;
+                        }
+                    }
+                }
+            }
+        }
+
+        #tuitionsContainer {
+            div {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+                gap: 8px;
+            }
+        }
+    }
+
+    app-page-footer {
+        p {
+            max-width: 164px;
+        }
+    }
+}
