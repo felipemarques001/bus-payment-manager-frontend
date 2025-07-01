@@ -1,3 +1,4 @@
+import { take } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { TuitionService } from '../../services/tuition.service';
 import { TuitionResponse } from '../../models/tuition-response.interface';
@@ -72,6 +73,7 @@ export class TuitionCardComponent {
     this.isLoading = true;
     this.isDetailsOpened = false;
     this.tuitionService.updateTuitionToPaid(this.tuition.id, request)
+      .pipe(take(1))
       .subscribe({
         next: () => {
           this.toastrService.success('Mensalidade atualizada com sucesso');
@@ -90,6 +92,7 @@ export class TuitionCardComponent {
     this.isLoading = true;
     this.isDetailsOpened = false;
     this.tuitionService.updateTuitionToPending(this.tuition.id)
+      .pipe(take(1))
       .subscribe({
         next: () => {
           this.toastrService.success('Mensalidade atualizada com sucesso');
