@@ -7,7 +7,7 @@
         <div id="payment-data">
             <div id="status-toggle" (click)="toggleIsDetailsOpened()">
                 <p class="body-text primary-text">Status:</p>
-                @if (tuition.isPaid) {
+                @if (tuition.status === tuitionStatus.PAID) {
                     <p class="body-text paid-text">Paga</p>
                 } @else {
                     <p class="body-text pending-text">Pendente</p>
@@ -21,7 +21,7 @@
             </div>
 
             <div id="payment-details" [class.open]="isDetailsOpened">
-                @if (tuition.isPaid) {
+                @if (tuition.status === tuitionStatus.PAID) {
                     <div id="payment-paid-details">
                         <div>
                             <p class="small-body-text secondary-text">Formato:</p>
@@ -33,7 +33,7 @@
                             <p class="body-text primary-text">{{ paymentDate }}</p>
                         </div>
                         
-                        <app-button type="delete-btn" bodyText="Cancelar" (buttonClickedEmitter)="updateTuitionToNotPaid()"/>
+                        <app-button type="delete-btn" bodyText="Cancelar" (buttonClickedEmitter)="updateTuitionToPending()"/>
                     </div>
                 } @else {
                     <div id="payment-not-paid-details">

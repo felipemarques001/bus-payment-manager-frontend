@@ -1,4 +1,3 @@
-import { TuitionResponse } from "./tuition-response.interface";
 import { FinancialHelpResponse } from "./financial-help-response.interface";
 
 export interface PaymentResponse {
@@ -9,5 +8,4 @@ export interface PaymentResponse {
     totalToBePaid: string;
     tuitionAmount: string;
     financialHelps: FinancialHelpResponse[];
-    tuitions: TuitionResponse[];
 }
