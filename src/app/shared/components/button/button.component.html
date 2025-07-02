@@ -1,4 +1,4 @@
-<button [class]="type" (click)="emitButtonClicked()">
+<button [class]="type" (click)="emitButtonClicked()" [disabled]="isDisabled">
     @if (iconName) {
         <span class="material-symbols-rounded primary-icon">{{ iconName }}</span>
     }
