@@ -1,0 +1,7 @@
+@use "../../../../../styles/variables.scss" as *;
+
+#card-container {
+    padding: 8px 12px;
+    border: $card-border;
+    border-radius: $container-border-radius;
+}

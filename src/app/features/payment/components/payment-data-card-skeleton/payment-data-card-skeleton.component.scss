@@ -1,0 +1,30 @@
+@use "../../../../../styles/variables.scss" as *;
+
+#card-container {
+    padding: 8px 12px;
+    border: $card-border;
+    border-radius: $container-border-radius;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    #label-skeleton {
+        width: 100px;
+        height: 18px;
+    }
+
+    #value-skeleton {
+        width: 140px;
+        height: 32px;
+    }
+}
+
+@media (min-width: $notebook-screen) {
+    #card-container {
+        #value-skeleton {
+            width: 160px;
+            height: 32px;
+        }
+    }
+}

@@ -1,0 +1,8 @@
+<div id="card-container">
+    <p class="body-text secondary-text">{{ label }}</p>
+    @if (callCurrencyPipe) {
+        <span class="subtitle-text primary-text bold">{{ value | currency }}</span>
+    } @else {
+        <span class="subtitle-text primary-text bold">{{ value }}</span>
+    }
+</div>
