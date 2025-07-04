@@ -1,0 +1,56 @@
+@use "../../../../styles/variables.scss" as *;
+
+#filter-container {
+    margin-bottom: 8px;
+
+    display: flex;
+
+    form {
+        display: flex;
+
+        div {
+            padding: 4px 12px;
+            border: $default-border;
+            position: relative;
+
+            &:nth-child(1) {
+                border-right: 0;
+                border-top-left-radius: $input-border-radius;
+                border-bottom-left-radius: $input-border-radius;
+            }
+
+            &:nth-child(2) {
+                border-left: 0;
+                border-top-right-radius: $input-border-radius;
+                border-bottom-right-radius: $input-border-radius;
+            }
+
+            &:has(input:checked) {
+                border: 1px solid $action-primary-bg-color;
+                background-color: $secondary-bg-color;
+            }
+
+            &:not(:has(input:checked)) {
+                &:has(input:disabled) {
+                    opacity: $default-opacity;
+                }
+            }
+
+            input {
+                all: unset;
+
+                position: absolute;
+                inset: 0;
+
+                cursor: pointer;
+
+                &:not(:checked) {
+                    &:disabled {
+                        cursor: not-allowed;
+                        opacity: $default-opacity;
+                    }
+                }
+            }
+        }
+    }
+}

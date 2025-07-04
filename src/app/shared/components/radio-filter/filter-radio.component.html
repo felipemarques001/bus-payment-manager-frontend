@@ -1,0 +1,15 @@
+<div id="filter-container">
+    <form [formGroup]="filterForm">
+        @for (option of options; track $index) {
+            <div>
+                <label [for]="`option-${$index}`" class="body-text primary-text">{{ option.label }}</label>
+                <input 
+                    [id]="`option-${$index}`" 
+                    type="radio" 
+                    formControlName="filterOption" 
+                    [value]="option.value" 
+                />
+            </div>
+        }
+    </form>
+</div>
