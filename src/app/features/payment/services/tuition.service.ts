@@ -15,7 +15,7 @@ export class TuitionService {
     private readonly globalApiErrorHandler = inject(GlobalApiErrorHandler);
     private readonly apiUrl = `${environment.apiBaseUrl}/api/tuitions`;
 
-    getTuitionsByPaymentIdAndStatus(paymentId: string, status: TuitionStatus): Observable<TuitionResponse[]> {
+    getTuitions(paymentId: string, status: TuitionStatus): Observable<TuitionResponse[]> {
         const params = new HttpParams()
             .set('paymentId', paymentId)
             .set('status', status);
@@ -23,7 +23,7 @@ export class TuitionService {
         return this.http.get<TuitionResponse[]>(this.apiUrl, { params: params })
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    const errorMessage = this.handleGetTuitionsByPaymentIdAndStatusRequestError(error);
+                    const errorMessage = this.handleGetTuitionsRequestError(error);
                     return throwError(() => errorMessage);
                 })
             );
@@ -51,7 +51,7 @@ export class TuitionService {
             );
     }
 
-    private handleGetTuitionsByPaymentIdAndStatusRequestError(error: HttpErrorResponse): string {
+    private handleGetTuitionsRequestError(error: HttpErrorResponse): string {
         const errorBaseMessage = 'Erro ao buscar as mensalidades';
         const errorSpecificMessage = this.globalApiErrorHandler.handleApiRequestError(error);
         return `${errorBaseMessage}, ${errorSpecificMessage}`;
