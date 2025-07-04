@@ -2,7 +2,7 @@
     <app-page-header backRouterLink="/home" title="Pagamentos" />
 
     <main>
-        <div id="addBtnContainer">
+        <div id="add-button-container">
             <app-button 
                 type="primary-btn" 
                 iconName="request_page" 
@@ -11,7 +11,7 @@
             />
         </div>
 
-        <section id="paymentsCardsContainer">
+        <section id="payments-cards-container">
             @if (paymentSummaries$ | async; as paymentSummaries) {
                 @for (paymentSummary of paymentSummaries; track $index) {
                     <app-payment-summary-card [paymentSummary]="paymentSummary" />

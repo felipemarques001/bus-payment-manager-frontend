@@ -5,11 +5,11 @@ main {
     flex-direction: column;
     gap: 16px;
 
-    #addBtnContainer {
+    #add-button-container {
         width: 200px;
     }
 
-    #paymentsCardsContainer {
+    #payments-cards-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
         gap: 8px;
