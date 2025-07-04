@@ -1,6 +1,7 @@
 @use "../../../../../styles/variables.scss" as *;
 
 $gap-between-sections: 20px;
+$gap-between-payment-data-card: 8px;
 
 main {
     display: flex;
@@ -12,37 +13,32 @@ main {
         margin-bottom: 4px;
     }
 
-    #paymentAmountsContainer {
+    #payment-data-container {
         display: flex;
         flex-direction: column;
         gap: $gap-between-sections;
 
-        #dataContainer {
+        #amounts-container {
             flex: 1;
 
-            ul {
+            #cards-container {
                 display: flex;
                 flex-direction: column;
-                gap: 8px;
-
-                list-style: none;
+                gap: $gap-between-payment-data-card;
 
                 .cards-row {
                     display: flex;
-                    gap: 8px;
+                    gap: $gap-between-payment-data-card;
 
-                    .data-card {
-                        padding: 8px 12px;
-                        border: $card-border;
-                        border-radius: $container-border-radius;
-
+                    app-payment-data-card,
+                    app-payment-data-card-skeleton {
                         flex: 1;
                     }
                 }
             }
         }
 
-        #financialHelpsContainer {
+        #financial-helps-container {
             flex: 1;
             max-width: 600px;
 
@@ -59,13 +55,22 @@ main {
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
+
+                    .skeleton {
+                        width: 200px;
+                        height: 18px;
+                    }
+
+                    .skeleton:last-child {
+                        width: 100px;
+                    }
                 }
             }
         }
     }
 
-    #tuitionsContainer {
-        div {
+    #tuitions-container {
+        #tuitions-cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 8px;
@@ -75,23 +80,21 @@ main {
 
 app-page-footer {
     p {
-        flex: 2;
-        max-width: 144px;
+        width: 232px;
     }
 
     app-button {
-        flex: 1;
-        max-width: 120px;
+        width: 140px;
     }
 }
 
 @media (min-width: $tablet-screen) {
     main {
-        #paymentAmountsContainer {
+        #payment-data-container {
             flex-direction: row;
             gap: 40px;
 
-            #dataContainer {
+            #amounts-container {
                 ul {
                     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 
@@ -107,17 +110,17 @@ app-page-footer {
 
     app-page-footer {
         app-button {
-            max-width: 180px;
+            width: 180px;
         }
     }
 }
 
 @media (min-width: $notebook-screen) {
     main {
-        #paymentAmountsContainer {
+        #payment-data-container {
             gap: 80px;
 
-            #dataContainer {
+            #amounts-container {
                 ul {
                     .cards-row {
                         .data-card {
@@ -128,8 +131,8 @@ app-page-footer {
             }
         }
 
-        #tuitionsContainer {
-            div {
+        #tuitions-container {
+            #tuitions-cards-container {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
                 gap: 8px;
@@ -139,7 +142,7 @@ app-page-footer {
 
     app-page-footer {
         p {
-            max-width: 164px;
+            width: 264px;
         }
     }
 }

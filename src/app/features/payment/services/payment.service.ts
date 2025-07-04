@@ -16,12 +16,11 @@ import { PaymentResponse } from "../models/payment-response.interface";
 export class PaymentService {
     private readonly http = inject(HttpClient);
     private readonly globalApiErrorHandler = inject(GlobalApiErrorHandler);
-
     private readonly apiUrl = `${environment.apiBaseUrl}/api/payments`;
 
     getPaymentSummaries(pageNumber: number): Observable<PageResponse<PaymentSummary>> {
         const pageSize: number = 24;
-        
+
         const queriesParams = new HttpParams()
             .set('pageNumber', pageNumber)
             .set('pageSize', pageSize);
@@ -37,7 +36,13 @@ export class PaymentService {
 
     getPayment(paymentId: string): Observable<PaymentResponse> {
         const url = `${this.apiUrl}/${paymentId}`;
-        return this.http.get<PaymentResponse>(url);
+        return this.http.get<PaymentResponse>(url)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    const errorMessage = this.handleGetPaymentRequestErros(error);
+                    return throwError(() => errorMessage);
+                })
+            );
     }
 
     createPayment(payment: PaymentRequest) {
@@ -65,6 +70,12 @@ export class PaymentService {
         return error.status === 0
             ? 'Erro ao calcular os valores, verifique sua conexão com a internet'
             : 'Serviço indisponível, tente mais tarde';
+    }
+
+    private handleGetPaymentRequestErros(error: HttpErrorResponse): string {
+        const errorBaseMessage = 'Erro ao buscar o pagamento';
+        const errorSpecificMessage = this.globalApiErrorHandler.handleApiRequestError(error);
+        return `${errorBaseMessage}, ${errorSpecificMessage}`;
     }
 
     private handleGetPaymentsSummariesRequestError(error: HttpErrorResponse): string {

@@ -1,56 +1,78 @@
-import { AsyncPipe, CurrencyPipe } from "@angular/common";
+import { take } from "rxjs";
+import { CurrencyPipe } from "@angular/common";
 import { Component, inject, OnInit } from "@angular/core";
 import { PageHeaderComponent } from "../../../../shared/components/page-header/page-header.component";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { PaymentService } from "../../services/payment.service";
-import { firstValueFrom, Observable, tap } from "rxjs";
 import { PaymentResponse } from "../../models/payment-response.interface";
 import { TuitionCardComponent } from "../../components/tuition-card/tuition-card.component";
 import { PageFooterComponent } from "../../../../shared/components/page-footer/page-footer.component";
 import { ButtonComponent } from "../../../../shared/components/button/button.component";
 import { ToastrService } from "ngx-toastr";
 import { TuitionResponse } from "../../models/tuition-response.interface";
+import { TuitionService } from "../../services/tuition.service";
+import { TuitionStatus } from "../../enums/tuition-status.enum";
+import { TuitionCardSkeletonComponent } from "../../components/tuition-card-skeleton/tuition-card-skeleton.component";
+import { PaymentDataCardComponent } from "../../components/payment-data-card/payment-data-card.component";
+import { PaymentDataCardSkeletonComponent } from "../../components/payment-data-card-skeleton/payment-data-card-skeleton.component";
+import { FilterRadioOptions } from "../../../../shared/models/filter-radio-options.interface";
+import { FilterRadioComponent } from "../../../../shared/components/radio-filter/filter-radio.component";
 
 @Component({
   selector: 'app-payment-details-page',
   imports: [
-    AsyncPipe,
     CurrencyPipe,
+    ButtonComponent,
     PageHeaderComponent,
     TuitionCardComponent,
     PageFooterComponent,
-    ButtonComponent
+    FilterRadioComponent,
+    PaymentDataCardComponent,
+    TuitionCardSkeletonComponent,
+    PaymentDataCardSkeletonComponent,
   ],
   templateUrl: './payment-details-page.component.html',
   styleUrl: './payment-details-page.component.scss'
 })
 export class PaymentDetailsPageComponent implements OnInit {
-  private readonly router = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   private readonly toastrService = inject(ToastrService);
+  private readonly activatedRoute = inject(ActivatedRoute);
   private readonly paymentService = inject(PaymentService);
+  private readonly tuitionService = inject(TuitionService);
 
-  private paidTuitions!: TuitionResponse[];
-  private notPaidTuitions!: TuitionResponse[];
+  private paymentId: string = '';
 
-  protected payment$ = new Observable<PaymentResponse>;
+  protected readonly filterRadioOptions: FilterRadioOptions[] = [
+    { label: 'Pagas', value: TuitionStatus.PAID },
+    { label: 'Pendentes', value: TuitionStatus.PENDING },
+  ] as const;
+
+  protected payment!: PaymentResponse;
+  protected tuitions: TuitionResponse[] = [];
+  protected isLoadingPayment: boolean = false;
+  protected isLoadingTuitions: boolean = false;
+  protected selectedTuitionStatus: TuitionStatus = TuitionStatus.PAID;
 
   ngOnInit(): void {
-    const paymentId: string | null = this.router.snapshot.paramMap.get('id');
-
-    if (paymentId) {
-      this.getPayment(paymentId);
-    }
+    this.getPaymentId();
+    this.getPayment();
+    this.getTuitions();
   }
 
-  async copyStudentsNamesFromTuitons(isTuitionPaid: boolean): Promise<void> {
+  protected handleStatusFilterChanged(selectedStatus: TuitionStatus) {
+    this.selectedTuitionStatus = selectedStatus;
+    this.getTuitions();
+  }
+
+  protected async copyStudentsNamesFromTuitons(): Promise<void> {
     try {
-      const payment = await firstValueFrom(this.payment$);
-      const studentsNames = payment.tuitions
-        .filter((tuition) => tuition.isPaid === isTuitionPaid)
+      const studentsNames: string = this.tuitions
         .map((tuition, index) => `${index + 1}- ${tuition.student.name}`)
         .join('\n');
 
-      const message = `*Lista de pagamento - ${payment.month}:* \n${studentsNames}`;
+      const title = `Lista de ${this.selectedTuitionStatus ? 'Pagamentos' : 'Pendentes'}`;
+      const message = `*${title} - ${this.payment.month}:* \n${studentsNames}`;
 
       await navigator.clipboard.writeText(message);
       this.toastrService.success('Nomes copiados com sucesso!');
@@ -59,11 +81,59 @@ export class PaymentDetailsPageComponent implements OnInit {
     }
   }
 
-  private getPayment(paymentId: string): void {
-    this.payment$ = this.paymentService.getPayment(paymentId)
-      .pipe(tap((payment: PaymentResponse) => {
-        this.paidTuitions = payment.tuitions.filter((tuition: TuitionResponse) => tuition.isPaid === true);
-        this.notPaidTuitions = payment.tuitions.filter((tuition: TuitionResponse) => tuition.isPaid === false);
-      }));
+  protected removeTuitionFromList(index: number): void {
+    this.tuitions.splice(index, 1);
+  }
+
+  private getPaymentId(): void {
+    const paymentId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
+
+    if (paymentId === null) {
+      this.toastrService.error('Falha ao carregar o pagamento, tente novamente mais tarde');
+      this.goToPaymentsPage();
+      return;
+    }
+
+    this.paymentId = paymentId;
+  }
+
+  private getPayment(): void {
+    this.isLoadingPayment = true;
+    this.paymentService.getPayment(this.paymentId)
+      .pipe(take(1))
+      .subscribe({
+        next: (payment: PaymentResponse) => {
+          this.payment = payment;
+        },
+        error: (errorMessage: string) => {
+          this.toastrService.error(errorMessage);
+          this.goToPaymentsPage();
+        },
+        complete: () => {
+          this.isLoadingPayment = false;
+        },
+      });
+  }
+
+  private getTuitions(): void {
+    this.isLoadingTuitions = true;
+    this.tuitionService.getTuitions(this.paymentId, this.selectedTuitionStatus)
+      .pipe(take(1))
+      .subscribe({
+        next: (tuitions: TuitionResponse[]) => {
+          this.tuitions = tuitions;
+        },
+        error: (errorMessage: string) => {
+          this.toastrService.error(errorMessage);
+          this.goToPaymentsPage();
+        },
+        complete: () => {
+          this.isLoadingTuitions = false;
+        },
+      });
+  }
+
+  private goToPaymentsPage() {
+    this.router.navigate(['/payments']);
   }
 }
