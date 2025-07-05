@@ -30,8 +30,6 @@ export class PaymentsPageComponent implements OnInit {
   private readonly toastrService = inject(ToastrService);
   private readonly paymentService = inject(PaymentService);
 
-  protected readonly paymentSummariesCardSkeletonList = Array(30);
-
   protected isLoading: boolean = false;
   protected hasNextPage: boolean = false;
   protected pageNumber: number = 0;

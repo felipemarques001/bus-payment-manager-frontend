@@ -17,7 +17,7 @@
                     <app-payment-summary-card [paymentSummary]="paymentSummary" />
                 }
             } @else {
-                @for (_ of paymentSummariesCardSkeletonList; track $index) {
+                @for (_ of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track $index) {
                     <app-payment-summary-card-skeleton />
                 }
             }
