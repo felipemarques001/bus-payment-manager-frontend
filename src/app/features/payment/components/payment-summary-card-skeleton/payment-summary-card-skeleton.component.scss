@@ -1,6 +1,6 @@
 @use "../../../../../styles/variables.scss" as *;
 
-#cardContainer {
+#card-container {
     padding: 4px 8px;
     border: $card-border;
     border-radius: $container-border-radius;
@@ -11,12 +11,12 @@
     justify-content: space-between;
     gap: 4px;
 
-    #dateSkeleton {
+    #date-skeleton {
         width: 300px;
         height: 18px;
     }
 
-    #amountsSkeleton {
+    #amounts-skeleton {
         display: flex;
         flex-direction: column;
         gap: 4px;
