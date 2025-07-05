@@ -1,6 +1,6 @@
 @use "../../../../../styles/variables.scss" as *;
 
-#cardContainer {
+#card-container {
     padding: 4px 8px;
     border: $card-border;
     border-radius: $container-border-radius;
@@ -27,7 +27,7 @@
         }
     }
 
-    #actionsSkeleton {
+    #actions-skeleton {
         width: 24px;
         height: 24px;
         border-radius: 50%;
