@@ -9,6 +9,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class SelectComponent implements OnInit {
   @Input({ required: true }) labelText!: string;
   @Input({ required: true }) options!: string[];
+  @Input() initialOptionIndex: number = 0;
+  @Input() labelTextSizeClass: 'small-body-text' | 'body-text' = 'small-body-text';
 
   @Output() private readonly selectedOptionIndexEmitter = new EventEmitter<number>();
 
@@ -16,7 +18,7 @@ export class SelectComponent implements OnInit {
   protected isOptionsOpened: boolean = false;
 
   ngOnInit(): void {
-    this.optionSelected = this.options[0];
+    this.optionSelected = this.options[this.initialOptionIndex];
   }
 
   toggleIsOptionsOpened(): void {
