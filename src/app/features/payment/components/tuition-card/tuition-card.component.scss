@@ -1,6 +1,6 @@
 @use "../../../../../styles/variables.scss" as *;
 
-#card {
+#card-component {
     height: 104px;
     padding: 4px 8px;
     border: $card-border;
@@ -14,7 +14,7 @@
         overflow: visible;
     }
 
-    #payment-data {
+    #payment-data-component {
         margin-top: 8px;
         border-top: $default-border;
 
@@ -104,14 +104,14 @@
 }
 
 @media (min-width: $notebook-screen) {
-    #card {
+    #card-component {
         height: 120px;
 
         &.show-payment-details {
             height: 180px;
         }
 
-        #payment-data {
+        #payment-data-component {
             #payment-details {
                 height: 60px;
 

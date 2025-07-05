@@ -1,10 +1,10 @@
 @if (!isLoading) {
-    <div id="card" [class.show-payment-details]="isDetailsOpened">
+    <div id="card-component" [class.show-payment-details]="isDetailsOpened">
         <p class="body-text primary-text">{{ student.name }}</p>
         <p class="small-body-text secondary-text">{{ student.major + ' - ' + student.college }}</p>
         <p class="small-body-text secondary-text">{{ student.phoneNumber | phoneNumber }}</p>
 
-        <div id="payment-data">
+        <div id="payment-data-component">
             <div id="status-toggle" (click)="toggleIsDetailsOpened()">
                 <p class="body-text primary-text">Status:</p>
                 @if (tuition.status === tuitionStatus.PAID) {
@@ -20,7 +20,7 @@
                 </span>
             </div>
 
-            <div id="payment-details" [class.open]="isDetailsOpened">
+            <div id="payment-details-component" [class.open]="isDetailsOpened">
                 @if (tuition.status === tuitionStatus.PAID) {
                     <div id="payment-paid-details">
                         <div>
