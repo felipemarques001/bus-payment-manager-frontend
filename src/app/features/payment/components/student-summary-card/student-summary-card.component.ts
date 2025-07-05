@@ -15,12 +15,12 @@ export class StudentSummaryCardComponent {
   @Output() addStudentToPaymentEmmiter = new EventEmitter<string>();
   @Output() removeStudentFromPaymentEmmiter = new EventEmitter<string>();
 
-  addStudentToPayment(): void {
+  protected addStudentToPayment(): void {
     this.isStudentInPayment = true;
     this.addStudentToPaymentEmmiter.emit(this.student.id);
   }
 
-  removeStudentFromPayment(): void {
+  protected removeStudentFromPayment(): void {
     this.isStudentInPayment = false;
     this.removeStudentFromPaymentEmmiter.emit(this.student.id);
   }

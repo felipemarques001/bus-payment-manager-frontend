@@ -36,7 +36,7 @@ export class PaymentAmountsModalComponent implements OnInit {
     this.calculatePaymentAmounts();
   }
 
-  emitCloseModal(): void {
+  protected emitCloseModal(): void {
     this.closeModalEmitter.emit();
   }
 

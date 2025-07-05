@@ -14,7 +14,7 @@ export class PaymentSummaryCardComponent {
 
   @Input({ required: true }) paymentSummary: PaymentSummary | null = null;
 
-  openPaymentDetails(): void {
+  protected openPaymentDetails(): void {
     this.router.navigate(['/payments', this.paymentSummary?.id]);
   }
 }
