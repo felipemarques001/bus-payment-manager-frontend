@@ -21,11 +21,11 @@ export class SelectComponent implements OnInit {
     this.optionSelected = this.options[this.initialOptionIndex];
   }
 
-  toggleIsOptionsOpened(): void {
+  protected toggleIsOptionsOpened(): void {
     this.isOptionsOpened = !this.isOptionsOpened;
   }
 
-  selectOption(index: number): void {
+  protected selectOption(index: number): void {
     this.optionSelected = this.options[index];
     this.toggleIsOptionsOpened();
     this.emitSelectedOptionIndex(index);

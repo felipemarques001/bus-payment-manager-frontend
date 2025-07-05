@@ -14,7 +14,7 @@ export class ButtonComponent {
  
   @Output() private readonly buttonClickedEmitter = new EventEmitter<void>();
 
-  emitButtonClicked(): void {
+  protected emitButtonClicked(): void {
     this.buttonClickedEmitter.emit();
   }
 }

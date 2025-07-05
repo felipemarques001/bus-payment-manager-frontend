@@ -19,11 +19,11 @@ export class PageCounterComponent {
   @Output() getNextEntitiesEmitter = new EventEmitter<void>();
   @Output() getPreviousEntitiesEmitter = new EventEmitter<void>();
 
-  getNextEntities(): void {
+  protected getNextEntities(): void {
     this.getNextEntitiesEmitter.emit();
   }
 
-  getPreviousEntities(): void {
+  protected getPreviousEntities(): void {
     this.getPreviousEntitiesEmitter.emit();
   }
 }
