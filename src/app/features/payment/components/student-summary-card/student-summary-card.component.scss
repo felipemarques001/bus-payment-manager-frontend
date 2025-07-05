@@ -1,6 +1,6 @@
 @use "../../../../../styles/variables.scss" as *;
 
-#cardContainer {
+#card-container {
     padding: 4px 8px;
     border: $card-border;
     border-radius: $container-border-radius;
@@ -16,7 +16,7 @@
         }
     }
 
-    #actionsBtns {
+    #actions-buttons {
         button {
             padding: 2px;
             border: $default-border;
