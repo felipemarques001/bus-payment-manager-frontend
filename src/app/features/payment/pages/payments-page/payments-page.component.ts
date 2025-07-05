@@ -31,7 +31,7 @@ export class PaymentsPageComponent implements OnInit {
   private readonly paymentService = inject(PaymentService);
 
   protected readonly paymentSummariesCardSkeletonList = Array(30);
-  
+
   protected isLoading: boolean = false;
   protected hasNextPage: boolean = false;
   protected pageNumber: number = 0;
@@ -42,11 +42,25 @@ export class PaymentsPageComponent implements OnInit {
     this.getPayments();
   }
 
-  goToPaymentCreationPage(): void {
+  protected goToPaymentCreationPage(): void {
     this.router.navigate(['/payments/create']);
   }
 
-  getPayments(): void {
+  protected getNextPayments(): void {
+    if (!this.hasNextPage || this.isLoading) return;
+
+    this.pageNumber += 1;
+    this.getPayments();
+  }
+
+  protected getPreviousPayments(): void {
+    if (this.isLoading) return;
+
+    this.pageNumber -= 1;
+    this.getPayments();
+  }
+
+  private getPayments(): void {
     this.isLoading = true;
 
     this.paymentSummaries$ = this.paymentService.getPaymentSummaries(this.pageNumber)
@@ -66,19 +80,5 @@ export class PaymentsPageComponent implements OnInit {
 
         finalize(() => this.isLoading = false),
       );
-  }
-
-  getNextPayments(): void {
-    if (!this.hasNextPage || this.isLoading) return;
-
-    this.pageNumber += 1;
-    this.getPayments();
-  }
-
-  getPreviousPayments(): void {
-    if (this.isLoading) return;
-
-    this.pageNumber -= 1;
-    this.getPayments();
   }
 }
