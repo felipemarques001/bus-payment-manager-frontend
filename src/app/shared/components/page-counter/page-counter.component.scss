@@ -1,6 +1,6 @@
 @use "../../../../styles/variables.scss" as *;
 
-#entitiesTotalContainer {
+#entities-total-container {
     display: flex;
     gap: 4px;
     align-items: center;
@@ -11,7 +11,7 @@
     }
 }
 
-#pageSelectorContainer {
+#page-selector-container {
     height: 28px;
 
     display: flex;
@@ -29,7 +29,7 @@
         justify-content: center;
     }
 
-    #pageNumber {
+    #page-number {
         background-color: $action-primary-bg-color;
         border: none;
     }

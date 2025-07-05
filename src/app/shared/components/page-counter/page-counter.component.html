@@ -1,5 +1,5 @@
 <app-page-footer>
-         <div id="entitiesTotalContainer">
+         <div id="entities-total-container">
             <p class="body-text secondary-text">Quantidade de {{ entityName }}:</p>
             @if (isLoading) {
                 <div class="skeleton"></div>
@@ -8,7 +8,7 @@
             }
         </div>
 
-        <div id="pageSelectorContainer">
+        <div id="page-selector-container">
             <button 
                 class="opacity-hover" 
                 (click)="getPreviousEntities()"
@@ -21,7 +21,7 @@
                 <p class="body-text primary-text page-counter">{{ pageNumber - 1 }}</p>
             }
 
-            <p id="pageNumber" class="body-text primary-text page-counter">
+            <p id="page-number" class="body-text primary-text page-counter">
                 {{ pageNumber }}
             </p>
 

@@ -4,7 +4,7 @@ header {
     display: flex;
     align-items: center;
 
-    #backBtn {
+    #back-button {
         padding: 4px;
         border-radius: 50%;
 
@@ -27,7 +27,7 @@ header {
 
 @media (min-width: $tablet-screen) {
     header {
-        #backBtn {
+        #back-button {
             display: none;
         }
 
