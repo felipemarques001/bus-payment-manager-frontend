@@ -11,7 +11,7 @@
 
                 <div class="input-container">
                     <label 
-                        for="totalAmount"
+                        for="total-amount"
                         class="input-field-label body-text secondary-text" 
                     >
                         Valor total:
@@ -36,41 +36,14 @@
                 </div>
 
                 <div class="initial-data-row">
-                    <div id="filterMonthContainer">
-                        <div class="input-container">
-                            <p class="body-text secondary-text">Mês:</p>
-                            <button 
-                                type="button" 
-                                class="secondary-action-btn opacity-hover"
-                                (click)="toggleIsMonthsOptionsOpened()"
-                            >
-                                <span class="body-text primary-text">{{ monthControl.value }}</span>
-                                <span 
-                                    id="chevron" 
-                                    class="material-symbols-rounded primary-icon"
-                                    [class.options-opened]="isMonthsOptionsOpened"
-                                >
-                                    keyboard_arrow_down
-                                </span>
-                            </button>
-                        </div>
 
-                        <ul [class.open]="isMonthsOptionsOpened">
-                            @for (month of monthsOptions; track $index) {
-                                <li>
-                                    <input 
-                                        type="radio" 
-                                        name="month" 
-                                        formControlName="month" 
-                                        [value]="month"
-                                        (click)="toggleIsMonthsOptionsOpened()"
-                                    >
-                                    <p class="body-text primary-text">{{ month }}</p>
-                                    <span class="material-symbols-rounded primary-icon check-icon">check</span>
-                                </li>
-                            }
-                        </ul>
-                    </div>
+                    <app-select
+                        labelText="Formato" 
+                        labelTextSizeClass="body-text"
+                        [options]="monthsOptions" 
+                        [initialOptionIndex]="currentMonthIndex"
+                        (selectedOptionIndexEmitter)="updateSelectedMonthOption($event)"
+                    />
 
                     <div class="input-container">
                         <label class="input-field-label body-text secondary-text" for="year">Ano:</label>
@@ -147,13 +120,12 @@
                             }
                         </div>
 
-                        <button 
-                            type="button" 
-                            class="delete-action-btn opacity-hover primary-text bold input-action"
-                            (click)="removeFinancialHelp(index)"
-                        >
-                            <span class="material-symbols-rounded primary-icon">delete</span>
-                        </button>
+                        <app-button 
+                            type="delete-btn"
+                            iconName="delete"
+                            bodyText=""
+                            (buttonClickedEmitter)="removeFinancialHelp(index)"
+                        />
                     </div>
                 }
 
@@ -161,10 +133,12 @@
                     <p class="invalid-input-message small-body-text">A soma dos auxílios financeiros não pode ser maior ou igual ao valor do pagamento</p>
                 }
 
-                <button id="addFinancialHelpBtn" type="button"
-                    class="secondary-action-btn opacity-hover primary-text bold" (click)="addFinancialHelp()">
-                    Adicionar auxílio financeiro
-                </button>
+                <app-button
+                    id="financial-help-add-button"
+                    type="secondary-btn"
+                    bodyText="Adicionar auxílio financeiro"
+                    (buttonClickedEmitter)="addFinancialHelp()"
+                />
             </section>
         </form>
 

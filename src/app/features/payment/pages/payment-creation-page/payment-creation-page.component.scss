@@ -32,6 +32,7 @@ main {
                 display: flex;
                 gap: $gap-between-inputs;
 
+                app-select,
                 div {
                     flex: 1;
                 }
@@ -153,13 +154,8 @@ main {
                     width: 100%;
                 }
 
-                button {
-                    height: 31px;
+                app-button {
                     margin-top: 25px;
-
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
                 }
             }
 
@@ -218,8 +214,7 @@ app-page-footer {
                 border-left: $card-border;
 
                 .financial-help-row {
-                    button {
-                        height: 35px;
+                    app-button {
                         margin-top: 29px;
                     }
                 }

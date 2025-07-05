@@ -5,6 +5,8 @@ import { PaymentService } from '../../services/payment.service';
 import { StudentService } from '../../../../core/services/student.service';
 import { StudentSummary } from '../../models/student-summary.interface';
 import { PaymentRequest } from '../../models/payment-request.interface';
+import { SelectComponent } from '../../../../shared/components/select/select.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { NgxMaskDirective } from 'ngx-mask';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { StudentsForPayment } from '../../models/students-for-payment.interface';
@@ -36,6 +38,8 @@ import {
   selector: 'app-payment-creation-page',
   imports: [
     AsyncPipe,
+    SelectComponent,
+    ButtonComponent,
     SpinnerComponent,
     NgxMaskDirective,
     ReactiveFormsModule,
@@ -60,10 +64,8 @@ export class PaymentCreationPageComponent {
 
   protected isLoading: boolean = false;
   protected activeStudents$ = new Observable<StudentSummary[]>;
-  protected isMonthsOptionsOpened: boolean = false;
   protected isPaymentAmountsModalOpened: boolean = false;
 
-  protected readonly studentCardSkeletonQuantity = Array.from({ length: 30 });
   protected readonly paymentStudentsIds: string[] = [];
   protected readonly monthsOptions = [
     'Janeiro',
@@ -96,39 +98,12 @@ export class PaymentCreationPageComponent {
     this.getActiveStudents();
   }
 
-  getActiveStudents(): void {
-    this.activeStudents$ = this.studentService.getStudentsForPayment()
-      .pipe(
-        map((response: StudentsForPayment) => {
-          response.students.map(
-            (student: StudentSummary) => this.paymentStudentsIds.push(student.id)
-          );
-          return response.students;
-        }),
-
-        finalize(() => this.initPaymentFormValues()),
-
-        catchError((errorMessage: string) => {
-          this.toastrService.error(errorMessage);
-          this.router.navigate(['/']);
-          return of();
-        }),
-      );
+  protected updateSelectedMonthOption(monthIndex: number) {
+    const selectedMonth: string = this.monthsOptions[monthIndex];
+    this.monthControl.setValue(selectedMonth);
   }
 
-  initPaymentFormValues(): void {
-    const actualYear = new Date().getFullYear().toString();
-    const actualMonthIndex = new Date().getMonth();
-
-    this.yearControl.setValue(actualYear);
-    this.monthControl.setValue(this.monthsOptions[actualMonthIndex]);
-  }
-
-  toggleIsMonthsOptionsOpened(): void {
-    this.isMonthsOptionsOpened = !this.isMonthsOptionsOpened;
-  }
-
-  addFinancialHelp(): void {
+  protected addFinancialHelp(): void {
     const financialHelp = this.formBuilder.group({
       name: ['', [Validators.required]],
       amount: ['', [Validators.required, this.amountValidator.validateAmount()]],
@@ -136,11 +111,11 @@ export class PaymentCreationPageComponent {
     this.financialHelps.push(financialHelp);
   }
 
-  removeFinancialHelp(index: number): void {
+  protected removeFinancialHelp(index: number): void {
     this.financialHelps.removeAt(index);
   }
 
-  addStudentToPayment(studentId: string): void {
+  protected addStudentToPayment(studentId: string): void {
     const hasStudent = this.paymentStudentsIds.includes(studentId);
 
     if (!hasStudent) {
@@ -148,7 +123,7 @@ export class PaymentCreationPageComponent {
     };
   }
 
-  removeStudentFromPayment(studentId: string): void {
+  protected removeStudentFromPayment(studentId: string): void {
     const hasStudent = this.paymentStudentsIds.includes(studentId);
 
     if (hasStudent) {
@@ -157,7 +132,7 @@ export class PaymentCreationPageComponent {
     }
   }
 
-  createPayment(): void {
+  protected createPayment(): void {
     if (this.paymentFormGroup.invalid || this.isLoading) return;
 
     if (this.paymentStudentsIds.length === 0) {
@@ -190,7 +165,7 @@ export class PaymentCreationPageComponent {
       });
   }
 
-  openPaymentAmountsModal(): void {
+  protected openPaymentAmountsModal(): void {
     if (this.paymentStudentsIds.length === 0) {
       this.toastrService.error('Não é possível calcular o pagamento sem estudantes');
       return;
@@ -200,12 +175,12 @@ export class PaymentCreationPageComponent {
     this.renderer.addClass(document.body, 'overflow-hidden');
   }
 
-  closePaymentAmountsModal(): void {
+  protected closePaymentAmountsModal(): void {
     this.isPaymentAmountsModalOpened = false;
     this.renderer.removeClass(document.body, 'overflow-hidden');
   }
 
-  generateFinancialHelpsRequestList() {
+  protected generateFinancialHelpsRequestList() {
     const financialHelpsList: FinancialHelpRequest[] = [];
 
     this.financialHelps.controls.forEach((financialHelp) => {
@@ -216,6 +191,37 @@ export class PaymentCreationPageComponent {
     });
 
     return financialHelpsList;
+  }
+
+  private getActiveStudents(): void {
+    this.activeStudents$ = this.studentService.getStudentsForPayment()
+      .pipe(
+        map((response: StudentsForPayment) => {
+          response.students.map(
+            (student: StudentSummary) => this.paymentStudentsIds.push(student.id)
+          );
+          return response.students;
+        }),
+
+        finalize(() => this.initPaymentFormValues()),
+
+        catchError((errorMessage: string) => {
+          this.toastrService.error(errorMessage);
+          this.router.navigate(['/']);
+          return of();
+        }),
+      );
+  }
+
+  private initPaymentFormValues(): void {
+    const currentYear = new Date().getFullYear().toString();
+    const currentMonth = this.monthsOptions[this.currentMonthIndex];
+    this.yearControl.setValue(currentYear);
+    this.monthControl.setValue(currentMonth);
+  }
+
+  get currentMonthIndex(): number {
+    return new Date().getMonth();
   }
 
   get totalAmountControl(): FormControl<string> {
