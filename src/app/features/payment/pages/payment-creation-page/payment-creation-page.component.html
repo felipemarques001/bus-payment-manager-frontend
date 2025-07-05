@@ -3,7 +3,7 @@
 
     <main>
         <form [formGroup]="paymentFormGroup">
-            <section id="initialDataContainer">
+            <section id="essential-data-container">
                 <div>
                     <h2 class="subtitle-text primary-text">Dados Essenciais</h2>
                     <p class="body-text secondary-text">Dados essenciais para gerar o pagamento</p>
@@ -17,7 +17,7 @@
                         Valor total:
                     </label> 
                     <input 
-                        id="totalAmount" 
+                        id="total-amount" 
                         class="input-field body-text primary-text" 
                         type="text"
                         placeholder="R$ 20.000" 
@@ -92,12 +92,12 @@
                 </div>
             </section>
 
-            <section id="financialHelpsContainer" formArrayName="financialHelps">
+            <section id="financial-helps-container" formArrayName="financialHelps">
                 <div>
                     <h2 class="subtitle-text primary-text">Auxílios Financeiros</h2>
                     <p class="body-text secondary-text">Auxílios externos associados ao pagamento</p>
                     @if (financialHelps.controls.length === 0) {
-                        <p id="emptyFinancialHelpsText" class="body-text secondary-text">Sem auxílios financeiros no momento...</p>
+                        <p id="empty-financial-helps-text" class="body-text secondary-text">Sem auxílios financeiros no momento...</p>
                     }
                 </div>
                 
@@ -168,7 +168,7 @@
             </section>
         </form>
 
-        <section id="studentsContainer">
+        <section id="students-container">
             <div>
                 <h2 class="subtitle-text primary-text">Estudantes</h2>
                 <p class="body-text secondary-text">
@@ -177,7 +177,7 @@
                 </p>
             </div>
 
-            <div id="cardsContainer">
+            <div id="cards-container">
                 @if (activeStudents$ | async; as activeStudents) {
                     @for (student of activeStudents; track $index) {
                         <app-student-summary-card 
@@ -187,7 +187,7 @@
                         />
                     }
                 } @else {
-                    @for (i of studentCardSkeletonQuantity; track $index) { 
+                    @for (i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track $index) { 
                         <app-student-summary-card-skeleton />
                     }
                 }

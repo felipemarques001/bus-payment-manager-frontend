@@ -27,7 +27,7 @@ main {
             }
         }
 
-        #initialDataContainer {
+        #essential-data-container {
             .initial-data-row {
                 display: flex;
                 gap: $gap-between-inputs;
@@ -131,8 +131,8 @@ main {
             }
         }
 
-        #financialHelpsContainer {
-            #emptyFinancialHelpsText {
+        #financial-helps-container {
+            #empty-financial-helps-text {
                 margin-top: 8px;
             }
 
@@ -163,19 +163,19 @@ main {
                 }
             }
 
-            #addFinancialHelpBtn {  
+            #financial-help-add-button {
                 margin-top: 8px;
                 max-width: 420px;
             }
         }
     }
 
-    #studentsContainer {
+    #students-container {
         p {
             margin-bottom: 8px;
         }
 
-        #cardsContainer {
+        #cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 8px;
@@ -208,12 +208,12 @@ app-page-footer {
                 width: 50%;
             }
 
-            #initialDataContainer {
+            #essential-data-container {
                 padding-right: 4%;
                 padding-bottom: $gap-between-sections;
             }
 
-            #financialHelpsContainer {
+            #financial-helps-container {
                 padding-left: 4%;
                 border-left: $card-border;
 
