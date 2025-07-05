@@ -1,12 +1,16 @@
 @use "../../../../styles/variables.scss" as *;
 
-#mainContainer {
+#main-container {
     width: 100%;
 
     position: relative;
 
-    #buttonContainer {
+    #button-container {
         width: 100%;
+
+        p {
+            margin-bottom: 4px;
+        }
 
         button {
             min-height: $mobile-button-input-min-height;
