@@ -2,6 +2,7 @@ import { finalize } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { StudentService } from '../../../../core/services/student.service';
 import { StudentRequest } from '../../models/student-request.interface';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { NgxMaskDirective } from 'ngx-mask';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { PhoneNumberValidatorService } from '../../services/phone-number-validator.service';
@@ -9,6 +10,7 @@ import {
   Validators,
   FormBuilder,
   ReactiveFormsModule,
+  FormControl,
 } from '@angular/forms';
 import {
   inject,
@@ -23,6 +25,7 @@ import { Student } from '../../models/student.interface';
 @Component({
   selector: 'app-student-update-modal',
   imports: [
+    ButtonComponent,
     SpinnerComponent,
     NgxMaskDirective,
     ReactiveFormsModule,
@@ -42,7 +45,7 @@ export class StudentUpdateModalComponent implements OnInit {
     name: ['', [Validators.required]],
     major: ['', [Validators.required]],
     college: ['', [Validators.required]],
-    phoneNumber: [ '', [Validators.required, Validators.minLength(11), Validators.maxLength(11)], []],
+    phoneNumber: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)], []],
   });
 
   @Input({ required: true }) student!: Student;
@@ -54,29 +57,8 @@ export class StudentUpdateModalComponent implements OnInit {
     this.setPhoneNumberValidatorInForm();
   }
 
-  populateFormWithStudentValues(): void {
-    this.formGroup.setValue({
-      name: this.student.name,
-      major: this.student.major,
-      college: this.student.college,
-      phoneNumber: this.student.phoneNumber,
-    });
-  }
-
-  setPhoneNumberValidatorInForm(): void {
-    this.formControls.phoneNumber.setAsyncValidators(
-      this.phoneNumberValidatorService.checkPhoneNumberExistsIgnoringCurrent(this.student)
-    );
-
-    this.formControls.phoneNumber.updateValueAndValidity();
-  }
-
   emmitCloseModal(): void {
     this.closeModalEmitter.emit();
-  }
-
-  emmitSuccessUpdate(): void {
-    this.successUpdateEmitter.emit();
   }
 
   updateStudent(): void {
@@ -102,6 +84,50 @@ export class StudentUpdateModalComponent implements OnInit {
           this.toastrService.success("Estudante editado com sucesso");
         },
       });
+  }
+
+  protected isInputNotFilled(inputName: 'name' | 'college' | 'major' | 'phoneNumber'): boolean {
+    const inputControl: FormControl<string> = this.formControls[inputName];
+    return inputControl.errors?.['required'] && inputControl.touched;
+  }
+
+  protected isPhoneNumberNotCompleted(): boolean {
+    const phoneNumberControl: FormControl<string> = this.formControls.phoneNumber;
+    const isPhoneNumberInUse = (phoneNumberControl.errors?.['minlength'] || phoneNumberControl.errors?.['maxlength']) &&
+      phoneNumberControl.touched &&
+      phoneNumberControl.dirty;
+
+    return isPhoneNumberInUse;
+  }
+
+  protected isPhoneNumberInUse(): boolean {
+    const phoneNumberControl: FormControl<string> = this.formControls.phoneNumber;
+    const isPhoneNumberInUse = (phoneNumberControl.errors?.['phoneNumberExists'] || phoneNumberControl.errors?.['maxlength']) &&
+      phoneNumberControl.touched &&
+      phoneNumberControl.dirty;
+
+    return isPhoneNumberInUse;
+  }
+
+  private setPhoneNumberValidatorInForm(): void {
+    this.formControls.phoneNumber.setAsyncValidators(
+      this.phoneNumberValidatorService.checkPhoneNumberExistsIgnoringCurrent(this.student)
+    );
+
+    this.formControls.phoneNumber.updateValueAndValidity();
+  }
+
+  private populateFormWithStudentValues(): void {
+    this.formGroup.setValue({
+      name: this.student.name,
+      major: this.student.major,
+      college: this.student.college,
+      phoneNumber: this.student.phoneNumber,
+    });
+  }
+
+  private emmitSuccessUpdate(): void {
+    this.successUpdateEmitter.emit();
   }
 
   get formControls() {
