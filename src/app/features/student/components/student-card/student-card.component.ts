@@ -34,27 +34,27 @@ export class StudentCardComponent {
   @Input({ required: true }) student!: Student;
   @Output() private readonly updatedStudentEmitter = new EventEmitter<void>();
 
-  toogleMenu(): void {
+  protected toogleMenu(): void {
     this.openActionsMenu = !this.openActionsMenu;
   }
 
-  openStudentUpdateModal(): void {
+  protected openStudentUpdateModal(): void {
     this.isUpdateModalOpened = true;
     this.renderer.addClass(document.body, 'overflow-hidden');
   }
 
-  closeStudentUpdateModal(): void {
+  protected closeStudentUpdateModal(): void {
     this.openActionsMenu = false;
     this.isUpdateModalOpened = false;
     this.renderer.removeClass(document.body, 'overflow-hidden');
   }
 
-  emmitStudentUpdated(): void {
+  protected emmitStudentUpdated(): void {
     this.closeStudentUpdateModal();
     this.updatedStudentEmitter.emit();
   }
 
-  changeStudentActiveStatus(): void {
+  protected changeStudentActiveStatus(): void {
     this.openActionsMenu = false;
     this.isLoading = true;
     this.studentService
