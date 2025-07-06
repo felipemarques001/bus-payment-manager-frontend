@@ -1,9 +1,8 @@
 @use "../../../../styles/variables.scss" as *;
 
 #filter-container {
-    margin-bottom: 8px;
-
     display: flex;
+    height: $mobile-button-input-min-height;
 
     form {
         display: flex;
@@ -52,5 +51,11 @@
                 }
             }
         }
+    }
+}
+
+@media (min-width: $notebook-screen) {
+    #filter-container {
+        height: $notebook-button-input-min-height;
     }
 }

@@ -7,7 +7,6 @@ import { PageHeaderComponent } from '../../../../shared/components/page-header/p
 import { StudentCardComponent } from '../../components/student-card/student-card.component';
 import { PageCounterComponent } from '../../../../shared/components/page-counter/page-counter.component';
 import { FilterRadioComponent } from '../../../../shared/components/radio-filter/filter-radio.component';
-import { StudentFilterComponent } from '../../../../shared/components/student-filter/student-filter.component';
 import { StudentCardSkeletonComponent } from '../../components/student-card-skeleton/student-card-skeleton.component';
 import { StudentCreationModalComponent } from '../../components/student-creation-modal/student-creation-modal.component';
 import {
@@ -25,7 +24,6 @@ import {
     StudentCardComponent,
     FilterRadioComponent,
     PageCounterComponent,
-    StudentFilterComponent,
     StudentCardSkeletonComponent,
     StudentCreationModalComponent,
   ],

@@ -9,8 +9,11 @@ main {
 
     #active-form-and-add-button-container {
         display: flex;
-        align-items: center;
         justify-content: space-between;
+
+        app-button {
+            width: 200px;
+        }
     }
 
     #students-container {
@@ -21,16 +24,6 @@ main {
 }
 
 @media (min-width: $tablet-screen) {
-    header {
-        #backBtn {
-            display: none;
-        }
-
-        h1 {
-            margin: 0;
-        }
-    }
-
     main {
         #active-form-and-add-button-container {
             gap: 16px;

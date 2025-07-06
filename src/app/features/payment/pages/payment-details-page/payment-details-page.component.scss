@@ -71,6 +71,8 @@ main {
 
     #tuitions-container {
         #tuitions-cards-container {
+            margin-top: 16px;
+
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 8px;
