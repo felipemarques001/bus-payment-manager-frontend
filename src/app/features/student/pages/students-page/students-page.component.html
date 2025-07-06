@@ -4,7 +4,7 @@
     <main>
         <app-student-filter />
 
-        <section id="activeFormAndAddBtnContainer">
+        <section id="active-form-and-add-button-container">
             <app-filter-radio 
                 [options]="filterRadioOptions" 
                 [disableForm]="isLoading"
@@ -19,7 +19,7 @@
             />
         </section>
 
-        <section id="studentsContainer">
+        <section id="students-container">
             @if (isLoading) {
                 @for (i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track $index) {
                     <app-student-card-skeleton />

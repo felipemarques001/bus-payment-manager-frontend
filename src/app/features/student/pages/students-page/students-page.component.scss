@@ -7,85 +7,16 @@ main {
     flex-direction: column;
     gap: 16px;
 
-    #activeFormAndAddBtnContainer {
+    #active-form-and-add-button-container {
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
 
-    #studentsContainer {
+    #students-container {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
         gap: 8px;
-    }
-}
-
-footer {
-    padding: 16px 8px;
-    border-top: $default-border;
-    background-color: $primary-bg-color;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    #totalStudentsContainer {
-        display: flex;
-        gap: 4px;
-        align-items: center;
-
-        #totalStudentsSkeleton {
-            width: 20px;
-            height: 18px;
-        }
-    }
-
-    #pageSelectorContainer {
-        height: 28px;
-
-        display: flex;
-        gap: 8px;
-        align-items: center;
-
-        .pageCounter {
-            width: 28px;
-            height: 100%;
-            border: $default-border;
-            border-radius: 8px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #pageNumber {
-            background-color: $action-primary-bg-color;
-            border: none;
-        }
-
-        button {
-            width: 28px;
-            height: 100%;
-            background-color: $primary-bg-color;
-            border: none;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            &:disabled {
-                cursor: not-allowed;
-
-                span {
-                    color: $terciary-bg-color;
-                }
-            }
-        }
     }
 }
 
@@ -101,37 +32,16 @@ footer {
     }
 
     main {
-        #activeFormAndAddBtnContainer {
+        #active-form-and-add-button-container {
             gap: 16px;
             justify-content: start;
         }
-    }
-
-    footer {
-        gap: 32px;
-        justify-content: center;
     }
 }
 
 @media (min-width: $notebook-screen) {
     main {
-        #filterAndAddStudentBtnContainer {
-            display: flex;
-            gap: 8px;
-
-            #addStudentBtn {
-                padding: $input-padding;
-                position: static;
-            }
-        }
-
-        #pageActionsContainer {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        #studentsContainer {
+        #students-container {
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
         }
     }
