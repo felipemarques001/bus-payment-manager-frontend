@@ -23,10 +23,13 @@ export class StudentService {
       .set("pageSize", pageSize)
       .set("active", active);
 
-    return this.http.get<PageResponse<Student>>(
-      this.apiUrl,
-      { params: queriesParams },
-    );
+    return this.http.get<PageResponse<Student>>(this.apiUrl, { params: queriesParams })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          const errorMessage = this.handleGetStudentsRequestError(error);
+          return throwError(() => errorMessage);
+        })
+      );
   }
 
   getStudentsForPayment(): Observable<StudentsForPayment> {
@@ -58,6 +61,12 @@ export class StudentService {
   checkPhoneNumberExists(phoneNumber: String) {
     const url = `${this.apiUrl}/check-phone-number/${phoneNumber}`;
     return this.http.get<boolean>(url);
+  }
+
+  private handleGetStudentsRequestError(error: HttpErrorResponse): string {
+    const errorBaseMessage = 'Erro ao buscar os estudantes';
+    const errorSpecificMessage = this.globalApiErrorHandler.handleApiRequestError(error);
+    return `${errorBaseMessage}, ${errorSpecificMessage}`;
   }
 
   private handleGetStudentsForPaymentRequestError(error: HttpErrorResponse): string {

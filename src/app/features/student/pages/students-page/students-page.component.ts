@@ -1,6 +1,8 @@
+import { Router } from '@angular/router';
 import { Student } from '../../models/student.interface';
 import { AsyncPipe } from '@angular/common';
 import { PageResponse } from '../../../../shared/models/page-response.interface';
+import { ToastrService } from 'ngx-toastr';
 import { StudentService } from '../../../../core/services/student.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { FilterRadioOptions } from '../../../../shared/models/filter-radio-options.interface';
@@ -10,10 +12,12 @@ import { PageCounterComponent } from '../../../../shared/components/page-counter
 import { FilterRadioComponent } from '../../../../shared/components/radio-filter/filter-radio.component';
 import { StudentCardSkeletonComponent } from '../../components/student-card-skeleton/student-card-skeleton.component';
 import { StudentCreationModalComponent } from '../../components/student-creation-modal/student-creation-modal.component';
-import { 
+import {
   tap,
-  finalize, 
-  Observable, 
+  finalize,
+  Observable,
+  catchError,
+  of,
 } from 'rxjs';
 import {
   OnInit,
@@ -38,7 +42,9 @@ import {
   styleUrl: './students-page.component.scss',
 })
 export class StudentsPageComponent implements OnInit {
+  private readonly router = inject(Router);
   private readonly renderer = inject(Renderer2);
+  private readonly toastrService = inject(ToastrService);
   private readonly studentService = inject(StudentService);
   private readonly pageSize: number = 24;
 
@@ -85,6 +91,13 @@ export class StudentsPageComponent implements OnInit {
           this.totalStudents = response.totalElements;
           this.pseudoPageNumber = response.pageNumber + 1;
         }),
+
+        catchError((errorMessage: string) => {
+          this.toastrService.error(errorMessage);
+          this.router.navigate(['/']);
+          return of();
+        }),
+
         finalize(() => this.isLoading = false)
       );
   }
