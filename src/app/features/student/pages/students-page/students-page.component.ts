@@ -1,5 +1,6 @@
 import { Student } from '../../models/student.interface';
-import { finalize } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { PageResponse } from '../../../../shared/models/page-response.interface';
 import { StudentService } from '../../../../core/services/student.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { FilterRadioOptions } from '../../../../shared/models/filter-radio-options.interface';
@@ -9,6 +10,11 @@ import { PageCounterComponent } from '../../../../shared/components/page-counter
 import { FilterRadioComponent } from '../../../../shared/components/radio-filter/filter-radio.component';
 import { StudentCardSkeletonComponent } from '../../components/student-card-skeleton/student-card-skeleton.component';
 import { StudentCreationModalComponent } from '../../components/student-creation-modal/student-creation-modal.component';
+import { 
+  tap,
+  finalize, 
+  Observable, 
+} from 'rxjs';
 import {
   OnInit,
   inject,
@@ -19,6 +25,7 @@ import {
 @Component({
   selector: 'app-students-page',
   imports: [
+    AsyncPipe,
     ButtonComponent,
     PageHeaderComponent,
     StudentCardComponent,
@@ -44,10 +51,10 @@ export class StudentsPageComponent implements OnInit {
   protected hasNextPage: boolean = false;
   protected totalStudents: number = 0;
   protected pseudoPageNumber = 1;
-  protected students: Student[] = [];
   protected isLoading: boolean = false;
   protected isCreationModalOpened: boolean = false;
   protected selectedStudentsStatus: boolean = true;
+  protected studentsData$ = new Observable<PageResponse<Student>>;
 
   ngOnInit(): void {
     this.getStudents();
@@ -70,15 +77,16 @@ export class StudentsPageComponent implements OnInit {
 
   protected getStudents(): void {
     this.isLoading = true;
-    this.studentService
+    this.studentsData$ = this.studentService
       .getStudents(this.pageNumber, this.pageSize, this.selectedStudentsStatus)
-      .pipe(finalize(() => this.isLoading = false))
-      .subscribe((response) => {
-        this.students = response.content;
-        this.hasNextPage = !response.last;
-        this.totalStudents = response.totalElements;
-        this.pseudoPageNumber = response.pageNumber + 1;
-      });
+      .pipe(
+        tap((response: PageResponse<Student>) => {
+          this.hasNextPage = !response.last;
+          this.totalStudents = response.totalElements;
+          this.pseudoPageNumber = response.pageNumber + 1;
+        }),
+        finalize(() => this.isLoading = false)
+      );
   }
 
   protected getNextStudents(): void {
