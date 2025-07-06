@@ -5,21 +5,24 @@ import { StudentRequest } from '../../models/student-request.interface';
 import { NgxMaskDirective } from 'ngx-mask';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { PhoneNumberValidatorService } from '../../services/phone-number-validator.service';
-import { 
+import {
   Validators,
-  FormBuilder, 
-  ReactiveFormsModule, 
+  FormBuilder,
+  ReactiveFormsModule,
+  FormControl,
 } from '@angular/forms';
-import { 
-  inject, 
+import {
+  inject,
   Output,
-  Component, 
-  EventEmitter, 
+  Component,
+  EventEmitter,
 } from '@angular/core';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 @Component({
   selector: 'app-student-creation-modal',
   imports: [
+    ButtonComponent,
     SpinnerComponent,
     NgxMaskDirective,
     ReactiveFormsModule,
@@ -49,15 +52,11 @@ export class StudentCreationModalComponent {
     ],
   });
 
-  emmitCloseDialog(): void {
+  protected emmitCloseDialog(): void {
     this.closeModalEmitter.emit();
   }
 
-  emmitSuccessCreation(): void {
-    this.successCreationEmitter.emit();
-  }
-
-  createStudent(): void {
+  protected createStudent(): void {
     if (this.formGroup.invalid) return;
 
     this.isLoading = true;
@@ -79,6 +78,33 @@ export class StudentCreationModalComponent {
           this.toastrService.success("Estudante cadastrado com sucesso");
         },
       });
+  }
+
+  protected isInputNotFilled(inputName: 'name' | 'college' | 'major' | 'phoneNumber'): boolean {
+    const inputControl: FormControl<string> = this.formControls[inputName];
+    return inputControl.errors?.['required'] && inputControl.touched;
+  }
+
+  protected isPhoneNumberNotCompleted(): boolean {
+    const phoneNumberControl: FormControl<string> = this.formControls.phoneNumber;
+    const isPhoneNumberInUse = (phoneNumberControl.errors?.['minlength'] || phoneNumberControl.errors?.['maxlength']) &&
+      phoneNumberControl.touched &&
+      phoneNumberControl.dirty;
+
+    return isPhoneNumberInUse;
+  }
+
+  protected isPhoneNumberInUse(): boolean {
+    const phoneNumberControl: FormControl<string> = this.formControls.phoneNumber;
+    const isPhoneNumberInUse = (phoneNumberControl.errors?.['phoneNumberExists'] || phoneNumberControl.errors?.['maxlength']) &&
+      phoneNumberControl.touched &&
+      phoneNumberControl.dirty;
+
+    return isPhoneNumberInUse;
+  }
+
+  private emmitSuccessCreation(): void {
+    this.successCreationEmitter.emit();
   }
 
   get formControls() {

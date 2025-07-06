@@ -2,7 +2,7 @@
     <div id="dialog-container">
         <h1 class="title-text primary-text">Novo estudante</h1>
 
-        <form [formGroup]="formGroup" (ngSubmit)="createStudent()">
+        <form [formGroup]="formGroup">
             <div class="input-container">
                 <label class="input-field-label body-text secondary-text" for="name">Nome:</label>
                 <input 
@@ -12,7 +12,7 @@
                     formControlName="name" 
                     [readOnly]="isLoading"
                 >
-                @if (formControls.name.errors?.['required'] && formControls.name.touched) {
+                @if (isInputNotFilled("name")) {
                     <p class="invalid-input-message small-body-text">Campo obrigatório</p>
                 }
             </div>
@@ -26,7 +26,7 @@
                     formControlName="major"
                     [readOnly]="isLoading"
                 >
-                @if (formControls.major.errors?.['required'] && formControls.major.touched) {
+                @if (isInputNotFilled("major")) {
                     <p class="invalid-input-message small-body-text">Campo obrigatório</p>
                 }
             </div>
@@ -41,7 +41,7 @@
                         formControlName="college"
                         [readOnly]="isLoading"    
                     >
-                    @if (formControls.college.errors?.['required'] && formControls.college.touched) {
+                    @if (isInputNotFilled("college")) {
                         <p class="invalid-input-message small-body-text">Campo obrigatório</p>
                     }
                 </div>
@@ -56,42 +56,31 @@
                         formControlName="phoneNumber"
                         [readOnly]="isLoading"    
                     >
-                    @if (formControls.phoneNumber.errors?.['required'] && formControls.phoneNumber.touched) {
+                    @if (isInputNotFilled("phoneNumber")) {
                         <p class="invalid-input-message small-body-text">Campo obrigatório</p>
                     }
-                    @if ((formControls.phoneNumber.errors?.['minlength'] || formControls.phoneNumber.errors?.['maxlength']) && 
-                        formControls.phoneNumber.touched &&
-                        formControls.phoneNumber.dirty
-                    ) {
+                    @if (isPhoneNumberNotCompleted()) {
                         <p class="invalid-input-message small-body-text">O telefone deve ter 11 dígitos</p>
                     }
-                    @if ((formControls.phoneNumber.errors?.['phoneNumberExists'] || formControls.phoneNumber.errors?.['maxlength']) && 
-                        formControls.phoneNumber.touched &&
-                        formControls.phoneNumber.dirty
-                    ) {
+                    @if (isPhoneNumberInUse()) {
                         <p class="invalid-input-message small-body-text">Telefone já em uso</p>
                     }
                 </div>
             </div>
 
             <div id="buttons-container">
-                <button 
-                    id="cleanFormBtn" 
-                    class="secondary-action-btn opacity-hover body-text primary-text bold"
-                    type="button" 
-                    [disabled]="isLoading"
-                    (click)="emmitCloseDialog()"
-                >
-                    Cancelar
-                </button>
-                <button 
-                    id="submitFormBtn" 
-                    class="primary-action-btn opacity-hover body-text primary-text bold"
-                    type="submit" 
-                    [disabled]="formGroup.invalid || isLoading"
-                >
-                    Salvar
-                </button>
+                <app-button 
+                    bodyText="Cancelar" 
+                    type="secondary-btn" 
+                    [isDisabled]="isLoading"
+                    (buttonClickedEmitter)="emmitCloseDialog()"
+                />
+                <app-button 
+                    bodyText="Salvar" 
+                    type="primary-btn" 
+                    [isDisabled]="formGroup.invalid || isLoading"
+                    (buttonClickedEmitter)="createStudent()"
+                />
             </div>
         </form>
     </div>
