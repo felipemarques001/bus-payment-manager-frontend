@@ -1,6 +1,6 @@
 @use "../../../../../styles/variables.scss" as *;
 
-#cardContainer {
+#card-container {
     padding: 8px;
     border: $card-border;
     border-radius: $container-border-radius;
@@ -9,7 +9,7 @@
     justify-content: space-between;
     position: relative;
 
-    #studentInfoContainer {
+    #student-info-container {
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -19,7 +19,7 @@
             height: 22px;
         }
 
-        #educationInfo {
+        #education {
             width: 160px;
             height: 18px;
         }
@@ -30,7 +30,7 @@
         }
     }
 
-    #actionsIcon {
+    #actions-icon {
         width: 24px;
         height: 24px;
         border-radius: 50%;
