@@ -1,6 +1,6 @@
 @use "../../../../../styles/variables.scss" as *;
 
-#cardContainer {
+#card-container {
     padding: 8px;
     border: $card-border;
     border-radius: $container-border-radius;
@@ -10,14 +10,14 @@
 
     position: relative;
 
-    #studentInfoContainer {
-        #educationInfoWrapper {
+    #student-info-container {
+        #education-info-wrapper {
             display: flex;
             gap: 4px;
         }
     }
 
-    #moreVertIcon {
+    #more-vert-icon {
         padding: 2px;
         border: $default-border;
         border-radius: 50%;
@@ -30,7 +30,7 @@
         }
     }
 
-    #menuContainer {
+    #menu-container {
         padding: 8px;
         border: $default-border;
         border-radius: $container-border-radius;

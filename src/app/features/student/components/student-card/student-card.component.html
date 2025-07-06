@@ -1,7 +1,7 @@
-<div id="cardContainer">
-    <div id="studentInfoContainer">
+<div id="card-container">
+    <div id="student-info-container">
         <h3 class="body-text primary-text">{{ student.name }}</h3>
-        <div id="educationInfoWrapper">
+        <div id="education-info-wrapper">
             <p class="small-body-text secondary-text">{{ student.major }}</p>
             <p class="small-body-text secondary-text">-</p>
             <p class="small-body-text secondary-text">{{ student.college }}</p>
@@ -10,7 +10,7 @@
     </div>
     <div>
         <span 
-            id="moreVertIcon"
+            id="more-vert-icon"
             (click)="toogleMenu()"
             [class.selected]="openActionsMenu" 
             class="material-symbols-rounded secondary-icon" 
@@ -18,7 +18,7 @@
             {{ !openActionsMenu ? 'more_vert' : 'close' }}
         </span>
     </div>
-    <div id="menuContainer" [class.open]="openActionsMenu">
+    <div id="menu-container" [class.open]="openActionsMenu">
         <ul>
             <li (click)="openStudentUpdateModal()">
                 <span class="material-symbols-rounded secondary-icon">edit</span>
