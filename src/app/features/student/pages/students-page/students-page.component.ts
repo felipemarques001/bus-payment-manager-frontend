@@ -1,8 +1,12 @@
 import { Student } from '../../models/student.interface';
 import { finalize } from 'rxjs';
-import { RouterLink } from '@angular/router';
 import { StudentService } from '../../../../core/services/student.service';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { FilterRadioOptions } from '../../../../shared/models/filter-radio-options.interface';
+import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
 import { StudentCardComponent } from '../../components/student-card/student-card.component';
+import { PageCounterComponent } from '../../../../shared/components/page-counter/page-counter.component';
+import { FilterRadioComponent } from '../../../../shared/components/radio-filter/filter-radio.component';
 import { StudentFilterComponent } from '../../../../shared/components/student-filter/student-filter.component';
 import { StudentCardSkeletonComponent } from '../../components/student-card-skeleton/student-card-skeleton.component';
 import { StudentCreationModalComponent } from '../../components/student-creation-modal/student-creation-modal.component';
@@ -12,19 +16,15 @@ import {
   Component,
   Renderer2,
 } from '@angular/core';
-import { 
-  Validators,
-  FormBuilder, 
-  FormControl, 
-  ReactiveFormsModule, 
-} from '@angular/forms';
 
 @Component({
   selector: 'app-students-page',
   imports: [
-    RouterLink,
-    ReactiveFormsModule,
+    ButtonComponent,
+    PageHeaderComponent,
     StudentCardComponent,
+    FilterRadioComponent,
+    PageCounterComponent,
     StudentFilterComponent,
     StudentCardSkeletonComponent,
     StudentCreationModalComponent,
@@ -34,43 +34,46 @@ import {
 })
 export class StudentsPageComponent implements OnInit {
   private readonly renderer = inject(Renderer2);
-  private readonly formBuilder = inject(FormBuilder);
   private readonly studentService = inject(StudentService);
-  
   private readonly pageSize: number = 24;
-  private pageNumber: number = 0;
+
+  protected readonly filterRadioOptions: FilterRadioOptions[] = [
+    { label: 'Ativos', value: true },
+    { label: 'Inativos', value: false },
+  ] as const;
+
+  protected pageNumber: number = 0;
   protected hasNextPage: boolean = false;
   protected totalStudents: number = 0;
   protected pseudoPageNumber = 1;
-
   protected students: Student[] = [];
   protected isLoading: boolean = false;
   protected isCreationModalOpened: boolean = false;
-  protected readonly studentCardSkeletonQuantity = Array.from({ length: this.pageSize });
-
-  protected activeForm = this.formBuilder.nonNullable.group({
-    active: [true, [Validators.required]]
-  });
+  protected selectedStudentsStatus: boolean = true;
 
   ngOnInit(): void {
     this.getStudents();
-    this.activeControl.valueChanges.subscribe(() => this.resetStudents());
   }
 
-  openStudentCreationModal(): void {
+  protected handleStatusFilterChanged(selectedStatus: boolean) {
+    this.selectedStudentsStatus = selectedStatus;
+    this.resetStudents();
+  }
+
+  protected openStudentCreationModal(): void {
     this.isCreationModalOpened = true;
     this.renderer.addClass(document.body, 'overflow-hidden');
   }
 
-  closeStudentCreationModal(): void {
+  protected closeStudentCreationModal(): void {
     this.isCreationModalOpened = false;
     this.renderer.removeClass(document.body, 'overflow-hidden');
   }
 
-  getStudents(): void {
+  protected getStudents(): void {
     this.isLoading = true;
     this.studentService
-      .getStudents(this.pageNumber, this.pageSize, this.activeControl.value)
+      .getStudents(this.pageNumber, this.pageSize, this.selectedStudentsStatus)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe((response) => {
         this.students = response.content;
@@ -80,26 +83,22 @@ export class StudentsPageComponent implements OnInit {
       });
   }
 
-  getNextStudents(): void {
+  protected getNextStudents(): void {
     if (!this.hasNextPage || this.isLoading) return;
 
     this.pageNumber += 1;
     this.getStudents();
   }
 
-  getPreviousStudents(): void {
+  protected getPreviousStudents(): void {
     if (this.isLoading) return;
 
     this.pageNumber -= 1;
     this.getStudents();
   }
 
-  resetStudents(): void {
+  private resetStudents(): void {
     this.pageNumber = 0;
     this.getStudents();
-  }
-
-  get activeControl(): FormControl<boolean> {
-    return this.activeForm.controls.active;
   }
 }
