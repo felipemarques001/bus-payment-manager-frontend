@@ -83,6 +83,11 @@ export class StudentUpdateModalComponent implements OnInit {
           this.emmitSuccessUpdate();
           this.toastrService.success("Estudante editado com sucesso");
         },
+
+        error: (errorMessage: string) => {
+          this.toastrService.error(errorMessage);
+          this.emmitCloseModal();
+        }
       });
   }
 

@@ -1,16 +1,17 @@
 import { Student } from '../../models/student.interface';
 import { finalize } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import { StudentService } from '../../../../core/services/student.service';
 import { PhoneNumberPipe } from '../../../../shared/pipes/phone-number.pipe';
 import { SpinnerComponent } from '../../../../shared/components/spinner/spinner.component';
 import { StudentUpdateModalComponent } from '../student-update-modal/student-update-modal.component';
-import { 
-  Input, 
-  inject, 
-  Output, 
+import {
+  Input,
+  inject,
+  Output,
   Renderer2,
-  Component, 
-  EventEmitter, 
+  Component,
+  EventEmitter,
 } from '@angular/core';
 
 @Component({
@@ -25,6 +26,7 @@ import {
 })
 export class StudentCardComponent {
   private readonly renderer = inject(Renderer2);
+  private readonly toastrService = inject(ToastrService);
   private readonly studentService = inject(StudentService);
 
   protected isLoading: boolean = false;
@@ -60,6 +62,13 @@ export class StudentCardComponent {
     this.studentService
       .patchActiveStatus(this.student.id, !this.student.active)
       .pipe(finalize(() => this.isLoading = false))
-      .subscribe(() => this.updatedStudentEmitter.emit());
+      .subscribe({
+        next: () => {
+          this.updatedStudentEmitter.emit();
+        },
+        error: (errorMessage: string) => {
+          this.toastrService.error(errorMessage);
+        }
+      });
   }
 }

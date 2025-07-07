@@ -26,7 +26,7 @@ export class StudentService {
     return this.http.get<PageResponse<Student>>(this.apiUrl, { params: queriesParams })
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          const errorMessage = this.handleGetStudentsRequestError(error);
+          const errorMessage = this.handleRequestError('buscar os estudantes', error);
           return throwError(() => errorMessage);
         })
       );
@@ -37,40 +37,64 @@ export class StudentService {
     return this.http.get<StudentsForPayment>(url)
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          const errorMessage = this.handleGetStudentsForPaymentRequestError(error);
+          const errorMessage = this.handleRequestError(
+            'buscar os estudantes para o pagamento',
+            error,
+          );
           return throwError(() => errorMessage);
         })
       );
   }
 
   createStudent(student: StudentRequest) {
-    return this.http.post(this.apiUrl, student);
+    return this.http.post(this.apiUrl, student)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          const errorMessage = this.handleRequestError('criar novo estudante', error);
+          return throwError(() => errorMessage);
+        })
+      );
   }
 
   updateStudent(studentId: String, student: StudentRequest) {
     const url = `${this.apiUrl}/${studentId}`;
-    return this.http.put(url, student);
+    return this.http.put(url, student)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          const errorMessage = this.handleRequestError('atualizar estudante', error);
+          return throwError(() => errorMessage);
+        })
+      );
   }
 
   patchActiveStatus(studentId: string, status: boolean) {
     const url = `${this.apiUrl}/${studentId}/active`;
     const reqBody = { active: status };
-    return this.http.patch(url, reqBody);
+    return this.http.patch(url, reqBody)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          const errorMessage = this.handleRequestError('atualizar status do estudante', error);
+          return throwError(() => errorMessage);
+        })
+      );
   }
 
   checkPhoneNumberExists(phoneNumber: String) {
     const url = `${this.apiUrl}/check-phone-number/${phoneNumber}`;
-    return this.http.get<boolean>(url);
+    return this.http.get<boolean>(url)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          const errorMessage = this.handleRequestError(
+            'verificar se o número de telefone já está em uso', 
+            error,
+          );
+          return throwError(() => errorMessage);
+        })
+      );;
   }
 
-  private handleGetStudentsRequestError(error: HttpErrorResponse): string {
-    const errorBaseMessage = 'Erro ao buscar os estudantes';
-    const errorSpecificMessage = this.globalApiErrorHandler.handleApiRequestError(error);
-    return `${errorBaseMessage}, ${errorSpecificMessage}`;
-  }
-
-  private handleGetStudentsForPaymentRequestError(error: HttpErrorResponse): string {
-    const errorBaseMessage = 'Erro ao buscar os estudantes para o pagamento';
+  private handleRequestError(requestType: string, error: HttpErrorResponse): string {
+    const errorBaseMessage = `Erro ao ${requestType}`;
     const errorSpecificMessage = this.globalApiErrorHandler.handleApiRequestError(error);
     return `${errorBaseMessage}, ${errorSpecificMessage}`;
   }

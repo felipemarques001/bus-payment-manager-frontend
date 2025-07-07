@@ -52,7 +52,7 @@ export class StudentCreationModalComponent {
     ],
   });
 
-  protected emmitCloseDialog(): void {
+  protected emmitCloseModal(): void {
     this.closeModalEmitter.emit();
   }
 
@@ -73,10 +73,15 @@ export class StudentCreationModalComponent {
       )
       .subscribe({
         next: () => {
-          this.emmitCloseDialog();
+          this.emmitCloseModal();
           this.emmitSuccessCreation();
           this.toastrService.success("Estudante cadastrado com sucesso");
         },
+
+        error: (errorMessage: string) => {
+          this.toastrService.error(errorMessage);
+          this.emmitCloseModal();
+        }
       });
   }
 
