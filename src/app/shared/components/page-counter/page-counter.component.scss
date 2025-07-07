@@ -15,7 +15,7 @@
     height: 28px;
 
     display: flex;
-    gap: 8px;
+    gap: 4px;
     align-items: center;
 
     .page-counter {
@@ -35,7 +35,7 @@
     }
 
     button {
-        width: 28px;
+        width: 16px;
         height: 100%;
         background-color: $primary-bg-color;
         border: none;
@@ -50,6 +50,16 @@
             span {
                 color: $terciary-bg-color;
             }
+        }
+    }
+}
+
+@media (min-width: $tablet-screen) {
+    #page-selector-container {
+        gap: 8px;
+
+        button {
+            width: 28px;
         }
     }
 }
