@@ -1,7 +1,7 @@
 @use "../../../../../styles/variables.scss" as *;
 
 #card-component {
-    height: 104px;
+    height: 102px;
     padding: 4px 8px;
     border: $card-border;
     border-radius: $container-border-radius;
@@ -54,7 +54,7 @@
             }
         }
 
-        #payment-details {
+        #payment-details-component {
             height: 48px;
             display: flex;
             background-color: $primary-bg-color;
@@ -105,10 +105,10 @@
 
 @media (min-width: $notebook-screen) {
     #card-component {
-        height: 120px;
+        height: 112px;
 
         &.show-payment-details {
-            height: 180px;
+            height: 164px;
         }
 
         #payment-data-component {
