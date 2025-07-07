@@ -13,9 +13,11 @@
         }
 
         button {
+            width: 100%;
             min-height: $mobile-button-input-min-height;
             padding: $input-padding;
-            width: 100%;
+            border: $default-border;
+            border-radius: $button-border-radius;
 
             flex: 1;
             display: flex;
@@ -23,6 +25,15 @@
             justify-content: space-between;
 
             background-color: $secondary-bg-color;
+
+            &:focus {
+                outline: 1px solid $action-primary-bg-color;
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+                opacity: $default-opacity;
+            }
 
             #chevron {
                 transition: $open-close-transition;
