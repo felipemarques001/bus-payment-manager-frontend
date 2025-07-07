@@ -170,20 +170,18 @@
     </main>
 
     <app-page-footer>
-        <button 
-            class="secondary-action-btn opacity-hover body-text primary-text bold" 
-            [disabled]="paymentFormGroup.invalid"
-            (click)="openPaymentAmountsModal()"
-        >
-            Calcular Valores
-        </button>
-        <button 
-            class="primary-action-btn opacity-hover body-text primary-text bold" 
-            [disabled]="paymentFormGroup.invalid"
-            (click)="createPayment()"
-        >
-            Gerar Pagamento
-        </button>
+        <app-button 
+            bodyText="Calcular Valores" 
+            type="secondary-btn" 
+            [isDisabled]="paymentFormGroup.invalid"
+            (buttonClickedEmitter)="openPaymentAmountsModal()"
+        />
+        <app-button 
+            bodyText="Gerar Pagamento" 
+            type="primary-btn" 
+            [isDisabled]="paymentFormGroup.invalid"
+            (buttonClickedEmitter)="createPayment()"
+        />
     </app-page-footer>
 
     @if (isPaymentAmountsModalOpened) {
