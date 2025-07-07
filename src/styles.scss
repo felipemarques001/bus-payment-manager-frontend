@@ -112,62 +112,6 @@ body {
     color: $delete-action-color;
 }
 
-.primary-action-btn {
-    padding: $button-padding;
-    border: none;
-    border-radius: $button-border-radius;
-
-    background-color: $action-primary-bg-color;
-
-    outline: none;
-
-    &:focus {
-        outline: 1px solid $primary-text-color;
-    }
-
-    &:disabled {
-        cursor: not-allowed;
-        opacity: $default-opacity;
-    }
-}
-
-.secondary-action-btn {
-    padding: $button-padding;
-    border: $default-border;
-    border-radius: $button-border-radius;
-    background-color: transparent;
-
-    outline: none;
-
-    &:focus {
-        outline: 1px solid $action-primary-bg-color;
-    }
-
-    &:disabled {
-        cursor: not-allowed;
-        opacity: $default-opacity;
-    }
-}
-
-.delete-action-btn {
-    padding: $button-padding;
-    border: none;
-    border-radius: $button-border-radius;
-
-    background-color: $delete-action-color;
-
-    outline: none;
-
-    &:focus {
-        outline: 1px solid $primary-text-color;
-    }
-
-    &:disabled {
-        cursor: not-allowed;
-        opacity: $default-opacity;
-    }
-}
-
 .opacity-hover {
     cursor: pointer;
 
