@@ -143,8 +143,8 @@ export class PaymentCreationPageComponent {
     this.isLoading = true;
 
     const payment: PaymentRequest = {
-      year: this.yearControl.value,
-      month: this.monthControl.value,
+      invoiceYear: this.yearControl.value,
+      invoiceMonth: this.monthControl.value,
       studentsIds: this.paymentStudentsIds,
       totalAmount: this.totalAmountControl.value,
       financialHelps: this.generateFinancialHelpsRequestList(),
@@ -161,7 +161,7 @@ export class PaymentCreationPageComponent {
       )
       .subscribe(() => {
         this.toastrService.success('Pagamento criado com sucesso!');
-        this.router.navigate(['/']);
+        this.router.navigate(['/payments']);
       });
   }
 

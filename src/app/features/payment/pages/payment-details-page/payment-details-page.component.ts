@@ -72,7 +72,7 @@ export class PaymentDetailsPageComponent implements OnInit {
         .join('\n');
 
       const title = `Lista de ${this.selectedTuitionStatus ? 'Pagamentos' : 'Pendentes'}`;
-      const message = `*${title} - ${this.payment.month}:* \n${studentsNames}`;
+      const message = `*${title} - ${this.payment.invoiceMonth}:* \n${studentsNames}`;
 
       await navigator.clipboard.writeText(message);
       this.toastrService.success('Nomes copiados com sucesso!');

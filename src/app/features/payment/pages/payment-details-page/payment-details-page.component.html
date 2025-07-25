@@ -8,7 +8,7 @@
                 <div id="cards-container">
                     <div class="cards-row">
                         @if (!isLoadingPayment) {
-                            <app-payment-data-card label="Data:" [value]="payment.month + '/' + payment.year" />
+                            <app-payment-data-card label="Data:" [value]="payment.invoiceMonth + '/' + payment.invoiceYear" />
                             <app-payment-data-card label="Total:" [value]="payment.totalAmount" [callCurrencyPipe]="true" />
                         } @else {
                             <app-payment-data-card-skeleton />

@@ -1,7 +1,7 @@
 export interface PaymentSummary {
     id: string;
-    year: string;
-    month: string;
+    invoiceMonth: string;
+    invoiceYear: string;
     totalAmount: string;
     tuitionAmount: string;
 }
