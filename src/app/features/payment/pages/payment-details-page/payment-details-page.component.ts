@@ -136,4 +136,14 @@ export class PaymentDetailsPageComponent implements OnInit {
   private goToPaymentsPage() {
     this.router.navigate(['/payments']);
   }
+
+  protected get tuitionSelectedTypeText() {
+    if (this.selectedTuitionStatus === TuitionStatus.PAID) {
+      return 'pagas';
+    } else if (this.selectedTuitionStatus === TuitionStatus.PENDING) {
+      return 'pendentes';
+    } else {
+      return '';
+    }
+  }
 }

@@ -65,11 +65,15 @@
 
             <div id="tuitions-cards-container">
                 @if (!isLoadingTuitions) {
-                    @for (tuition of tuitions; track $index) {
-                        <app-tuition-card 
-                            [tuition]="tuition" 
-                            (tuitionUpdateEmitter)="removeTuitionFromList($index)" 
-                        />
+                    @if (tuitions.length !== 0) {
+                        @for (tuition of tuitions; track $index) {
+                            <app-tuition-card 
+                                [tuition]="tuition" 
+                                (tuitionUpdateEmitter)="removeTuitionFromList($index)" 
+                            />
+                        }
+                    } @else {
+                        <p class="body-text secondary-text">No momento, não há mensalidades {{ tuitionSelectedTypeText }}...</p>
                     }
                 } @else {
                     @for (i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track $index) {
