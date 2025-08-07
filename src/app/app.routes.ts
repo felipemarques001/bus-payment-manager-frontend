@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { homeGuard } from './features/home/guards/home.guard';
 import { HomePageComponent } from './features/home/pages/home-page/home-page.component';
 import { LoginPageComponent } from './features/login/pages/login-page/login-page.component';
 import { StudentsPageComponent } from './features/student/pages/students-page/students-page.component';
@@ -14,6 +15,7 @@ export const routes: Routes = [
     {
         path: 'home',
         component: HomePageComponent,
+        canActivate: [homeGuard]
     },
     {
         path: 'students',
@@ -33,6 +35,6 @@ export const routes: Routes = [
     },
     {
         path: '**',
-        redirectTo: '/login',
+        redirectTo: '/home',
     },
 ];
