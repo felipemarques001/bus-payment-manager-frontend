@@ -1,0 +1,59 @@
+<div class="page-container">
+    <header>
+        <img src="logo.png" alt="logo" />
+    </header>
+
+    <main>
+        <div>
+            <p class="subtitle-text primary-text">Olá novamente! 👋</p>
+            <p class="body-text secondary-text">Bem-vindo de volta, sentimos a sua falta</p>
+        </div>
+
+        <form [formGroup]="loginFormGroup">
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <span class="material-symbols-rounded secondary-icon">mail</span>
+                    <input 
+                        type="text" 
+                        class="body-text primary-text" 
+                        placeholder="E-mail" 
+                        name="email"
+                        formControlName="email" 
+                    />
+                </div>
+                @if (emailControl.errors?.['required'] && emailControl.touched) {
+                    <p class="invalid-input-message small-body-text">Campo obrigatório</p>
+                }
+                @if (showInvalidEmailMessage) {
+                    <p class="invalid-input-message small-body-text">E-mail inválido</p>
+                }
+            </div>
+
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <span class="material-symbols-rounded secondary-icon">lock</span>
+                    <input 
+                        type="password" 
+                        class="body-text primary-text" 
+                        placeholder="Senha" 
+                        name="password"
+                        formControlName="password" 
+                    />
+                </div>
+                @if (passwordControl.errors?.['required'] && passwordControl.touched) {
+                    <p class="invalid-input-message small-body-text">Campo obrigatório</p>
+                }
+            </div>
+        </form>
+
+        <app-button 
+            bodyText="ENTRAR" 
+            type="primary-btn" 
+            (buttonClickedEmitter)="login()" 
+        />
+    </main>
+
+    @if (isLoading) {
+        <app-spinner />
+    }
+</div>

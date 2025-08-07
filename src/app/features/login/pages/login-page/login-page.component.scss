@@ -1,0 +1,97 @@
+@use "../../../../../styles/variables.scss" as *;
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    header {
+        margin-top: 100px;
+
+        img {
+            width: 140px;
+            height: 140px;
+        }
+    }
+
+    main {
+        text-align: center;
+
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .input-container {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                align-items: start;
+
+                .input-wrapper {
+                    width: 100%;
+                    position: relative;
+                    padding: $input-padding;
+                    min-height: $mobile-button-input-min-height;
+
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    span {
+                        z-index: 1;
+                    }
+
+                    input {
+                        flex: 1;
+                        padding-left: 32px;
+                        background-color: $secondary-bg-color;
+                        border: $default-border;
+                        border-radius: $input-border-radius;
+
+                        position: absolute;
+                        inset: 0;
+
+                        &:focus {
+                            outline: 1px solid $action-primary-bg-color;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: $tablet-screen) {
+    .page-container {
+        justify-content: center;
+
+        header {
+            margin-top: -100px;
+        }
+    }
+}
+
+@media (min-width: $notebook-screen) {
+    .page-container {
+        main {
+            form {
+                gap: 12px;
+
+                .input-container {
+                    .input-wrapper {
+                        min-height: $notebook-button-input-min-height;
+
+                        input {
+                            padding-left: 36px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
