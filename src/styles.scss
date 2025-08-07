@@ -101,6 +101,12 @@ body {
         color: $secondary-text-color;
         opacity: $default-opacity;
     }
+
+    &:-webkit-autofill {
+        box-shadow: 0 0 0 1000px $secondary-bg-color inset !important;
+        -webkit-text-fill-color: $primary-text-color !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
 }
 
 .input-field-label {

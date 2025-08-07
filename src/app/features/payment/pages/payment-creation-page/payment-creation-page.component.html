@@ -26,6 +26,7 @@
                         mask="separator.2"
                         decimalMarker="," 
                         thousandSeparator="."
+                        autocomplete="off"
                     >
                     @if (totalAmountControl.errors?.['required'] && totalAmountControl.touched) {
                         <p class="invalid-input-message small-body-text">Campo obrigatório</p>
@@ -87,6 +88,7 @@
                                 [id]="`name${index}`" 
                                 class="input-field body-text primary-text" 
                                 type="text"
+                                autocomplete="off"
                                 formControlName="name"
                             >
                             @if (financialHelp.get('name')?.errors?.['required'] && financialHelp.get('name')?.touched) {
@@ -111,6 +113,7 @@
                                 mask="separator.2"
                                 decimalMarker="," 
                                 thousandSeparator="."
+                                autocomplete="off"
                             >
                             @if (financialHelp.get('amount')?.errors?.['required'] && financialHelp.get('amount')?.touched) {
                                 <p class="invalid-input-message small-body-text">Campo obrigatório</p>
