@@ -41,6 +41,11 @@ export class PaymentDetailsPageComponent implements OnInit {
   private readonly paymentService = inject(PaymentService);
   private readonly tuitionService = inject(TuitionService);
 
+  private readonly tuitionTypeInPTBR: Map<TuitionStatus, string> = new Map([
+    [TuitionStatus.PAID, 'Pagas'],
+    [TuitionStatus.PENDING, 'Pendentes'],
+  ]);
+
   private paymentId: string = '';
 
   protected readonly filterRadioOptions: FilterRadioOptions[] = [
@@ -65,13 +70,17 @@ export class PaymentDetailsPageComponent implements OnInit {
     this.getTuitions();
   }
 
+  protected removeTuitionFromList(index: number): void {
+    this.tuitions.splice(index, 1);
+  }
+
   protected async copyStudentsNamesFromTuitons(): Promise<void> {
     try {
       const studentsNames: string = this.tuitions
         .map((tuition, index) => `${index + 1}- ${tuition.student.name}`)
         .join('\n');
 
-      const title = `Lista de ${this.selectedTuitionStatus ? 'Pagamentos' : 'Pendentes'}`;
+      const title = `Lista de Mensalidades ${this.getTuitionTypeInPTBR}`;
       const message = `*${title} - ${this.payment.invoiceMonth}:* \n${studentsNames}`;
 
       await navigator.clipboard.writeText(message);
@@ -79,10 +88,6 @@ export class PaymentDetailsPageComponent implements OnInit {
     } catch (err) {
       this.toastrService.error('Não foi possível copiar os nomes');
     }
-  }
-
-  protected removeTuitionFromList(index: number): void {
-    this.tuitions.splice(index, 1);
   }
 
   private getPaymentId(): void {
@@ -145,5 +150,10 @@ export class PaymentDetailsPageComponent implements OnInit {
     } else {
       return '';
     }
+  }
+
+  protected get getTuitionTypeInPTBR(): string {
+    const tuitionTypeInPTBR = this.tuitionTypeInPTBR.get(this.selectedTuitionStatus);
+    return tuitionTypeInPTBR !== undefined ? tuitionTypeInPTBR : '';
   }
 }

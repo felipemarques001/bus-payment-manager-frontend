@@ -89,7 +89,7 @@
         <app-button 
             type="primary-btn" 
             [isDisabled]="isLoadingTuitions"
-            [bodyText]="selectedTuitionStatus ? 'Pagas' : 'Pendentes'" 
+            [bodyText]="getTuitionTypeInPTBR" 
             (buttonClickedEmitter)="copyStudentsNamesFromTuitons()" 
         />
     </app-page-footer>
