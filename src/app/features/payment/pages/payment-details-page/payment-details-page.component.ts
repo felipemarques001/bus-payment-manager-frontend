@@ -80,8 +80,8 @@ export class PaymentDetailsPageComponent implements OnInit {
         .map((tuition, index) => `${index + 1}- ${tuition.student.name}`)
         .join('\n');
 
-      const title = `Lista de Mensalidades ${this.getTuitionTypeInPTBR}`;
-      const message = `*${title} - ${this.payment.invoiceMonth}:* \n${studentsNames}`;
+      const title = `🚌 *Lista de Mensalidades ${this.getTuitionTypeInPTBR} - ${this.payment.invoiceMonth}:* \n`;
+      const message = `${title} \n${studentsNames}`;
 
       await navigator.clipboard.writeText(message);
       this.toastrService.success('Nomes copiados com sucesso!');
