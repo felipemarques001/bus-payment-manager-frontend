@@ -11,7 +11,7 @@ O BusPaymentManager é uma aplicação Angular que tem como objetivo gerenciar a
 - Componetização para facilitar a manutenção e melhoria do código.
 - Responsividade adaptada para diferentes tamanhos de telas.
 
-## 🛠 Tecnologiase Biblotecas Utilizadas - Front-end
+## 🛠 Tecnologias e Biblotecas Utilizadas - Front-end
 - Angular
 - TypeScript
 - ngx-mask
@@ -21,7 +21,7 @@ O BusPaymentManager é uma aplicação Angular que tem como objetivo gerenciar a
 ## Link para o repositório do Back-end:
 - https://github.com/felipemarques001/bus-payment-manager-back-end
 
-## 🛠 Tecnologiase Biblotecas Utilizadas - Back-end
+## 🛠 Tecnologias e Biblotecas Utilizadas - Back-end
 - Java 21
 - Ecossitemas Spring (Spring Boot, Spring Data JPA, Spring Security)
 - PostgreSQL
