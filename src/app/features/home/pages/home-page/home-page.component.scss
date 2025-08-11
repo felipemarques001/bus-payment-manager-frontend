@@ -1,21 +1,21 @@
 @use "../../../../../styles/variables.scss" as *;
 
-main {
-    background-color: $primary-bg-color;
-    padding: 16px;
-    min-height: 100dvh;
-    min-width: 100dvw;
-
-    display: flex;
+.page-container {
     align-items: center;
-    justify-content: center;
+    justify-self: center;
 
-    .cards-wrapper {
-        width: 100%;
-        max-width: 400px;
+    header {
+        margin-top: 100px;
+    }
 
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
+    main {
+        .cards-wrapper {
+            width: 100%;
+            max-width: 400px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
     }
 }

@@ -1,16 +1,23 @@
-<main>
-    <div class="cards-wrapper">
-        <app-home-card 
-            title="Estudantes" 
-            subtitle="Acessar os estudantes cadastrados"
-            iconName="school"
-            routerPath="/students"
-        />
-        <app-home-card 
-            title="Pagamentos" 
-            subtitle="Acessar a área de pagamentos" 
-            iconName="payments"
-            routerPath="/payments"
-        />
-    </div>
-</main>
+<div class="page-container">
+    <header>
+        <img class="logo-image" src="logo.png" alt="logo" />
+    </header>
+        
+    <main>
+        <div class="cards-wrapper">
+            <h1 class="primary-text subtitle-text">Olá, Felipe! O que você deseja fazer?</h1>
+            <app-home-card 
+                title="Estudantes" 
+                subtitle="Acessar a área de estudantes"
+                iconName="school"
+                routerPath="/students"
+            />
+            <app-home-card 
+                title="Pagamentos" 
+                subtitle="Acessar a área de pagamentos" 
+                iconName="payments"
+                routerPath="/payments"
+            />
+        </div>
+    </main>
+</div>
