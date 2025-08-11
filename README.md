@@ -1,59 +1,42 @@
-# BusPaymentManagerFrontend
+# BusPaymentManager 🚌
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.11.
+O BusPaymentManager é uma aplicação Angular que tem como objetivo gerenciar as mensalidades dos alunos universitários que utilizam um ônibus particular, oferecendo uma experiência mais simples e rápida, facilitando o controle de tais mensalidades. 
 
-## Development server
+## ✨ Funcionalidades
+- Consulta de alunos, pagamentos e mensalidades.
+- Resultados formatados em cards com UI simplificada e objetiva.
+- Listagens de mensalidades pagas e pendentes formatadas para envio no WhatsApp.
+- Autenticação com base em token JWT.
+- Atualização automática do token de acesso utilizando "refresh-token" armazenado em cookie.
+- Responsividade adaptada para diferentes tamanhos de telas.
 
-To start a local development server, run:
+## 🛠 Tecnologiase Biblotecas Utilizadas - Front-end
+- Angular
+- TypeScript
+- ngx-mask
+- ngx-toastr
+- Git
 
-```bash
-ng serve
-```
+## 🛠 Tecnologiase Biblotecas Utilizadas - Back-end
+- Java 21
+- Ecossitemas Spring (Spring Boot, Spring Data JPA, Spring Security)
+- PostgreSQL
+- H2
+- Tokens e Cookies JWT
+- Flyway
+- Lombok
+- JUnit 5
+- Mockito
+- Git
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 💻📱 Imagens demonstrativas do sistema (em telas de notebook e móveis)
+<img width="368" height="660" alt="Tela de login em dispositivo mobile" src="https://github.com/user-attachments/assets/43da2c15-0bad-44ad-adfd-8cb96fbfe22f" />
+<img width="373" height="666" alt="Tela de home em dispositivo mobile" src="https://github.com/user-attachments/assets/60ac1071-7a18-429b-9153-2ddfcb98fa05" />
+<img width="372" height="662" alt="Tela de estudantes em dispositivo mobile" src="https://github.com/user-attachments/assets/7e028608-4d4e-4fb0-9295-db3d14597f10" />
+<img width="1554" height="949" alt="Tela de estudantes em dispositivo desktop" src="https://github.com/user-attachments/assets/e5bc8a23-d517-4cf6-8b21-3f017202ce81" />
+<img width="375" height="666" alt="Tela de pagamentos em dispositivo mobile" src="https://github.com/user-attachments/assets/c65d794f-9311-4629-9993-3b978b638bc2" />
+<img width="1919" height="937" alt="Tela de novo pagamento em dispositivo desktop" src="https://github.com/user-attachments/assets/6ed8d3de-2ae1-483c-b251-ba33760273b1" />
+<img width="1919" height="941" alt="tela de detalhes de pagamentos pagos em dispositivo desktop" src="https://github.com/user-attachments/assets/ed595396-8aec-442b-8ba4-32eac8a1c8dc" />
+<img width="1919" height="938" alt="tela de detalhes de pagamentos pendentes em dispositivo desktop" src="https://github.com/user-attachments/assets/8520e6e5-ff35-43f7-bca6-6af82fe6c429" />
+<img width="713" height="824" alt="Telas de listagens das mensalidades no WhatsApp" src="https://github.com/user-attachments/assets/b6edfc01-9333-46cf-91d3-ddc433d6d432" />
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
