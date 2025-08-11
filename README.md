@@ -8,6 +8,7 @@ O BusPaymentManager é uma aplicação Angular que tem como objetivo gerenciar a
 - Listagens de mensalidades pagas e pendentes formatadas para envio no WhatsApp.
 - Autenticação com base em token JWT.
 - Atualização automática do token de acesso utilizando "refresh-token" armazenado em cookie.
+- Componetização para facilitar a manutenção e melhoria do código.
 - Responsividade adaptada para diferentes tamanhos de telas.
 
 ## 🛠 Tecnologiase Biblotecas Utilizadas - Front-end
