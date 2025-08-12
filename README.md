@@ -18,20 +18,8 @@ O BusPaymentManager é uma aplicação Angular que tem como objetivo gerenciar a
 - ngx-toastr
 - Git
 
-## Link para o repositório do Back-end:
+## 🖥 Link para o repositório do Back-end:
 - https://github.com/felipemarques001/bus-payment-manager-back-end
-
-## 🛠 Tecnologias e Biblotecas Utilizadas - Back-end
-- Java 21
-- Ecossitemas Spring (Spring Boot, Spring Data JPA, Spring Security)
-- PostgreSQL
-- H2
-- Tokens e Cookies JWT
-- Flyway
-- Lombok
-- JUnit 5
-- Mockito
-- Git
 
 ## 💻📱 Imagens demonstrativas do sistema (em telas de notebook e móveis)
 <img width="368" height="660" alt="Tela de login em dispositivo mobile" src="https://github.com/user-attachments/assets/43da2c15-0bad-44ad-adfd-8cb96fbfe22f" />
