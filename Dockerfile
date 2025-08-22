@@ -18,4 +18,4 @@ COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=build /app/dist/bus-payment-manager-frontend/browser /usr/share/nginx/html
 
-EXPOSE 4200
+EXPOSE 80
