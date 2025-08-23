@@ -1,12 +1,12 @@
-FROM node:22 AS build
+FROM node:22 AS builder
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-RUN npm install -g @angular/cli
 COPY . .
-RUN npm run build --configuration=production
+RUN npm install
+RUN npm run build -- --configuration=production --base-href=/teste/
 
-FROM nginx:latest
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist/bus-payment-manager-frontend/browser /usr/share/nginx/html
+FROM nginx:alpine
+COPY --from=builder /app/dist/bus-payment-manager-frontend/browser /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY mime.types /etc/nginx/mime.types
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
