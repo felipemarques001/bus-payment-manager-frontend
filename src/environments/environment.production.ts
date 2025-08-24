@@ -1,3 +1,3 @@
 export const environment = {
-    apiBaseUrl: 'https://buspaymentmanager-api.felipemarquesdev.com',
+    apiBaseUrl: 'https://buspaymentmanagerapi.felipemarquesdev.com',
 };
